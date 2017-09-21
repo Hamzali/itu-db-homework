@@ -1,13 +1,16 @@
-# Python Flask Hello World Sample
+# Database Homework
+[App Demo](https://db-homework.eu-gb.mybluemix.net/)
 
-This application demonstrates a simple, reusable Python web application based on the [Flask microframework](http://flask.pocoo.org/).
+## Run the development server
 
-## Run the app locally
-
-1. [Install Python][]
-1. cd into this project's root directory
-1. Run `pip install -r requirements.txt` to install the app's dependencies
-1. Run `python welcome.py`
+1. [Install Docker](https://docs.docker.com/engine/installation/)
+1. `$docker-compose up`
 1. Access the running app in a browser at <http://localhost:5000>
 
-[Install Python]: https://www.python.org/downloads/
+## Deploy app
+
+1. Add the bluemix remote repository
+`$git remote add bluemix git@git.ng.bluemix.net:tasha15/db-homework.git`
+1. Tell me to add your ssh key to project (Hamzali)
+1. Commit and Push your changes to bluemix
+`$git push bluemix`

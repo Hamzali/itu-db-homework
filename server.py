@@ -14,13 +14,22 @@
 
 import os
 from flask import Flask, jsonify
+import psycopg2
 
 app = Flask(__name__)
 
+conn = psycopg2.connect(host="postgres", port="5432", user="marco", password="foobarbaz", database="testdb")
+
 @app.route('/')
 def WelcomeToMyapp():
-    return 'This is for the test sake!'
+    return 'This is for the test!'
 
 port = os.getenv('PORT', '5000')
+debugEnv = os.getenv('FLASK_DEBUG');
+
+debugVal = False;
+if int(debugEnv) == 1:
+    debugVal = True
+
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=int(port))
+	app.run(host='0.0.0.0', port=int(port), debug=debugVal)
