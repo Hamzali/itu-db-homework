@@ -26,7 +26,7 @@ port = os.getenv('PORT', '5000')
 debugEnv = os.getenv('FLASK_DEBUG');
 
 debugVal = False;
-if int(debugEnv) == 1:
+if debugEnv == '1':
     debugVal = True
 
 if debugVal:
