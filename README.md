@@ -1,5 +1,5 @@
 # Database Homework
-[App Demo](https://db-homework.eu-gb.mybluemix.net/)
+[App Demo](https://itucsdb1720.eu-gb.mybluemix.net/)
 
 ## Run the development server
 
@@ -9,8 +9,5 @@
 
 ## Deploy app
 
-1. Add the bluemix remote repository
-`$git remote add bluemix git@git.ng.bluemix.net:tasha15/db-homework.git`
-1. Tell me to add your ssh key to project (Hamzali)
-1. Commit and Push your changes to bluemix
-`$git push bluemix`
+1. Whenever master recieves a push automatically deploys.
+`$git push master`
