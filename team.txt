@@ -1,0 +1,5 @@
+itucsdb1720
+https://github.com/ITU-DB-MANAGEMENT-HM/itunder-backend-rest - Rest API
+https://github.com/ITU-DB-MANAGEMENT-HM/itucsdb1720-web-app - React Web-app
+https://itucsdb1720.eu-gb.mybluemix.net/ - Rest API
+http://itucsdb2017.s3-website.eu-central-1.amazonaws.com/ - React Web-app
