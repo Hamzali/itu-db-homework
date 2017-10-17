@@ -1,6 +1,9 @@
-from models.students import createStudent
+from server import app, db
+from models.students import Result
 
-def studentsController(app, db):
-    @app.route('/students')
-    def getStudents():
-        return 'Student endpoints model function: ' + createStudent(db)
+@app.route('/students')
+def createStudents():
+    db.create_all()
+    db.session.add(Result('Hamza ali'))
+    db.session.commit()
+    return 'Student endpoints model function: '

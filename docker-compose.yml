@@ -5,6 +5,7 @@ web:
    - "5000:5000"
   environment:
     - APP_SETTINGS=config.DevelopmentConfig
+    - DATABASE_URL=postgresql://marco:foobarbaz@postgres/testdb
   volumes:
    - .:/app
   links:

@@ -1,2 +1,4 @@
-Flask==0.12.2
-psycopg2==2.7.3
+Flask
+psycopg2
+sphinx
+Flask-SQLAlchemy
