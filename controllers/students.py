@@ -1,9 +1,12 @@
 from server import app, db
-from models.students import Result
+from models.students import *
+import json
 
-@app.route('/students')
-def createStudents():
-    db.create_all()
-    db.session.add(Result('Hamza ali'))
-    db.session.commit()
-    return 'Student endpoints model function: '
+
+@app.route('/students', methods=['GET', 'POST'])
+def students():
+    conn = db.engine.connect()
+    res = conn.execute('select url from results')
+    conn.close()
+   #
+    return json.dumps([dict(r) for r in res])
