@@ -1,7 +1,4 @@
 import os
-import json
-import os
-import re
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,9 +9,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+
 @app.route('/')
 def WelcomeToMyapp():
     return 'This is for the test!'
+
 
 # Bind controllers.
 from controllers.students import *
