@@ -5,23 +5,21 @@ from utils import db_factory_func
 def init_student_table(conn):
     try:
         conn.execute('SELECT * FROM student')
-        return 'Table already exists!'
     except:
+        # TODO: Rethink the student model.
         conn.execute('''
             CREATE TABLE student (
-                id SERIAL PRIMARY KEY,
-                itu_id CHAR(9),
+                id CHAR(9) PRIMARY KEY,
+                username VARCHAR(80),
                 name VARCHAR(80),
-                email VARCHAR(80),
-                phone CHAR(7),
-                country_code VARCHAR(4),
+                email VARCHAR(80) UNIQUE NOT NULL,
                 faculty INTEGER,
                 token VARCHAR(100)
             )
         ''')
 
 
-@db_factory_func(return_json=True)
+@db_factory_func()
 def list_students(conn):
     return conn.execute('SELECT * FROM student')
 
@@ -29,28 +27,36 @@ def list_students(conn):
 @db_factory_func()
 def create_student(conn, data):
     conn.execute('''INSERT INTO student 
-        (itu_id, name, email, phone, country_code, faculty) 
+        (id, name, email, faculty) 
         VALUES 
-        (%(itu_id)s, %(name)s, %(email)s, %(phone)s, %(country_code)s, %(faculty)s)''', data)
-    return 'Student created!'
-
-
-@db_factory_func(return_json=True)
-def find_one_student_by_id(conn, db_id=None, itu_id=None):
-    if db_id is not None:
-        return conn.execute('SELECT * FROM student WHERE id = %s', db_id)
-    elif itu_id is not None:
-        return conn.execute('SELECT * FROM student WHERE itu_id = %s', itu_id)
+        (%(id)s, %(name)s, %(username)s, %(email)s, %(faculty)s)''', data)
 
 
 @db_factory_func()
-def update_student(conn, db_id, data):
+def find_one_student_by_id(conn, _id):
+    print(_id)
+    return conn.execute('SELECT * FROM student WHERE id = %s', _id)
+
+
+@db_factory_func()
+def update_student(conn, data, _id):
+    q_where = (' WHERE id=%s' % _id)
+
     values = ()
     placeholder = []
     for d in data:
         values = values + (data[d],)
         placeholder.append(d + '=' + '%s')
     placeholder = str.join(',', placeholder)
-    q = 'UPDATE student SET ' + placeholder + (' WHERE %s=id' % db_id)
-    conn.execute(q, values)
-    return 'update student data'
+    q = 'UPDATE student SET ' + placeholder + q_where
+    return conn.execute(q, values)
+
+
+@db_factory_func()
+def validate_token(conn, token):
+    return conn.execute('SELECT * FROM student WHERE token = %s', token)
+
+
+@db_factory_func()
+def remove_token(conn, token):
+    return conn.execute('UPDATE student SET token=null WHERE token = %s', token)
