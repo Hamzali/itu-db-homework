@@ -16,3 +16,4 @@ def db_factory_func():
 
         return wrapper
     return decorator
+

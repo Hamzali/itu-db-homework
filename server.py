@@ -9,14 +9,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# TODO: Write tests if you can.
-
-@app.before_request
-def before_all_requests():
-    # Check for auth and other details.
-    # print('before a request', request.headers)
-    pass
-
 
 @app.after_request
 def after_all_requests(response):

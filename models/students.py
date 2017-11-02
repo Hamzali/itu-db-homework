@@ -5,7 +5,8 @@ from utils import db_factory_func
 def init_student_table(conn):
     try:
         conn.execute('SELECT * FROM student')
-    except:
+    except Exception as e:
+        print(e)
         # TODO: Rethink the student model.
         conn.execute('''
             CREATE TABLE student (
@@ -27,28 +28,26 @@ def list_students(conn):
 @db_factory_func()
 def create_student(conn, data):
     conn.execute('''INSERT INTO student 
-        (id, name, email, faculty) 
+        (id, name, username, email, faculty, token) 
         VALUES 
-        (%(id)s, %(name)s, %(username)s, %(email)s, %(faculty)s)''', data)
+        (%(id)s, %(name)s, %(username)s, %(email)s, %(faculty)s, %(token)s)''', data)
 
 
 @db_factory_func()
-def find_one_student_by_id(conn, _id):
-    print(_id)
-    return conn.execute('SELECT * FROM student WHERE id = %s', _id)
+def find_one_student_by_id(conn, sid):
+    return conn.execute('SELECT * FROM student WHERE id = %s', sid)
 
 
 @db_factory_func()
-def update_student(conn, data, _id):
-    q_where = (' WHERE id=%s' % _id)
-
+def update_student(conn, data, sid):
+    q_where = ('WHERE id=\'%s\'' % sid)
     values = ()
     placeholder = []
     for d in data:
         values = values + (data[d],)
         placeholder.append(d + '=' + '%s')
     placeholder = str.join(',', placeholder)
-    q = 'UPDATE student SET ' + placeholder + q_where
+    q = 'UPDATE student SET ' + placeholder + q_where + 'RETURNING id'
     return conn.execute(q, values)
 
 
