@@ -3,6 +3,9 @@ from utils import db_factory_func
 
 @db_factory_func()
 def init_student_table(conn):
+    """
+    Hello this is a documentation.
+    """
     try:
         conn.execute('SELECT * FROM student')
     except Exception as e:
@@ -22,6 +25,9 @@ def init_student_table(conn):
 
 @db_factory_func()
 def list_students(conn):
+    """
+    Hello this is a documentation.
+    """
     return conn.execute('SELECT * FROM student')
 
 

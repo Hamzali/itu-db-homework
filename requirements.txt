@@ -3,3 +3,4 @@ psycopg2
 sphinx
 Flask-SQLAlchemy
 requests
+Flask-Autodoc
