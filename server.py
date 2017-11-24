@@ -7,8 +7,8 @@ app = Flask(__name__)
 auto = autodoc.Autodoc(app)
 
 
-appSettings = os.environ['APP_SETTINGS']
-app.config.from_object(appSettings)
+# appSettings = os.environ['APP_SETTINGS']
+# app.config.from_object(appSettings)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -31,6 +31,6 @@ from controllers.students import *
 
 port = int(os.getenv('PORT', '5000'))
 
-print(appSettings, port)
+# print(appSettings, port)
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=port)

@@ -42,7 +42,7 @@
   <h1>Source code for middlewares</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">request</span>
-<span class="kn">from</span> <span class="nn">models.students</span> <span class="k">import</span> <span class="n">validate_token</span>
+<span class="kn">from</span> <span class="nn">models.students</span> <span class="k">import</span> <span class="n">student_model</span>
 
 
 <div class="viewcode-block" id="private_route"><a class="viewcode-back" href="../middlewares.html#middlewares.private_route">[docs]</a><span class="k">def</span> <span class="nf">private_route</span><span class="p">():</span>
@@ -50,7 +50,7 @@
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
             <span class="c1"># Check for the auth</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">validate_token</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">])</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">student_model</span><span class="o">.</span><span class="n">validate_token</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">])</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">])</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>

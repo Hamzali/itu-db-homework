@@ -46,8 +46,86 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-models.base_model">
+<span id="models-base-model-module"></span><h2>models.base_model module<a class="headerlink" href="#module-models.base_model" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.base_model.BaseModel">
+<em class="property">class </em><code class="descclassname">models.base_model.</code><code class="descname">BaseModel</code><span class="sig-paren">(</span><em>table</em>, <em>fields</em>, <em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>Base class for the data manipulation and database operations.</p>
+<dl class="method">
+<dt id="models.base_model.BaseModel.create">
+<code class="descname">create</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.create" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.base_model.BaseModel.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.base_model.BaseModel.delete_by_id">
+<code class="descname">delete_by_id</code><span class="sig-paren">(</span><em>_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.delete_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.delete_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.base_model.BaseModel.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.base_model.BaseModel.find_by_id">
+<code class="descname">find_by_id</code><span class="sig-paren">(</span><em>_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.base_model.BaseModel.find_one">
+<code class="descname">find_one</code><span class="sig-paren">(</span><em>query=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find_one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find_one" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.base_model.BaseModel.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.base_model.BaseModel.update_by_id">
+<code class="descname">update_by_id</code><span class="sig-paren">(</span><em>_id</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.update_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.update_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.courses">
+<span id="models-courses-module"></span><h2>models.courses module<a class="headerlink" href="#module-models.courses" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.courses.CourseModel">
+<em class="property">class </em><code class="descclassname">models.courses.</code><code class="descname">CourseModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#CourseModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.CourseModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-models.students">
 <span id="models-students-module"></span><h2>models.students module<a class="headerlink" href="#module-models.students" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.students.StudentModel">
+<em class="property">class </em><code class="descclassname">models.students.</code><code class="descname">StudentModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/students.html#StudentModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.students.StudentModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Student model database operations.</p>
+<dl class="method">
+<dt id="models.students.StudentModel.remove_token">
+<code class="descname">remove_token</code><span class="sig-paren">(</span><em>token</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/students.html#StudentModel.remove_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.students.StudentModel.remove_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the authentication token from the database.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.students.StudentModel.validate_token">
+<code class="descname">validate_token</code><span class="sig-paren">(</span><em>token</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/students.html#StudentModel.validate_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.students.StudentModel.validate_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the token and returns the user.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-models">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-models" title="Permalink to this headline">¶</a></h2>

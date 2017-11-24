@@ -4,6 +4,14 @@ controllers package
 Submodules
 ----------
 
+controllers\.courses module
+---------------------------
+
+.. automodule:: controllers.courses
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 controllers\.students module
 ----------------------------
 

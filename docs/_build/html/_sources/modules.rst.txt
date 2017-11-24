@@ -2,7 +2,7 @@ itunder-backend-rest
 ====================
 
 .. toctree::
-   :maxdepth: 6
+   :maxdepth: 4
 
    config
    constants

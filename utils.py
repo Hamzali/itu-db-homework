@@ -16,5 +16,5 @@ def db_factory_func():
 			finally:
 				if conn is not None:
 					conn.close()
-        return wrapper
-    return decorator
+		return wrapper
+	return decorator
