@@ -1,61 +1,34 @@
-from utils import db_factory_func
+from models.base_model import BaseModel
+"""
+This module creates bindings to student database.
+"""
 
 
-@db_factory_func()
-def init_student_table(conn):
-    try:
-        conn.execute('SELECT * FROM student')
-    except Exception as e:
-        print(e)
-        # TODO: Rethink the student model.
-        conn.execute('''
-            CREATE TABLE student (
-                id CHAR(9) PRIMARY KEY,
-                username VARCHAR(80),
-                name VARCHAR(80),
-                email VARCHAR(80) UNIQUE NOT NULL,
-                faculty INTEGER,
-                token VARCHAR(100)
-            )
-        ''')
+class StudentModel(BaseModel):
+    """
+    Student model database operations.
+    """
+    def __init__(self, init_table=False):
+        super().__init__("student", {
+            "id": "CHAR(9) PRIMARY KEY",
+            "username": "VARCHAR(80) NOT NULL",
+            "name": "VARCHAR(80) NOT NULL",
+            "email": "VARCHAR(80) UNIQUE NOT NULL",
+            "faculty": "INTEGER",
+            "token": "VARCHAR(100)"
+        }, init_table)
+
+    def validate_token(self, token):
+        """
+        Finds the token and returns the user.
+        """
+        return self.find(query="token='%s'" % token)
+
+    def remove_token(self, token):
+        """
+        Removes the authentication token from the database.
+        """
+        return self.delete(query="token='%s'" % token)
 
 
-@db_factory_func()
-def list_students(conn):
-    return conn.execute('SELECT * FROM student')
-
-
-@db_factory_func()
-def create_student(conn, data):
-    conn.execute('''INSERT INTO student 
-        (id, name, username, email, faculty, token) 
-        VALUES 
-        (%(id)s, %(name)s, %(username)s, %(email)s, %(faculty)s, %(token)s)''', data)
-
-
-@db_factory_func()
-def find_one_student_by_id(conn, sid):
-    return conn.execute('SELECT * FROM student WHERE id = %s', sid)
-
-
-@db_factory_func()
-def update_student(conn, data, sid):
-    q_where = ('WHERE id=\'%s\'' % sid)
-    values = ()
-    placeholder = []
-    for d in data:
-        values = values + (data[d],)
-        placeholder.append(d + '=' + '%s')
-    placeholder = str.join(',', placeholder)
-    q = 'UPDATE student SET ' + placeholder + q_where + 'RETURNING id'
-    return conn.execute(q, values)
-
-
-@db_factory_func()
-def validate_token(conn, token):
-    return conn.execute('SELECT * FROM student WHERE token = %s', token)
-
-
-@db_factory_func()
-def remove_token(conn, token):
-    return conn.execute('UPDATE student SET token=null WHERE token = %s', token)
+student_model = StudentModel(init_table=True)
