@@ -1,6 +1,6 @@
 import json
 from flask import request
-from models.students import validate_token
+from models.students import student_model
 
 
 def private_route():
@@ -8,7 +8,7 @@ def private_route():
         def wrapper(*args, **kw):
             # Check for the auth
             try:
-                result = validate_token(request.headers['token'])
+                result = student_model.validate_token(request.headers['token'])
                 print(result, request.headers['token'])
                 if len(result) == 1:
                     return fn(result[0], *args, **kw)
