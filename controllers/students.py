@@ -5,10 +5,9 @@ from flask import request
 
 from constants import MOBIL_ITU_AUTH_URL
 from middlewares import private_route
-from models.students import *
-from server import app, auto
 
-init_student_table()
+from server import app, auto
+from models.students import student_model
 
 
 @app.route('/students', methods=['GET', 'POST'])
@@ -19,10 +18,10 @@ def get_students():
     POST request creates a student.
     """
     if request.method == 'GET':
-        return json.dumps(list_students())
+        return json.dumps(student_model.find())
     elif request.method == 'POST':
         req_body = request.get_json()
-        return create_student(data=req_body)
+        return student_model.create(data=req_body)
 
 
 @app.route('/students/<sid>', methods=['GET', 'PUT'])
@@ -38,13 +37,13 @@ def one_student(student, sid):
         if sid == student['id']:
             result = student
         else:
-            result = find_one_student_by_id(sid=sid)
+            result = student_model.find_by_id(_id=sid)
             if len(result) <= 0:
                 return 'no student found with id %s' % sid
         return json.dumps(result)
     elif request.method == 'PUT':
         req_body = request.get_json()
-        return update_student(sid=sid, data=req_body)
+        return student_model.update_by_id(_id=sid, data=req_body)
 
 
 @app.route('/auth', methods=['POST'])
@@ -56,14 +55,14 @@ def student_login():
         r = requests.post(url)
         # Fail if the result is not available.
         if r.status_code is not 200:
-            return 'login fail!'
+            return 'login fail!', 401
         # Parse the response.
         r = r.json()['Session']
         # Try to update the student token.
-        res = update_student(sid=str(r['ITUNumber']), data={'token': r['Token']})
+        res = student_model.update_by_id(str(r["ITUNumber"]), {"token": str(r["Token"])})
         # If it fails create new student.
         if len(res) == 0:
-            create_student({
+            student_model.create(data={
                 'id': str(r['ITUNumber']),
                 'name': r['FirstName'] + ' ' + r['LastName'],
                 'username': r['UserName'],
@@ -78,4 +77,4 @@ def student_login():
 @app.route('/logout', methods=['POST'])
 def student_logout():
     req_body = request.get_json()
-    remove_token(token=req_body['token'])
+    student_model.remove_token(token=req_body['token'])
