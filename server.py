@@ -7,8 +7,8 @@ app = Flask(__name__)
 auto = autodoc.Autodoc(app)
 
 
-# appSettings = os.environ['APP_SETTINGS']
-# app.config.from_object(appSettings)
+appSettings = os.environ['APP_SETTINGS']
+app.config.from_object(appSettings)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
