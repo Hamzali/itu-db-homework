@@ -1,4 +1,3 @@
-
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -13,11 +12,6 @@ app.config.from_object(appSettings)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-
-
-@app.route('/documentation')
-def documentation():
-    return auto.html()
 
 
 @app.after_request

@@ -2,9 +2,6 @@ from server import db
 
 
 def db_factory_func():
-    """
-    testing autodoc - this should be first line in doc
-    """
     def decorator(fn):
         def wrapper(*args, **kw):
             try:
