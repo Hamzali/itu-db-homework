@@ -5,12 +5,18 @@ from flask import request
 
 from constants import MOBIL_ITU_AUTH_URL
 from middlewares import private_route
+
+from server import app, auto
 from models.students import student_model
-from server import app
 
 
 @app.route('/students', methods=['GET', 'POST'])
+@auto.doc()
 def get_students():
+    """
+    GET request Fetches all the students. <br/>
+    POST request creates a student.
+    """
     if request.method == 'GET':
         return json.dumps(student_model.find())
     elif request.method == 'POST':
@@ -21,6 +27,12 @@ def get_students():
 @app.route('/students/<sid>', methods=['GET', 'PUT'])
 @private_route()
 def one_student(student, sid):
+    """
+
+    :param student: current logged in student
+    :param sid: student id.
+    :return: None
+    """
     if request.method == 'GET':
         if sid == student['id']:
             result = student
