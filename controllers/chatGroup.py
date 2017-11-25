@@ -1,35 +1,51 @@
-from server import app
-from models.chatGroup import *
-import requests
 import json
-
+import requests
 from flask import request
+from constants import MOBIL_ITU_AUTH_URL
+from middlewares import private_route
+from server import app, auto
+from models.chatGroup import chatGroups, studentOnChat
 
-init_chatGroup_table()
-init_studentsOnChat_table()
 
-
-@app.route('/chatgroup', methods=['GET', 'POST'])
-def show_all_groups():
+@app.route("/chatgroup", methods=['GET', 'POST'])
+@auto.doc()
+def show_groups():
+    """
+    GET request show all the groups of student. <br/>
+    POST request allows student to form a group.
+    """
     if request.method == 'GET':
-        return json.dumps(list_chatRooms())
+        data = request.get_json()
+        return json.dumps(studentOnChat.showGroupsOfStudent(data))
     elif request.method == 'POST':
-        req_body = request.get_json()
-        return create_chatgroup(admin_id=req_body)
+        data = request.get_json()
+        chatGroups.createGroup(data)
+        return json.dumps(studentOnChat.addMember(data))
 
-@app.route('/chatgroup/<gid>', methods=['GET', 'PUT'])
-@private_route()
-def students_group(gid):
+
+@app.route("/chatgroup/<cid>", methods=['GET', 'PUT', 'DELETE'])
+# @private.route()
+def students_group(cid):
+    """
+    GET request will show the group to student
+    PUT request will add student to chatgroup.
+    DELETE request will remove student from chat.
+    """
     if request.method == 'GET':
-        pass
-        #return json.dumps(show_groups_of_student)
-        # TODO: Parse json and get students' id from request
-
+        data = request.get_json()
+        if studentOnChat.checkIfMember(data):
+            # Return to chatroom
+            return ('/%s' % cid)
+        else:
+            return "You are not allowed to see this page!"
+    
     elif request.method == 'PUT':
-        add_member(conn, gid)
+        data = request.get_json()
+        return studentOnChat.addMember(data)
 
     elif request.method == 'DELETE':
-        # TODO: Parse json and get student's id, then remove
-        pass
-#@app.route('/chatgroup/<gid>', methods=['GET'])
-        
+        data = request.get_json()
+        return studentOnChat.removeMember(data)
+
+    
+
