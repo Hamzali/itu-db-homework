@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_autodoc import autodoc
+from config import *
 
 app = Flask(__name__)
 auto = autodoc.Autodoc(app)
