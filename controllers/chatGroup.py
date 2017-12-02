@@ -8,7 +8,7 @@ from models.chatGroup import chatGroups, studentOnChat
 
 
 @app.route("/chatgroup", methods=['GET', 'POST'])
-@auto.doc()
+# @auto.doc()
 def show_groups():
     """
     GET request show all the groups of student. <br/>
@@ -16,7 +16,8 @@ def show_groups():
     """
     if request.method == 'GET':
         data = request.get_json()
-        return json.dumps(studentOnChat.showGroupsOfStudent(data))
+        # return json.dumps(studentOnChat.showGroupsOfStudent(data=data))
+        return chatGroups.listGroups()
     elif request.method == 'POST':
         data = request.get_json()
         chatGroups.createGroup(data)

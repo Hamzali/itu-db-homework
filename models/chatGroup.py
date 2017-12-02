@@ -1,4 +1,5 @@
 from models.base_model import BaseModel
+from utils import db_factory_func
 
 
 class ChatGroupsModel(BaseModel):
@@ -47,8 +48,11 @@ class StudentsOnChatModel(BaseModel):
                          return_cols=['student_id'], sort_by='student_id')
 
     # TODO: Join it with chatgroups to get speficic student's group
-    def showGroupsOfStudent(self, data):
-        pass
+    @db_factory_func()
+    def showGroupsOfStudent(self, conn, data):
+        return conn.execute('''SELECT name FROM chatgroups JOIN studentsOnChat 
+                        ON(chatgroups.id=studentsOnChat.chatgroup_id)
+                        WHERE student_id = %(sid)s''', data)
     
     def checkIfMember(self, data):
         return self.find(self, query='''chatgroup_id = %(cid)s 
