@@ -9,58 +9,59 @@ class ChatGroupsModel(BaseModel):
     def __init__(self, init_table=False):
         super().__init__("chatgroups", {
             "id": "SERIAL PRIMARY KEY",
-            "group_admin": '''INTEGER REFERENCES student(id) ON DELETE CASCADE
+            "group_admin": '''CHAR(9) REFERENCES student(id) ON DELETE CASCADE
              ON UPDATE CASCADE''',
             "name": "VARCHAR(80) NOT NULL",
             "created_at": "TIMESTAMP",
-            "created_by": '''INTEGER REFERENCES student(id) ON DELETE SET NULL
+            "created_by": '''CHAR(9) REFERENCES student(id) ON DELETE SET NULL
              ON UPDATE CASCADE '''}, init_table)
         
     def listGroups(self):
-        return self.find(self, return_cols=["id", "name"], sort_by="id")
+        return self.find(return_cols=["id", "name"], sort_by="id")
 
     def createGroup(self, data):
-        self.create(self, data)
+        self.create(data)
     
     def removeGroup(self, data):
         # TODO: Require auth from admin and error handling
         return self.delete_by_id(_id=data['id'])
     
     def updateGroup(self, data):
-        return self.update(self, data)
+        return self.update(data)
 
 
 class StudentsOnChatModel(BaseModel):
     def __init__(self, init_table=False):
-        super().__init__("studentsOnChat", {
-            "chatgroup_id": '''INTEGER REFERENCES chatgroups(id) 
+        super().__init__("studentsonchat", {
+            "chatgroup_id": '''INTEGER REFERENCES chatgroups(id)
              ON DELETE CASCADE''',
-            "student_id": '''INTEGER REFERENCES student(id) ON DELETE CASCADE 
-            ON UPDATE CASCADE''',
-        })
+            "student_id": '''CHAR(9) REFERENCES student(id) ON DELETE CASCADE
+            ON UPDATE CASCADE'''}, init_table)
 
     def addMember(self, data):
-        self.create(self, data)
+        self.create(data)
     
     # TODO: Join it with students table and get the names.
     def listMembersOfGroup(self, data):
-        return self.find(self, query="chatgroup_id = %s" % data['cid'],
+        return self.find(query="chatgroup_id = %s" % data['cid'],
                          return_cols=['student_id'], sort_by='student_id')
 
     # TODO: Join it with chatgroups to get speficic student's group
     @db_factory_func()
     def showGroupsOfStudent(self, conn, data):
-        return conn.execute('''SELECT name FROM chatgroups JOIN studentsOnChat 
-                        ON(chatgroups.id=studentsOnChat.chatgroup_id)
+        return conn.execute('''SELECT name FROM chatgroups JOIN studentsonchat 
+                        ON(chatgroups.id=studentsonchat.chatgroup_id)
                         WHERE student_id = %(sid)s''', data)
     
     def checkIfMember(self, data):
-        return self.find(self, query='''chatgroup_id = %(cid)s 
-                         AND student_id = %(sid)s''' % data, limit=1, 
+        return self.find(query='''chatgroup_id = %(cid)s 
+                         AND student_id = %(sid)s''' % data, limit=1,
                          return_cols=['student_id'])
 
     def removeMember(self, data):
-        return self.delete(self, query="student_id = %s" % data['sid'])
+        return self.delete(query='''student_id = %(student_id)s AND
+                            chatgroup_id = %(chatgroup_id)i''' % data)
 
-studentOnChat = StudentsOnChatModel(True)
-chatGroups = ChatGroupsModel(True)
+
+chatGroups = ChatGroupsModel(init_table=True)
+studentsOnChat = StudentsOnChatModel(init_table=True)
