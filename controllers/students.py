@@ -51,7 +51,8 @@ def student_login():
     if request.method == 'POST':
         # Send request to itu mobil api.
         req_body = request.get_json()
-        url = MOBIL_ITU_AUTH_URL % (req_body['username'], req_body['password'], req_body['pin'])
+        url = MOBIL_ITU_AUTH_URL % (
+            req_body['username'], req_body['password'], req_body['pin'])
         r = requests.post(url)
         # Fail if the result is not available.
         if r.status_code is not 200:
@@ -59,7 +60,8 @@ def student_login():
         # Parse the response.
         r = r.json()['Session']
         # Try to update the student token.
-        res = student_model.update_by_id(str(r["ITUNumber"]), {"token": str(r["Token"])})
+        res = student_model.update_by_id(
+            str(r["ITUNumber"]), {"token": str(r["Token"])})
         # If it fails create new student.
         if len(res) == 0:
             student_model.create(data={
