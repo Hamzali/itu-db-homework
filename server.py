@@ -29,7 +29,7 @@ def after_all_requests(response):
 def root_path_handler():
     return 'This is for the test!'
 
-init_student_controller(app, Models["student"], private_route)
+init_student_controller(app, Models["student"], Models["course"], Models["student_course"], private_route)
 init_course_controller(app, Models["course"], Models["building"], Models["faculty"], Models["course_building"])
 
 port = int(os.getenv('PORT', '5000'))

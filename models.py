@@ -182,6 +182,13 @@ def init_models(app):
                 "code": "VARCHAR(7) NOT NULL",
                 #"instructor": "",  # TODO: foreign key for Instructor
             }, init_table=init_table)
+
+        def course_exists(self, courseid):
+            result = self.find(query=("crn=%s" % courseid))
+            if len(result) > 0:
+                return True
+            return False
+
     models["course"] = CourseModel(init_table=True)
 
     class BuildingModel(BaseModel):

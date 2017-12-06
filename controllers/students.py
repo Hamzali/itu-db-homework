@@ -5,22 +5,43 @@ from flask import request
 
 from constants import MOBIL_ITU_AUTH_URL
 
-def init_student_controller(app, student_model, private_route):
+def init_student_controller(app, student_model, course_model, student_course_model, private_route):
     @app.route('/students', methods=['GET', 'POST'])
-    def get_students():
+    @private_route
+    def get_students(student):
         """
         GET request Fetches all the students. <br/>
         POST request creates a student.
         """
         if request.method == 'GET':
-            return json.dumps(student_model.find())
+            result = student_model.find()
+            if len(result) > 0:
+                for r in result:
+                    r["created_at"] = r["created_at"].isoformat()
+            return json.dumps(result)
         elif request.method == 'POST':
             req_body = request.get_json()
             return student_model.create(data=req_body)
+    
+    @app.route('/students/courses/<courseid>', methods=['POST'])
+    @private_route
+    def enroll_course(student, courseid):
+        if request.method == 'POST':
+            if course_model.course_exists(courseid):
+                try:
+                    student_course_model.create(data={
+                        "student": student["id"],
+                        "course": int(courseid)
+                    })
+                    return "course is added to student"
+                except:
+                    return "you are already enrolled", 403
+            else:
+                return "course does not exists", 404
 
 
     @app.route('/students/<sid>', methods=['GET', 'PUT'])
-    @private_route()
+    @private_route
     def one_student(student, sid):
         """
         :param student: current logged in student
