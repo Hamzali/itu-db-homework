@@ -107,7 +107,7 @@ def init_course_controller(app, course_model, building_model, faculty_model, cou
 
 	@app.route('/courses')
 	def list_courses():
-		result = course_model.find(return_cols=["id", "name"])
+		result = course_model.find()
 		if result is None or len(result) <= 0:
 			return "no courses found.", 404
 		return json.dumps(result)
