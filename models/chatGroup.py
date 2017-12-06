@@ -33,7 +33,7 @@ class ChatGroupsModel(BaseModel):
 class StudentsOnChatModel(BaseModel):
     def __init__(self, init_table=False):
         super().__init__("studentsonchat", {
-            "chatgroup_id": '''INTEGER REFERENCES chatgroups(id)
+            "chatgroup_id": '''INTEGER NOT NULL REFERENCES chatgroups(id)
              ON DELETE CASCADE''',
             "student_id": '''CHAR(9) REFERENCES student(id) ON DELETE CASCADE
             ON UPDATE CASCADE'''}, init_table)

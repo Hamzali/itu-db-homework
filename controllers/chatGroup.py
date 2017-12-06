@@ -6,7 +6,6 @@ from constants import MOBIL_ITU_AUTH_URL
 from server import app, auto
 from models.chatGroup import chatGroups, studentsOnChat
 
-# studentsOnChat.__init__(True)
 
 @app.route("/chatgroup", methods=['GET', 'POST'])
 # @auto.doc()
@@ -19,6 +18,7 @@ def show_groups():
     if request.method == 'GET':
         # data = request.get_json()
         # return json.dumps(studentOnChat.showGroupsOfStudent(data=data))
+        # TODO: student id is req.
         return json.dumps(chatGroups.find())
     elif request.method == 'POST':
         data = request.get_json()
@@ -44,6 +44,4 @@ def students_group(cid):
     elif request.method == 'DELETE':
         data = request.get_json()
         return studentsOnChat.removeMember(data)
-
-    
 
