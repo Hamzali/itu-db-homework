@@ -5,13 +5,10 @@ from controllers.students import *
 from controllers.courses import *
 from middlewares import auth_func
 
-from config import DevelopmentConfig, ProductionConfig
-
 app = Flask(__name__)
 
 appSettings = os.environ['APP_SETTINGS']
 app.config.from_object(appSettings)
-app.config.from_object(Config)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
