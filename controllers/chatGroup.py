@@ -2,14 +2,14 @@ import json
 import requests
 from flask import request
 from constants import MOBIL_ITU_AUTH_URL
-# from middlewares import private_route
+from middlewares import auth_func
 from server import app, auto
 from models.chatGroup import chatGroups, studentsOnChat
+from models.students import student_model
 
 
 @app.route("/chatgroup", methods=['GET', 'POST'])
-# @auto.doc()
-# chatGroups.__init_table()
+# @auth_func(student_model)
 def show_groups():
     """
     GET request show all the groups of student. <br/>

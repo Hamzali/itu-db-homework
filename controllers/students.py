@@ -4,7 +4,7 @@ import requests
 from flask import request
 
 from constants import MOBIL_ITU_AUTH_URL
-from middlewares import private_route
+from middlewares import auth_func
 
 from server import app, auto
 from models.students import student_model
@@ -25,7 +25,7 @@ def get_students():
 
 
 @app.route('/students/<sid>', methods=['GET', 'PUT'])
-@private_route()
+@auth_func(student_model)
 def one_student(student, sid):
     """
 
