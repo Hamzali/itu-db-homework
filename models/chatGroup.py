@@ -29,6 +29,9 @@ class ChatGroupsModel(BaseModel):
     def updateGroup(self, data):
         return self.update(data)
 
+    #  Returns the groups that a people manages
+    def checkIsAdmin(self, data):
+        return self.find(return_cols=["id"], query="group_admin = %s" % data["sid"])
 
 class StudentsOnChatModel(BaseModel):
     def __init__(self, init_table=False):
@@ -56,7 +59,7 @@ class StudentsOnChatModel(BaseModel):
     def checkIfMember(self, data):
         return self.find(query='''chatgroup_id = %(cid)s 
                          AND student_id = %(sid)s''' % data, limit=1,
-                         return_cols=['student_id'])
+                         return_cols=['chatgroup_id'])
 
     def removeMember(self, data):
         return self.delete(query='''student_id = %(student_id)s AND

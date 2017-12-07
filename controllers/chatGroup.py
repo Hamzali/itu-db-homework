@@ -27,7 +27,7 @@ def show_groups():
 
 
 @app.route("/chatgroup/<cid>", methods=['GET', 'PUT', 'DELETE'])
-# @private.route()
+#
 def students_group(cid):
     """
     GET request will show the group to student
@@ -35,13 +35,21 @@ def students_group(cid):
     DELETE request will remove student from chat.
     """
     if request.method == 'GET':
+        # TODO: add students id as well
         data = {"cid": cid}
+        checkIfMember = studentsOnChat.listMembersOfGroup(data)
         return json.dumps(studentsOnChat.listMembersOfGroup(data=data))
+
     elif request.method == 'PUT':
         data = request.get_json()
         return studentsOnChat.addMember(data)
 
     elif request.method == 'DELETE':
         data = request.get_json()
-        return studentsOnChat.removeMember(data)
+        isAdminRes = chatGroups.checkIsAdmin(data)
 
+        if cid in isAdminRes:
+            return studentsOnChat.removeMember(data)
+
+        else:
+            return "You can't not remove people when you are not admin!",404
