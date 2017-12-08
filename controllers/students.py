@@ -19,7 +19,7 @@ def get_students():
     POST request creates a student.
     """
     if request.method == 'GET':
-        return json.dumps(student_model.find())
+        return "json.dumps(student_model.find())"
     elif request.method == 'POST':
         req_body = request.get_json()
         return student_model.create(data=req_body)
