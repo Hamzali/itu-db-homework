@@ -1,34 +1,29 @@
-import json
-import requests
-from flask import request
-from constants import MOBIL_ITU_AUTH_URL
-from server import app, auto
-from models.comments import commentsTable
+from models.base_model import BaseModel
 
 
-@app.route("/comments", methods=['GET', 'POST',
-                                 'PUT', 'DELETE'])
-def comments():
+class CommentsModel(BaseModel):
     """
-    GET request will show comments of student
-    POST request will add comment to student
-    PUT request will update the comment
-    DELETE request will remove the comment
+    Implements the comment model 
     """
-    if request.method == 'GET':
-        student_id = request.args.get('sid')
-        data = {"comment_to": str(student_id)}
-        return json.dumps(commentsTable.showCommentsOfStudent(data))
+    def __init__(self, init_table=False):
+        super().__init__("comments", {
+            "id": "SERIAL PRIMARY KEY",
+            "comment": "VARCHAR(500)",
+            "comment_by": '''CHAR(9) ''',
+            "comment_to": '''CHAR(9) ''',  # TODO ADD REFERENCES
+            "made_at": "TIMESTAMP"}, init_table)
+    
+    def addComment(self, data):
+        return self.create(data)
+    
+    def showCommentsOfStudent(self, data):
+        return self.find(query="comment_to = %(comment_to)s::CHAR(9)" % data)
 
-    elif request.method == 'POST':
-        data = request.get_json()
-        
-        return json.dumps(commentsTable.addComment(data))
+    def updateComment(self, data):
+        return self.update(query="id = %(id)s" % data, data=data)
 
-    elif request.method == 'PUT':
-        data = request.get_json()
-        return json.dumps(commentsTable.updateComment(data))
+    def removeComment(self, data):
+        return self.delete_by_id(_id=data['id'])
 
-    elif request.method == 'DELETE':
-        data = request.get_json()
-        return(json.dumps(commentsTable.removeComment(data)))
+
+commentsTable = CommentsModel(init_table=True)
