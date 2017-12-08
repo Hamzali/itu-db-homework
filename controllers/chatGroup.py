@@ -9,7 +9,7 @@ from models.students import student_model
 
 
 @app.route("/chatgroup", methods=['GET', 'POST'])
-# @auth_func(student_model)
+@auth_func(student_model)
 def show_groups():
     """
     GET request show all the groups of student. <br/>
@@ -20,6 +20,7 @@ def show_groups():
         # return json.dumps(studentOnChat.showGroupsOfStudent(data=data))
         # TODO: student id is req.
         data = "4"
+        
         return json.dumps(studentsOnChat.showGroupsOfStudent(data=data))
     elif request.method == 'POST':
         data = request.get_json()

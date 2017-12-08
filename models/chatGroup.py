@@ -8,11 +8,11 @@ class ChatGroupsModel(BaseModel):
     """
     def __init__(self, init_table=False):
         super().__init__("chatgroups", {
-            "id": "SERIAL PRIMARY KEY",
+            "id": "SERIAL PRIMARY KEY", # TODO create chatgroup for studygroup
             "group_admin": '''CHAR(9) REFERENCES student(id) ON DELETE CASCADE
              ON UPDATE CASCADE''',
             "name": "VARCHAR(80) NOT NULL",
-            "created_at": "TIMESTAMP",
+            "created_at": "TIMESTAMP DEFAULT now()",
             "created_by": '''CHAR(9) REFERENCES student(id) ON DELETE SET NULL
              ON UPDATE CASCADE '''}, init_table)
         
@@ -50,7 +50,7 @@ class StudentsOnChatModel(BaseModel):
                          return_cols=['student_id'], sort_by='student_id')
 
     # TODO: Join it with chatgroups to get speficic student's group
-    @db_factory_func()
+    @db_factory_func
     def showGroupsOfStudent(conn, self, data):
         return conn.execute('''SELECT id FROM chatgroups JOIN studentsonchat 
                         ON(chatgroups.id=studentsonchat.chatgroup_id)

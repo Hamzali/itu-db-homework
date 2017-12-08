@@ -2,7 +2,7 @@ import json
 import requests
 from flask import request
 from constants import MOBIL_ITU_AUTH_URL
-from middlewares import private_route
+from middlewares import auth_func
 from server import app, auto
 from models.lecturers import lecturers
 import re

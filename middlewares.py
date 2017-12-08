@@ -12,7 +12,7 @@ def auth_func(student_model):
                 print(result, request.headers['token'])
                 if len(result) == 1:
                     result[0]["created_at"] = result[0]["created_at"].isoformat()
-                    return fn(result[0], *args, **kw)
+                    return fn(student=result[0], *args, **kw)
                 else:
                     return json.dumps({'message': 'Login to proceed!'}), 401
             except Exception as e:
