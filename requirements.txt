@@ -4,3 +4,5 @@ sphinx
 Flask-SQLAlchemy
 requests
 Flask-Autodoc
+bs4
+lxml
