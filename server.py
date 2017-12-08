@@ -29,6 +29,7 @@ def root_path_handler():
 # TODO: Find a clever way to implement the router attachments to Server.
 from controllers.students import *
 from controllers.chatGroup import *
+from controllers.courses import *
 port = int(os.getenv('PORT', '5000'))
 
 # print(appSettings, port)

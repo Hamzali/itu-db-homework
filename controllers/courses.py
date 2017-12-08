@@ -4,7 +4,7 @@ import json
 # from flask import request
 # from middlewares import private_route
 from server import app
-from models.courses import course_model
+from models.courses import *
 
 
 @app.route('/courses')

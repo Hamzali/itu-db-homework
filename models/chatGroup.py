@@ -51,10 +51,10 @@ class StudentsOnChatModel(BaseModel):
 
     # TODO: Join it with chatgroups to get speficic student's group
     @db_factory_func()
-    def showGroupsOfStudent(self, conn, data):
-        return conn.execute('''SELECT name FROM chatgroups JOIN studentsonchat 
+    def showGroupsOfStudent(conn, self, data):
+        return conn.execute('''SELECT id FROM chatgroups JOIN studentsonchat 
                         ON(chatgroups.id=studentsonchat.chatgroup_id)
-                        WHERE student_id = %(sid)s''', data)
+                        WHERE student_id = %s''', data)
     
     def checkIfMember(self, data):
         return self.find(query='''chatgroup_id = %(cid)s 

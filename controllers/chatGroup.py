@@ -19,7 +19,8 @@ def show_groups():
         # data = request.get_json()
         # return json.dumps(studentOnChat.showGroupsOfStudent(data=data))
         # TODO: student id is req.
-        return json.dumps(chatGroups.find())
+        data = "4"
+        return json.dumps(studentsOnChat.showGroupsOfStudent(data=data))
     elif request.method == 'POST':
         data = request.get_json()
         chatGroups.createGroup(data)

@@ -12,6 +12,7 @@ from models.students import student_model
 
 @app.route('/students', methods=['GET', 'POST'])
 @auto.doc()
+@auth_func(student_model)
 def get_students():
     """
     GET request Fetches all the students. <br/>
