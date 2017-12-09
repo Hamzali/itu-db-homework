@@ -41,6 +41,3 @@ class LecturersModel(BaseModel):
 
     def removeLecturer(self, data):
         return self.delete_by_id(data['id'])
-
-
-lecturers = LecturersModel(init_table=True)

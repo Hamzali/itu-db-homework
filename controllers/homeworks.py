@@ -1,9 +1,8 @@
 import json
 import requests
 from flask import request
-from server import app, auto
-from models.homeworks import homeworks, hwOnSt
-from models.students import student_model
+from server import app
+from models.setupdb import student_model, homeworks, hwOnSt
 
 
 @app.route('/homeworks', methods=['GET', 'POST', 'PUT', 'DELETE'])

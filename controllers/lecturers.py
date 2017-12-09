@@ -1,11 +1,12 @@
+import re
 import json
 import requests
 from flask import request
 from constants import MOBIL_ITU_AUTH_URL
 from middlewares import auth_func
-from server import app, auto
-from models.lecturers import lecturers
-import re
+from server import app
+from models.setupdb import lecturers
+
 
 
 @app.route('/lecturers', methods=['GET', 'POST', 'DELETE', 'PUT'])

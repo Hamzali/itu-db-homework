@@ -20,6 +20,11 @@ def root_path_handler():
 from controllers.students import *
 from controllers.courses import *
 from controllers.studygroups import *
+from controllers.lecturers import *
+from controllers.homeworks import *
+from controllers.chatGroup import *
+from controllers.comments import *
+
 
 port = int(os.getenv("PORT", "5000"))
 

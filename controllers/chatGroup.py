@@ -3,9 +3,8 @@ import requests
 from flask import request
 from constants import MOBIL_ITU_AUTH_URL
 from middlewares import auth_func
-from server import app, auto
-from models.chatGroup import chatGroups, studentsOnChat
-from models.students import student_model
+from server import app
+from models.setupdb import student_model, chatGroups, studentsOnChat
 
 
 @app.route("/chatgroup", methods=['GET', 'POST'])

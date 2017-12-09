@@ -2,8 +2,8 @@ import json
 import requests
 from flask import request
 from constants import MOBIL_ITU_AUTH_URL
-from server import app, auto
-from models.comments import commentsTable
+from server import app
+from models.setupdb import commentsTable
 
 
 @app.route("/comments", methods=['GET', 'POST',

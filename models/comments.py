@@ -24,6 +24,3 @@ class CommentsModel(BaseModel):
 
     def removeComment(self, data):
         return self.delete_by_id(_id=data['id'])
-
-
-commentsTable = CommentsModel(init_table=True)

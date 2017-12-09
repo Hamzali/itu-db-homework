@@ -1,5 +1,4 @@
-from models.base_model import BaseModel
-from utils import db_factory_func
+from models.base_model import BaseModel, db_factory_func
 
 
 class ChatGroupsModel(BaseModel):
@@ -64,7 +63,3 @@ class StudentsOnChatModel(BaseModel):
     def removeMember(self, data):
         return self.delete(query='''student_id = %(student_id)s AND
                             chatgroup_id = %(chatgroup_id)i''' % data)
-
-
-chatGroups = ChatGroupsModel(init_table=True)
-studentsOnChat = StudentsOnChatModel(init_table=True)

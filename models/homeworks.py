@@ -1,5 +1,4 @@
-from models.base_model import BaseModel
-from utils import db_factory_func
+from models.base_model import BaseModel, db_factory_func
 
 
 class HomeworksModel(BaseModel):
@@ -50,6 +49,3 @@ class HomeworksOfStudentModel(BaseModel):
     
     def removeStudentsHomework(self, data):
         self.delete(data)
-
-homeworks = HomeworksModel(init_table=True)
-hwOnSt = HomeworksOfStudentModel(init_table=True)
