@@ -9,25 +9,25 @@ class ChatGroupsModel(BaseModel):
     def __init__(self, init_table=False):
         super().__init__("chatgroups", {
             "id": "SERIAL PRIMARY KEY", # TODO create chatgroup for studygroup
-            "group_admin": '''CHAR(9) REFERENCES student(id) ON DELETE CASCADE
+            "group_admin": '''CHAR(9) NOT NULL REFERENCES student(id) ON DELETE CASCADE
              ON UPDATE CASCADE''',
             "name": "VARCHAR(80) NOT NULL",
             "created_at": "TIMESTAMP DEFAULT now()",
             "created_by": '''CHAR(9) REFERENCES student(id) ON DELETE SET NULL
-             ON UPDATE CASCADE '''}, init_table)
+             ON UPDATE CASCADE '''}, init_table=init_table)
         
     def listGroups(self):
         return self.find(return_cols=["id", "name"], sort_by="id")
 
     def createGroup(self, data):
-        self.create(data)
+        self.create(data=data)
     
     def removeGroup(self, data):
         # TODO: Require auth from admin and error handling
         return self.delete_by_id(_id=data['id'])
     
     def updateGroup(self, data):
-        return self.update(data)
+        return self.update(data=data)
 
     #  Returns the groups that a people manages
     def checkIsAdmin(self, data):
@@ -39,10 +39,10 @@ class StudentsOnChatModel(BaseModel):
             "chatgroup_id": '''INTEGER NOT NULL REFERENCES chatgroups(id)
              ON DELETE CASCADE''',
             "student_id": '''CHAR(9) REFERENCES student(id) ON DELETE CASCADE
-            ON UPDATE CASCADE'''}, init_table)
+            ON UPDATE CASCADE'''}, init_table=init_table)
 
     def addMember(self, data):
-        self.create(data)
+        self.create(data=data)
     
     # TODO: Join it with students table and get the names.
     def listMembersOfGroup(self, data):
@@ -51,7 +51,7 @@ class StudentsOnChatModel(BaseModel):
 
     # TODO: Join it with chatgroups to get speficic student's group
     @db_factory_func
-    def showGroupsOfStudent(conn, self, data):
+    def showGroupsOfStudent(self, conn, data):
         return conn.execute('''SELECT id FROM chatgroups JOIN studentsonchat 
                         ON(chatgroups.id=studentsonchat.chatgroup_id)
                         WHERE student_id = %s''', data)

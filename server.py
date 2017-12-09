@@ -32,6 +32,8 @@ from controllers.chatGroup import *
 from controllers.courses import *
 from controllers.comments import *
 from controllers.lecturers import *
+from controllers.homeworks import *
+
 port = int(os.getenv('PORT', '5000'))
 
 # print(appSettings, port)

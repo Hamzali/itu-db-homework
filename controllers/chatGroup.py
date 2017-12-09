@@ -9,27 +9,31 @@ from models.students import student_model
 
 
 @app.route("/chatgroup", methods=['GET', 'POST'])
-@auth_func(student_model)
+# @auth_func(student_model)
 def show_groups():
     """
     GET request show all the groups of student. <br/>
     POST request allows student to form a group.
     """
     if request.method == 'GET':
-        # data = request.get_json()
-        # return json.dumps(studentOnChat.showGroupsOfStudent(data=data))
-        # TODO: student id is req.
-        data = "4"
-        
-        return json.dumps(studentsOnChat.showGroupsOfStudent(data=data))
+
+        try:
+            token = str(request.headers["token"])
+        except:
+            return "Please provide token", 401
+        student = student_model.validate_token(token)
+
+        return json.dumps(studentsOnChat.showGroupsOfStudent(data=student[0]["id"]))
+
     elif request.method == 'POST':
         data = request.get_json()
         chatGroups.createGroup(data)
-        return json.dumps(studentsOnChat.addMember(data))
+        # TODO BIG BUG!, We need to find out which group is created, I dont know 
+        # studentsOnChat.addMember(data)
+        return "Success", 200
 
 
 @app.route("/chatgroup/<cid>", methods=['GET', 'PUT', 'DELETE'])
-#
 def students_group(cid):
     """
     GET request will show the group to student
@@ -37,8 +41,14 @@ def students_group(cid):
     DELETE request will remove student from chat.
     """
     if request.method == 'GET':
-        # TODO: add students id as well
-        data = {"cid": cid}
+        try:
+            token = str(request.headers["token"])
+
+        except:
+            return "Please provide token", 401
+
+        student = student_model.validate_token(token)
+        data = {"cid": cid, "sid": student[0]["id"]}
         checkIfMember = studentsOnChat.listMembersOfGroup(data)
         return json.dumps(studentsOnChat.listMembersOfGroup(data=data))
 
@@ -54,4 +64,4 @@ def students_group(cid):
             return studentsOnChat.removeMember(data)
 
         else:
-            return "You can't not remove people when you are not admin!",404
+            return "You can't not remove people when you are not admin!", 404

@@ -11,15 +11,15 @@ class LecturersModel(BaseModel):
     def __init__(self, init_table=False):
         super().__init__("lecturers", {
             "id": "SERIAL PRIMARY KEY",
-            "fname": "VARCHAR(80)",
-            "sname": "VARCHAR(80)",
+            "fname": "VARCHAR(80) NOT NULL",
+            "sname": "VARCHAR(80) NOT NULL",
             "department": "VARCHAR(80)",
             "email": "VARCHAR(100)"
-        }, init_table)
+        }, init_table=init_table)
     
 
     def addLecturer(self, data):
-        return self.create(data)
+        return self.create(data=data)
 
     def listAllLecturers(self):
         return self.find(return_cols=["fname", "sname", "id"],
@@ -27,6 +27,10 @@ class LecturersModel(BaseModel):
     
     def listAllLecturersBySName(self):
         return self.find(return_cols=["sname"], sort_by="sname")
+
+    def listLecturersOfDepartment(self, data):
+        return self.find(return_cols=["fname", "sname"],
+                         query="department = sex")
 
     def showALecturer(self, data):
         return self.find(return_cols=["fname", "sname"],

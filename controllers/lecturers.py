@@ -11,20 +11,34 @@ import re
 @app.route('/lecturers', methods=['GET', 'POST', 'DELETE', 'PUT'])
 def lecturer():
     """
-    GET request shows all lecturers
+    GET request shows lecturers of given department
     POST request creates new lecturer
     DELETE request deletes a lecturer
     PUT request updates the lecturer
     """
     
     if request.method == 'GET':
-        return json.dumps(lecturers.listAllLecturers())
+        dep = str(request.headers["dep"])
+        
+        if dep is not None or len(dep) > 0:
+            lecturers.listLecturersOfDepartment(dep)
+            return "Success", 200
+        
+        else:
+            return "Please give proper department", 404
 
     elif request.method == 'POST':
         data = request.get_json()
+        isEmailExists = data.get("email", -1)
+
+        if isEmailExists == -1:
+            return "Please provide email address!"
+        
         if not re.match("[^@]+@[^@]+\.[^@]+", data['email']):
-            return "Invalid email address!"
-        return json.dumps(lecturers.addLecturer(data))
+            return "Invalid email address!", 404
+        
+        lecturers.addLecturer(data)
+        return "Success", 200
 
     elif request.method == 'DELETE':
         data = request.get_json()

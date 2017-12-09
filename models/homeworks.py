@@ -12,10 +12,10 @@ class HomeworksModel(BaseModel):
             "crn": "CHAR(5) ",  # TODO: FK
             "description": "VARCHAR(500)",
             "deadline": "CHAR(10)"  # TODO: YYYY-MM-DD
-        }, init_table)
+        }, init_table=init_table)
     
     def addHomework(self, data):
-        return self.create(data)
+        return self.create(data=data)
 
     def listHomeworks(self, data):
         return self.find(return_cols=["id", "crn"])
@@ -36,12 +36,12 @@ class HomeworksOfStudentModel(BaseModel):
             "student_id": '''CHAR(9) REFERENCES student(id) 
                              ON DELETE CASCADE ON UPDATE CASCADE''',
             "homework_id": "INTEGER REFERENCES homeworks(id)"
-        }, init_table)
+        }, init_table=init_table)
 
     def addHomeworkOfStudent(self, data):
-        return self.create(data)
+        return self.create(data=data)
 
-    @db_factory_func()
+    @db_factory_func
     def showHomeworks(self, conn, data):
         return conn.execute('''SELECT homework_id, crn JOIN homeworks
                                 ON(homeworks.id=homework_id)

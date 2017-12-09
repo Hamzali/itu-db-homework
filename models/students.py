@@ -8,7 +8,6 @@ class StudentModel(BaseModel):
         """
         Student model database operations.
         """
-
         def __init__(self, init_table=False):
             super().__init__("student", {
                 "id": "CHAR(9) PRIMARY KEY",
