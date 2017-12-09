@@ -7,7 +7,7 @@ from flask import request
 
 from server import app
 
-from models.setupdb import studygroup_model, student_studygroup_model, student_model
+from models.setupdb import studygroup_model, student_studygroup_model, student_model, chatGroups, studentsOnChat
 
 from middlewares import auth_func
 
@@ -45,6 +45,16 @@ def list_studygroups(student):
             })
         except:
             return "could not create do it right bitch", 404
+        
+        chatGroups.createGroup(data={
+            "created_by": student["id"],
+            "name": "Chatgroup of" + req_body.get("name"),
+            "group_admin": student["id"]
+        })
+        lastGroupCreatedBy = chatGroups.getLastGroupCreatedById(data=student["id"])
+
+        studentsOnChat.addMember({"chatgroup_id": str(lastGroupCreatedBy),
+                                  "student_id": student["id"]})
 
         return "created bitch!"
 
