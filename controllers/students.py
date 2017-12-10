@@ -59,7 +59,7 @@ def one_student(student, sid):
         if req_body.get("study_end"):
             data["study_end"] = jstime_to_datetime(req_body.get("study_end"))
         try:
-            updated_id = student_model.update_by_id(_id=sid, data=data)
+            updated_id = student_model.update_by_id(_id=sid, data=data, return_cols=["id"])
             updated_keys = []
             for key in data:
                 updated_keys.append(key)
