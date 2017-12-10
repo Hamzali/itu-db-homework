@@ -8,11 +8,10 @@ class HomeworksModel(BaseModel):
     def __init__(self, init_table=False):
         super().__init__("homeworks", {
             "id": "SERIAL PRIMARY KEY",
-            "crn": "CHAR(5) ",  # TODO: FK
+            "crn": "INT ",  # TODO REFERENCES courses(crn)
+            "name": "VARCHAR(80) NOT NULL",
             "description": "VARCHAR(500)",
-            "deadline": "CHAR(10)",  # TODO: YYYY-MM-DD
-            "created_at": "TIMESTAMP DEFAULT now()",
-            "created_by": "CHAR(9) REFERENCES student(id) ON DELETE SET NULL"
+            "deadline": "CHAR(10)"  # TODO: YYYY-MM-DD
         }, init_table=init_table)
     
     def addHomework(self, data):
@@ -27,10 +26,7 @@ class HomeworksModel(BaseModel):
     def removeHomework(self, data):
         return self.delete(data)
 
-    @db_factory_func
-    def getLastGroupCreatedById(self, conn, data):
-        return conn.execute('''SELECT id from homeworks WHERE created_by = '%s'
-                                ORDER BY created_at DESC''' % data)
+
 class HomeworksOfStudentModel(BaseModel):
     """
     Implements the homeworks model

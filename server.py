@@ -1,11 +1,16 @@
 import os
 from flask import Flask
 
+from flask_cors import CORS, cross_origin
+
 app = Flask(__name__)
+CORS(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 appSettings = os.environ.get("APP_SETTINGS")
 app.config.from_object(appSettings)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 
 @app.after_request
 def after_all_requests(response):
