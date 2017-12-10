@@ -16,22 +16,19 @@ from errors import DataBaseException
 private_route = auth_func(student_model)
 
 
-# @app.route("/students", methods=["GET", "POST"])
-# @private_route
-# def get_students(student):
-#     """
-#     GET request Fetches all the students
-#     POST request creates a student.
-#     """
-#     if request.method == "GET":
-#         try:
-#             result = student_model.find()
-#             return json.dumps(result)
-#         except DataBaseException:
-#             return "nothing found go away", 404
-#     elif request.method == "POST":
-#         req_body = request.get_json()
-#         return student_model.create(data=req_body)
+@app.route("/students", methods=["GET", "POST"])
+@private_route
+def get_students(student):
+    """
+    GET request Fetches all the students
+    POST request creates a student.
+    """
+    if request.method == "GET":
+        try:
+            result = student_model.find(query="id='%s'" % student["id"])[0]
+            return json.dumps(result)
+        except DataBaseException:
+            return "nothing found go away", 404
 
 
 @app.route("/students/<sid>", methods=["GET", "PUT"])
