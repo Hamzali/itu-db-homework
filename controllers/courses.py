@@ -112,6 +112,7 @@ def sync_courses():
 
         return "done"
 
+
 @app.route("/courses")
 def list_courses():
     result = course_model.find()
@@ -119,12 +120,14 @@ def list_courses():
         return "no courses found.", 404
     return json.dumps(result)
 
+
 @app.route("/courses/<cid>")
 def list_one_course(cid):
     result = course_model.find_by_id(_id=cid)
     if len(result) <= 0:
         return "no course found with id %s." % cid, 404
     return json.dumps(result)
+
 
 @app.route("/buildings/sync", methods=["POST"])
 def sync_buildings():
@@ -153,6 +156,7 @@ def sync_buildings():
                         data={"name": name, "code": code})
     return "done"
 
+
 @app.route("/buildings")
 def list_buildings():
     result = building_model.find()
@@ -160,12 +164,14 @@ def list_buildings():
         return "no buildings found.", 404
     return json.dumps(result)
 
+
 @app.route("/buildings/<cid>")
 def building_by_id(cid):
     result = building_model.find_by_id(_id=cid)
     if len(result) <= 0:
         return "no building found with id %s." % cid, 404
     return json.dumps(result)
+
 
 @app.route("/faculties/sync", methods=["POST"])
 def sync_faculties():
@@ -188,12 +194,14 @@ def sync_faculties():
                             data={"name": name, "code": code})
         return "done"
 
+
 @app.route("/faculty")
 def list_faculties():
     result = faculty_model.find()
     if result is None or len(result) <= 0:
         return "no faculties found.", 404
     return json.dumps(result)
+
 
 @app.route("/faculty/<cid>")
 def faculties_by_id(cid):
