@@ -7,7 +7,7 @@ class ChatGroupsModel(BaseModel):
     """
     def __init__(self, init_table=False):
         super().__init__("chatgroups", {
-            "id": "SERIAL PRIMARY KEY", # TODO create chatgroup for studygroup
+            "id": "SERIAL PRIMARY KEY",  # TODO create chatgroup for studygroup
             "group_admin": '''CHAR(9) NOT NULL REFERENCES student(id) ON DELETE CASCADE
              ON UPDATE CASCADE''',
             "name": "VARCHAR(80) NOT NULL",

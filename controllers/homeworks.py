@@ -14,17 +14,19 @@ def homework():
         return "Please provide token", 401
     
     student = student_model.validate_token(token)
-    
+
     if request.method == 'GET':
         return json.dumps(hwOnSt.showHomeworks(data=student[0]["id"]))
     
     elif request.method == 'POST':
 
         data = request.get_json()
+        data.update({"created_by": student[0]["id"]})
         homeworks.addHomework(data)
-        lastHomeworkCreatedBy = str((homeworks.getLastGroupCreatedById(
+        lastHomeworkCreatedBy = str((homeworks.getLastHwCreatedById(
                                     data=data["created_by"])[0])["id"])
-        hwOnSt.addHomeworkOfStudent({"student_id": student[0][id],
+
+        hwOnSt.addHomeworkOfStudent({"student_id": student[0]["id"],
                                      "homework_id": lastHomeworkCreatedBy})
         return "Success", 200
     

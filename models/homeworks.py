@@ -11,7 +11,8 @@ class HomeworksModel(BaseModel):
             "crn": "INT ",  # TODO REFERENCES courses(crn)
             "name": "VARCHAR(80) NOT NULL",
             "description": "VARCHAR(500)",
-            "deadline": "CHAR(10)"  # TODO: YYYY-MM-DD
+            "deadline": "CHAR(10)",  # TODO: YYYY-MM-DD
+            "created_by": "CHAR(9) REFERENCES student(id)"
         }, init_table=init_table)
     
     def addHomework(self, data):
@@ -25,6 +26,11 @@ class HomeworksModel(BaseModel):
 
     def removeHomework(self, data):
         return self.delete(data)
+
+    @db_factory_func
+    def getLastHwCreatedById(self, conn, data):
+        return conn.execute('''SELECT id from homeworks WHERE created_by = '%s'
+                                ORDER BY id DESC LIMIT 1''' % data)
 
 
 class HomeworksOfStudentModel(BaseModel):
@@ -43,10 +49,12 @@ class HomeworksOfStudentModel(BaseModel):
 
     @db_factory_func
     def showHomeworks(self, conn, data):
-        return conn.execute('''SELECT homework_id, crn JOIN homeworks
+        return conn.execute('''SELECT homework_id, crn, name,
+                                description, deadline FROM homeworks
+                                JOIN hwofstudents
                                 ON(homeworks.id=homework_id)
-                                WHERE student_id=%(student_id)s
-                                )''' % data)
+                                WHERE student_id='%s'
+                                LIMIT 4''' % data)
     
     def removeStudentsHomework(self, data):
         self.delete(data)
