@@ -73,10 +73,12 @@ def student_login():
     if request.method == "POST":
         # Send request to itu mobil api.
         req_body = request.get_json()
+        print(request.data)
+        print(req_body)
         url = MOBIL_ITU_AUTH_URL % (
-            req_body["username"],
-            req_body["password"],
-            req_body["pin"])
+            req_body.get("username"),
+            req_body.get("password"),
+            req_body.get("pin"))
         try:
             result = requests.post(url)
         except requests.exceptions.RequestException as req_exc:
@@ -88,6 +90,7 @@ def student_login():
         # Parse the response.
         result = result.json()["Session"]
         # Try to update the student token.
+        print(result)
         try:
             token = student_model.update(
                 query=("id='%s'" % str(result["ITUNumber"])),
@@ -113,9 +116,8 @@ def student_logout():
     """
     Logs out the logged in user.
     """
-    req_body = request.get_json()
     try:
-        student_model.remove_token(token=req_body["token"])
+        student_model.remove_token(token=request.headers["token"])
         return "logged out!"
     except DataBaseException:
         return "could not log out!", 500

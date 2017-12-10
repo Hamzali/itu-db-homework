@@ -173,6 +173,15 @@ def building_by_id(cid):
     return json.dumps(result)
 
 
+
+@app.route("/api/faculties")
+def list_faculties():
+    result = faculty_model.find()
+    if result is None or len(result) <= 0:
+        return "no faculties found.", 404
+    return json.dumps(result)
+
+
 @app.route("/faculties/sync", methods=["POST"])
 def sync_faculties():
     if request.method == "POST":
@@ -193,14 +202,6 @@ def sync_faculties():
                         faculty_model.create(
                             data={"name": name, "code": code})
         return "done"
-
-
-@app.route("/faculty")
-def list_faculties():
-    result = faculty_model.find()
-    if result is None or len(result) <= 0:
-        return "no faculties found.", 404
-    return json.dumps(result)
 
 
 @app.route("/faculty/<cid>")

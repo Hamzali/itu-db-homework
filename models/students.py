@@ -32,4 +32,4 @@ class StudentModel(BaseModel):
         """
         Removes the authentication token from the database.
         """
-        return self.delete(query="token='%s'" % token)
+        return self.update(query=("token='%s'" % token), data={"token": "NULL"}, return_cols=["id"])
