@@ -22,7 +22,6 @@ def comments():
 
     elif request.method == 'POST':
         data = request.get_json()
-        
         return json.dumps(commentsTable.addComment(data))
 
     elif request.method == 'PUT':

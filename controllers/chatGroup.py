@@ -88,7 +88,6 @@ def students_group(cid):
 @app.route("/chatgroup/<cid>/leave", methods=["GET"])
 def leave_chatgroup(cid):
 
-
     if request.method == 'GET':
         try:
             token = str(request.headers["token"])

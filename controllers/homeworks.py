@@ -18,11 +18,20 @@ def homework():
     
     elif request.method == 'POST':
         data = request.get_json()
+        try:
+            token = str(request.headers["token"])
+        except:
+            return "Please provide token", 401
         homeworks.addHomework(data)
+        student = student_model.validate_token(token)
+        lastHomeworkCreatedBy = str((homeworks.getLastGroupCreatedById(data=data["created_by"])[0])["id"])
+        hwOnSt.addHomeworkOfStudent({"student_id": data["student_id"],
+                                     "homework_id": lastHomeworkCreatedBy})
         return json.dumps(hwOnSt.addHomeworkOfStudent(data))
     
     elif request.method == 'PUT':
         data = request.get_json()
+        
         return json.dumps(homeworks.changeHomework(data))
     
     elif request.method == 'DELETE':
