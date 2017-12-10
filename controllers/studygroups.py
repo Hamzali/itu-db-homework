@@ -1,25 +1,31 @@
 """
-doc string for module
+Study Group endpoints.
 """
 import json
-import datetime
 from flask import request
 
 from server import app
 
-from models.setupdb import studygroup_model, student_studygroup_model, student_model
+from models.setupdb import studygroup_model, student_studygroup_model, student_model, student_course_model
 
 from middlewares import auth_func
+from utils import jstime_to_datetime
+from errors import DataBaseException
 
 private_route = auth_func(student_model)
 
+
 def check_study_group(student, groupid):
+    """
+    Checks for if the study group is belongs to the current student.
+    """
     group = studygroup_model.find_by_id(_id=groupid)
     if group:
         if student != group[0]["created_by"]:
             return "studygroup is not yours", 401
     else:
         return "no studygroup found", 404
+
 
 @app.route("/studygroups", methods=["GET", "POST"])
 @private_route
@@ -28,12 +34,18 @@ def list_studygroups(student):
     lists and creates studygroups
     """
     if request.method == "GET":
-        # TODO find suitable studygroups for student
-        result = studygroup_model.find()
-        return json.dumps(result)
+        try:
+            student_courses = student_course_model.find_student_courses(
+                student["id"])
+            student_courses = [r["course"] for r in student_courses]
+            result = studygroup_model.get_available_study_groups(
+                student["id"], student_courses, student["study_start"], student["study_end"])
+            return json.dumps(result)
+        except DataBaseException:
+            return "no suitable studygroup", 404
     elif request.method == "POST":
         req_body = request.get_json()
-        study_date = datetime.datetime.fromtimestamp(req_body.get("study_date") / 1000)
+        study_date = jstime_to_datetime(req_body.get("study_date"))
         try:
             studygroup_model.create(data={
                 "course": req_body.get("course"),
@@ -43,17 +55,18 @@ def list_studygroups(student):
                 "study_date": study_date,
                 "duration": req_body.get("duration")
             })
-        except:
-            return "could not create do it right bitch", 404
+            result = {}
+            result["message"] = "created"
+            return json.dumps(result)
+        except DataBaseException as db_error:
+            return db_error.message, 404
 
-        return "created bitch!"
 
-
-@app.route("/studygroups/<groupid>", methods=["GET", "PUT"])
+@app.route("/studygroups/<groupid>", methods=["GET", "PUT", "DELETE"])
 @private_route
 def find_update_studygroup(student, groupid):
     """
-    Finds a studygroup or updates by id.
+    With given id parameter updates, deletes or finds the studygroup.
     """
     groupid = int(groupid)
     result = check_study_group(student["id"], groupid)
@@ -62,59 +75,71 @@ def find_update_studygroup(student, groupid):
 
     if request.method == "GET":
         group = studygroup_model.find_by_id(_id=groupid)[0]
-        group["created_at"] = group["created_at"].isoformat()
-        group["study_date"] = group["study_date"].isoformat()
         return json.dumps(group)
 
     elif request.method == "PUT":
+        print("put method")
         req_body = request.get_json()
 
         data = {}
-        if req_body.get("study_date"):
-            data["study_date"] = req_body.get("study_date")
+
         if req_body.get("name"):
             data["name"] = req_body.get("name")
         if req_body.get("description"):
             data["description"] = req_body.get("description")
+
         if req_body.get("study_date"):
-            data["study_date"] = req_body.get("study_date")
+            data["study_date"] = jstime_to_datetime(req_body.get("study_date"))
         if req_body.get("duration"):
             data["duration"] = req_body.get("duration")
         if req_body.get("course"):
             data["course"] = req_body.get("course")
 
         try:
-            studygroup_model.update_by_id(_id=groupid, data=data)
-            return "updated!"
-        except:
-            return "failed", 404
+            result = studygroup_model.update_by_id(_id=groupid, data=data, return_cols=["id"])
+            result["message"] = "updated"
+            return json.dumps(result)
+        except DataBaseException as db_error:
+            return db_error.message, 404
     elif request.method == "DELETE":
         try:
-            studygroup_model.delete_by_id(_id=groupid)
-            return "deleted!"
-        except:
-            return "failed", 404
+            result = studygroup_model.delete_by_id(_id=groupid, return_cols=["id"])
+            result["message"] = "studygroup is deleted."
+            return json.dumps(result)
+        except DataBaseException:
+            return "failed to delete study group.", 404
+
+
+@app.route("/studygroups/students/<studentid>")
+@private_route
+def find_studygroups_of_student(student, studentid):
+    """
+    Finds all the study groups of a student participated.
+    """
+    pass
 
 
 @app.route("/studygroups/<groupid>/students")
 @private_route
 def list_studygroup_students(student, groupid):
     """
-    Finds a studygroup or updates by id.
+    Lists all the students of the studygroup with the given id.
     """
     groupid = int(groupid)
     result = check_study_group(student["id"], groupid)
     if result:
         return result
+    # TODO check this!
     result = student_studygroup_model.list_studygroup_students(_id=groupid)
 
     return json.dumps(result)
+
 
 @app.route("/studygroups/<groupid>/students/<studentid>/status", methods=["POST"])
 @private_route
 def set_student_studygroup_status(student, groupid, studentid):
     """
-    Finds a studygroup or updates by id.
+    Updates the group status of a student in the studygroup with the given id.
     """
     groupid = int(groupid)
     result = check_study_group(student["id"], groupid)
@@ -123,7 +148,11 @@ def set_student_studygroup_status(student, groupid, studentid):
 
     if request.method == "POST":
         req_body = request.get_json()
-        result = student_studygroup_model.set_student_status(groupid, studentid, req_body.status)
-        if result:
-            return "updated"
-        return "failed"
+        if req_body.status in [0, 1, 2]:
+            try:
+                result = student_studygroup_model.set_student_status(
+                    groupid, studentid, req_body.status)
+                result["message"] = "status updated"
+                return json.dumps(result)
+            except DataBaseException:
+                return "failed to update status", 404
