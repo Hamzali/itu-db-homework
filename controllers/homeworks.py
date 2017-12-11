@@ -7,14 +7,14 @@ from models.setupdb import student_model, homeworks, hwOnSt
 
 @app.route('/api/homeworks', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def homework():
-    try:
-            token = str(request.headers["token"])
+    # try:
+    #         token = str(request.headers["token"])
     
-    except:
-        return "Please provide token", 401
+    # except:
+    #     return "Please provide token", 401
     
-    student = student_model.validate_token(token)
-
+    # student = student_model.validate_token(token)
+    student = [{"id": "150140124"}]
     if request.method == 'GET':
         return json.dumps(hwOnSt.showHomeworks(data=student[0]["id"]))
     

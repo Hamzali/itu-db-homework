@@ -188,7 +188,7 @@ def sync_faculties():
                             data={"name": name, "code": code})
         return "done"
 
-@app.route("/faculty")
+@app.route("/api/faculties")
 def list_faculties():
     result = faculty_model.find()
     if result is None or len(result) <= 0:
