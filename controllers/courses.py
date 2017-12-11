@@ -222,7 +222,6 @@ def sync_faculties():
                             data={"name": name, "code": code})
         return "done"
 
-
 @app.route("/faculty/<cid>")
 def faculties_by_id(cid):
     result = faculty_model.find_by_id(_id=cid)

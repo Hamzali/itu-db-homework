@@ -3,29 +3,48 @@ import requests
 from flask import request
 from server import app
 from models.setupdb import student_model, homeworks, hwOnSt
+from middlewares import auth_func
+
+private_route = auth_func(student_model)
 
 
-@app.route('/homeworks', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def homework():
+@app.route('/api/homeworks', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@private_route
+def homework(student):
+
+    #  Works on fend
     if request.method == 'GET':
-        try:
-            token = str(request.headers["token"])
-        except:
-            return "Please provide token", 401
-        student = student_model.validate_token(token)
-
-        return json.dumps(hwOnSt.showHomeworks(data=student[0]["id"]))
+        return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
     
+    # Works on fend
     elif request.method == 'POST':
+
         data = request.get_json()
+        data.update({"created_by": student["id"]})
         homeworks.addHomework(data)
-        return json.dumps(hwOnSt.addHomeworkOfStudent(data))
+        lastHomeworkCreatedBy = str((homeworks.getLastHwCreatedById(
+                                    data=data["created_by"])[0])["id"])
+
+        hwOnSt.addHomeworkOfStudent({"student_id": student["id"],
+                                     "homework_id": lastHomeworkCreatedBy})
+        return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
     
+    #  Works
     elif request.method == 'PUT':
-        data = request.get_json()
-        return json.dumps(homeworks.changeHomework(data))
-    
+        data = request.get_json()   
+        hwid = data["homework_id"]
+        del data["homework_id"]
+
+        return json.dumps(homeworks.changeHomework(hwid=hwid, data=data))
+
+    #  Works
     elif request.method == 'DELETE':
         data = request.get_json()
-        return json.dumps(hwOnSt.removeStudentsHomework(data))
+        data["sid"] = student["id"]
+        # return json.dumps(data)
+        hwOnSt.removeStudentsHomework(data=data)
+        return "Success", 200
+    
+    else:
+        return "Wrong request", 301
 

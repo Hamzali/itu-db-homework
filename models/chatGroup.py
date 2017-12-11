@@ -7,7 +7,7 @@ class ChatGroupsModel(BaseModel):
     """
     def __init__(self, init_table=False):
         super().__init__("chatgroups", {
-            "id": "SERIAL PRIMARY KEY", # TODO create chatgroup for studygroup
+            "id": "SERIAL PRIMARY KEY",  # TODO create chatgroup for studygroup
             "group_admin": '''CHAR(9) NOT NULL REFERENCES student(id) ON DELETE CASCADE
              ON UPDATE CASCADE''',
             "name": "VARCHAR(80) NOT NULL",
@@ -16,7 +16,7 @@ class ChatGroupsModel(BaseModel):
              ON UPDATE CASCADE '''}, init_table=init_table)
         
     def listGroups(self):
-        return self.find(return_cols=["id", "name"], sort_by="id")
+        return self.find(return_cols=["id"], sort_by="id")
 
     def createGroup(self, data):
         self.create(data=data)
@@ -29,8 +29,14 @@ class ChatGroupsModel(BaseModel):
         return self.update(data=data)
 
     #  Returns the groups that a people manages
-    def checkIsAdmin(self, data):
-        return self.find(return_cols=["id"], query="group_admin = %s" % data["sid"])
+    @db_factory_func
+    def checkIsAdmin(self, conn, data):
+        return conn.execute('''SELECT id FROM CHATGROUPS where group_admin='%(sid)s' and id=%(cid)s''' % data)
+
+    @db_factory_func
+    def getLastGroupCreatedById(self, conn, data):
+        return conn.execute('''SELECT id from chatgroups WHERE created_by = '%s'
+                                ORDER BY created_at DESC''' % data)
 
 class StudentsOnChatModel(BaseModel):
     def __init__(self, init_table=False):
@@ -38,7 +44,9 @@ class StudentsOnChatModel(BaseModel):
             "chatgroup_id": '''INTEGER NOT NULL REFERENCES chatgroups(id)
              ON DELETE CASCADE''',
             "student_id": '''CHAR(9) REFERENCES student(id) ON DELETE CASCADE
-            ON UPDATE CASCADE'''}, init_table=init_table)
+             ON UPDATE CASCADE''',
+            "joined_at": "TIMESTAMP DEFAULT now()"
+            }, init_table=init_table)
 
     def addMember(self, data):
         self.create(data=data)
@@ -48,10 +56,10 @@ class StudentsOnChatModel(BaseModel):
         return self.find(query="chatgroup_id = %s" % data['cid'],
                          return_cols=['student_id'], sort_by='student_id')
 
-    # TODO: Join it with chatgroups to get speficic student's group
+    
     @db_factory_func
     def showGroupsOfStudent(self, conn, data):
-        return conn.execute('''SELECT id FROM chatgroups JOIN studentsonchat 
+        return conn.execute('''SELECT chatgroup_id, name, group_admin FROM chatgroups JOIN studentsonchat 
                         ON(chatgroups.id=studentsonchat.chatgroup_id)
                         WHERE student_id = %s''', data)
     
@@ -61,5 +69,6 @@ class StudentsOnChatModel(BaseModel):
                          return_cols=['chatgroup_id'])
 
     def removeMember(self, data):
-        return self.delete(query='''student_id = %(student_id)s AND
-                            chatgroup_id = %(chatgroup_id)i''' % data)
+        return self.delete(query='''student_id = '%(sid)s' AND
+                            chatgroup_id = %(cid)s ''' % data,
+                            returning_id=False)

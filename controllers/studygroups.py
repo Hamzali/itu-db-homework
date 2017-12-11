@@ -158,4 +158,4 @@ def set_student_studygroup_status(student, groupid, studentid):
                 result["message"] = "status updated"
                 return json.dumps(result)
             except DataBaseException:
-                return "failed to update status", 404
+return "failed to update status", 404

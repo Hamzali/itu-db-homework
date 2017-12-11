@@ -8,24 +8,24 @@ from server import app
 from models.setupdb import lecturers
 
 
-
-@app.route('/lecturers', methods=['GET', 'POST', 'DELETE', 'PUT'])
+@app.route('/api/lecturers', methods=['GET', 'POST', 'DELETE', 'PUT'])
 def lecturer():
+    
     """
     GET request shows lecturers of given department
     POST request creates new lecturer
     DELETE request deletes a lecturer
     PUT request updates the lecturer
     """
-    
+    # Works on frontend
     if request.method == 'GET':
-        dep = str(request.headers["dep"])
         
-        if dep is not None or len(dep) > 0:
-            lecturers.listLecturersOfDepartment(dep)
-            return "Success", 200
-        
-        else:
+        try:
+            dep = (request.args["dep"])
+            app.logger.debug(app)
+            return json.dumps(lecturers.listLecturersOfDepartment(data=dep))
+
+        except:
             return "Please give proper department", 404
 
     elif request.method == 'POST':
@@ -43,14 +43,26 @@ def lecturer():
 
     elif request.method == 'DELETE':
         data = request.get_json()
-        return json.dumps(lecturers.removeLecturer(data))
+        lecturers.removeLecturer(data)
+        try:
+            dep = (request.args["dep"])
+            return json.dumps(lecturers.listLecturersOfDepartment(data=dep))
+
+        except:
+            return "Please give proper department", 200
 
     elif request.method == 'PUT':
         data = request.get_json()
-        return json.dumps(lecturers.updateLecturer(data))
+        json.dumps(lecturers.updateLecturer(data))
+        try:
+            dep = (request.args["dep"])
+            return json.dumps(lecturers.listLecturersOfDepartment(data=dep))
+
+        except:
+            return "Please give proper department", 200
 
 
-@app.route('/lecturers/<lid>', methods=['GET'])
+@app.route('/api/lecturers/<lid>', methods=['GET'])
 def show_a_lecturer(lid):
 
     if request.method == 'GET':
