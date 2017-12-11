@@ -12,9 +12,11 @@ private_route = auth_func(student_model)
 @private_route
 def homework(student):
 
+    #  Works on fend
     if request.method == 'GET':
         return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
     
+    # Works on fend
     elif request.method == 'POST':
 
         data = request.get_json()
@@ -27,13 +29,15 @@ def homework(student):
                                      "homework_id": lastHomeworkCreatedBy})
         return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
     
+    #  Works
     elif request.method == 'PUT':
-        data = request.get_json()
+        data = request.get_json()   
         hwid = data["homework_id"]
         del data["homework_id"]
-        
+
         return json.dumps(homeworks.changeHomework(hwid=hwid, data=data))
-    
+
+    #  Works
     elif request.method == 'DELETE':
         data = request.get_json()
         data["sid"] = student["id"]
