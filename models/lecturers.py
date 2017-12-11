@@ -1,4 +1,5 @@
-from models.base_model import BaseModel
+from models.base_model import BaseModel, db_factory_func
+
 """
 This model creates lecturers model
 """
@@ -11,9 +12,10 @@ class LecturersModel(BaseModel):
     def __init__(self, init_table=False):
         super().__init__("lecturers", {
             "id": "SERIAL PRIMARY KEY",
+            "title": "VARCHAR(40) NOT NULL",
             "fname": "VARCHAR(80) NOT NULL",
             "sname": "VARCHAR(80) NOT NULL",
-            "department": "VARCHAR(80)",
+            "department_id": '''INT NOT NULL REFERENCES faculty(id)''',
             "email": "VARCHAR(100)"
         }, init_table=init_table)
     
@@ -28,13 +30,13 @@ class LecturersModel(BaseModel):
     def listAllLecturersBySName(self):
         return self.find(return_cols=["sname"], sort_by="sname")
 
-    def listLecturersOfDepartment(self, data):
-        return self.find(return_cols=["fname", "sname"],
-                         query="department = sex")
+    @db_factory_func
+    def listLecturersOfDepartment(self, conn, data):
+        return conn.execute('''SELECT lecturers.id, title, fname, sname, email from lecturers JOIN faculty
+                               ON (department_id=lecturers.id) WHERE lecturers.id = %s''' % data)
 
     def showALecturer(self, data):
-        return self.find(return_cols=["fname", "sname"],
-                         query="id = %s" % data['id'])
+        return self.find(query="id = %s" % data['id'])
 
     def updateLecturer(self, data):
         return self.update_by_id(data['id'])

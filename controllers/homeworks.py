@@ -3,32 +3,29 @@ import requests
 from flask import request
 from server import app
 from models.setupdb import student_model, homeworks, hwOnSt
+from middlewares import auth_func
+
+private_route = auth_func(student_model)
 
 
 @app.route('/api/homeworks', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def homework():
-    # try:
-    #         token = str(request.headers["token"])
-    
-    # except:
-    #     return "Please provide token", 401
-    
-    # student = student_model.validate_token(token)
-    student = [{"id": "150140124"}]
+@private_route
+def homework(student):
+
     if request.method == 'GET':
-        return json.dumps(hwOnSt.showHomeworks(data=student[0]["id"]))
+        return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
     
     elif request.method == 'POST':
 
         data = request.get_json()
-        data.update({"created_by": student[0]["id"]})
+        data.update({"created_by": student["id"]})
         homeworks.addHomework(data)
         lastHomeworkCreatedBy = str((homeworks.getLastHwCreatedById(
                                     data=data["created_by"])[0])["id"])
 
-        hwOnSt.addHomeworkOfStudent({"student_id": student[0]["id"],
+        hwOnSt.addHomeworkOfStudent({"student_id": student["id"],
                                      "homework_id": lastHomeworkCreatedBy})
-        return "Success", 200
+        return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
     
     elif request.method == 'PUT':
         data = request.get_json()
@@ -36,7 +33,8 @@ def homework():
     
     elif request.method == 'DELETE':
         data = request.get_json()
-        return json.dumps(hwOnSt.removeStudentsHomework(data))
+        data["sid"] = student["id"]
 
+        hwOnSt.removeStudentsHomework(data)
+        return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
 
-        

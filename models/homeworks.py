@@ -54,7 +54,9 @@ class HomeworksOfStudentModel(BaseModel):
                                 JOIN hwofstudents
                                 ON(homeworks.id=homework_id)
                                 WHERE student_id='%s'
-                                LIMIT 4''' % data)
+                                ORDER BY homework_id DESC LIMIT 4 ''' % data)
     
     def removeStudentsHomework(self, data):
-        self.delete(data)
+        return self.delete(query='''homework_id %(homework_id)i 
+                                    and student_id=%(sid)s''' % data,
+                           returning_id=False)
