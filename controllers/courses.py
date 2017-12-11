@@ -115,12 +115,31 @@ def sync_courses():
 
 @app.route("/courses")
 def list_courses():
-    result = course_model.find()
-    if result is None or len(result) <= 0:
-        return "no courses found.", 404
-    return json.dumps(result)
+    """
+    Lists courses with pagination and text query.
+    """
+    try:
+        query = request.args["query"]
+        try:
+            query = int(query)
+            query = "crn = %s" % query
+        except ValueError:
+            query = "name LIKE '{}%%' OR code LIKE '{}%%'".format(query, query)
+        result = course_model.find(query=str(query))
+        return json.dumps(result)
+    except Exception as e:
+        print(e)
+        page = 0
+        count = 50
+        try:
+            page = request.args["page"]
+            count = request.args["count"]
+        except:
+            print("standart")
+        result = course_model.find(limit=count, offset=(page * count))
+        return json.dumps(result)
 
-
+    
 @app.route("/courses/<cid>")
 def list_one_course(cid):
     result = course_model.find_by_id(_id=cid)

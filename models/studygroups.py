@@ -26,13 +26,20 @@ class StudyGroupModel(BaseModel):
             "created_at": "TIMESTAMP DEFAULT now()"
         }, init_table=init_table)
 
-    def get_available_study_groups(self, studentid, courseids, date_start, date_end):
+    @db_factory_func
+    def get_available_study_groups(self, conn=None, studentid="", courseids=None, date_start=None, date_end=None):
         """
         Finds and returns all available study groups for a student from database.
         """
-        return self.find("""
-                (not created_by = {}) and (course in ({})) and (study_date between {} and {})
-            """.format(studentid, str.join(", ", courseids), date_start, date_end))
+        return conn.execute("""
+            SELECT * FROM studygroup WHERE 
+            (not created_by = '{}') and 
+            (course in ({})) and 
+            (study_date between {} and {}) and 
+            id NOT IN (
+                SELECT course from student_studygroup WHERE student = '{}'
+            )
+        """.format(studentid, str.join(", ", courseids), date_start, date_end, studentid))
 
 
 class StudentStudyGroup(BaseModel):
@@ -52,15 +59,23 @@ class StudentStudyGroup(BaseModel):
         }, primary_key=["student", "studygroup"], init_table=init_table)
 
     @db_factory_func
-    def list_studygroup_students(self, conn=None, _id=None):
+    def list_studygroup_students(self, conn=None, studygroupid=None):
         """
         Finds and joins all the student data of a study group.
         """
         return conn.execute("""
-            SELECT id, username FROM student 
-            JOIN (SELECT * FROM student_studygroup WHERE studygroup = {}) 
-            ON student.id = student_studygroup.id
-            """.format(_id))
+            SELECT id, username FROM student WHERE id IN 
+            (SELECT student FROM studygroup JOIN student_studygroup ON(studygroup=id))
+            """.format(studygroupid))
+            
+    @db_factory_func
+    def list_studygroups_of_student(self, conn=None, studentid=None):
+        """
+        Finds and joins all the student data of a study group.
+        """
+        return conn.execute("""
+            SELECT * FROM student_studygroup INNER JOIN studygroup ON studygroup=id WHERE student = '{}'
+            """.format(studentid))
 
     def set_student_status(self, studygroup, studentid, status):
         """

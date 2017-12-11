@@ -103,7 +103,7 @@ class BaseModel:
             raise
 
     @db_factory_func
-    def find(self, conn=None, query="", limit=0, sort_by="", return_cols=None):
+    def find(self, conn=None, query="", limit=0, sort_by="", return_cols=None, offset=None):
         """
         Finds and retrieves data with given query from database.
         """
@@ -126,9 +126,12 @@ class BaseModel:
                 sql_statement += " WHERE {} ".format(query)
             if limit > 0:
                 sql_statement += " LIMIT {} ".format(limit)
-            if sort_by and self.fields.get(sort_by) is not None:
+            if offset:
+                sql_statement += " OFFSET {} ".format(offset)
+            if sort_by:
                 sql_statement += " ORDER BY {} ".format(sort_by)
             try:
+                print(sql_statement)
                 return conn.execute(sql_statement)
             except Exception as sql_err:
                 print(sql_err)

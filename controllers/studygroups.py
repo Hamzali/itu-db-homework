@@ -9,7 +9,7 @@ from server import app
 from models.setupdb import studygroup_model, student_studygroup_model, student_model, student_course_model
 
 from middlewares import auth_func
-from utils import jstime_to_datetime
+from utils import int_to_datetime
 from errors import DataBaseException
 
 private_route = auth_func(student_model)
@@ -33,11 +33,10 @@ def list_studygroups(student):
     """
     lists and creates studygroups
     """
+    student_courses = student_course_model.find_student_courses(studentid=student["id"])
+    student_courses = [r["crn"] for r in student_courses]
     if request.method == "GET":
         try:
-            student_courses = student_course_model.find_student_courses(
-                student["id"])
-            student_courses = [r["course"] for r in student_courses]
             result = studygroup_model.get_available_study_groups(
                 student["id"], student_courses, student["study_start"], student["study_end"])
             return json.dumps(result)
@@ -45,7 +44,11 @@ def list_studygroups(student):
             return "no suitable studygroup", 404
     elif request.method == "POST":
         req_body = request.get_json()
-        study_date = jstime_to_datetime(req_body.get("study_date"))
+        study_date = int_to_datetime(req_body.get("study_date"))
+        if req_body.get("course") not in student_courses:
+            result = {}
+            result["message"] = "You do not have this course"
+            return json.dumps(result), 403
         try:
             studygroup_model.create(data={
                 "course": req_body.get("course"),
@@ -55,7 +58,7 @@ def list_studygroups(student):
                 "study_date": study_date,
                 "duration": req_body.get("duration")
             })
-            result = {}
+            result = studygroup_model.find(query="created_by='{}'".format(student["id"]), sort_by="id DESC")[0]
             result["message"] = "created"
             return json.dumps(result)
         except DataBaseException as db_error:
@@ -89,7 +92,7 @@ def find_update_studygroup(student, groupid):
             data["description"] = req_body.get("description")
 
         if req_body.get("study_date"):
-            data["study_date"] = jstime_to_datetime(req_body.get("study_date"))
+            data["study_date"] = int_to_datetime(req_body.get("study_date"))
         if req_body.get("duration"):
             data["duration"] = req_body.get("duration")
         if req_body.get("course"):
@@ -116,8 +119,10 @@ def find_studygroups_of_student(student, studentid):
     """
     Finds all the study groups of a student participated.
     """
-    pass
-
+    if student["id"] == studentid:
+        return json.dumps(student_studygroup_model.list_studygroups_of_student(studentid=student["id"]))
+    else:
+        return "this is not yours"
 
 @app.route("/studygroups/<groupid>/students")
 @private_route
@@ -129,9 +134,7 @@ def list_studygroup_students(student, groupid):
     result = check_study_group(student["id"], groupid)
     if result:
         return result
-    # TODO check this!
-    result = student_studygroup_model.list_studygroup_students(_id=groupid)
-
+    result = student_studygroup_model.list_studygroup_students(studygroupid=groupid)
     return json.dumps(result)
 
 

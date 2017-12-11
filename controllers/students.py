@@ -10,59 +10,44 @@ from server import app
 from models.setupdb import student_model, course_model, student_course_model, student_studygroup_model, studygroup_model
 
 from middlewares import auth_func
-from utils import jstime_to_datetime
+from utils import int_to_datetime
 from errors import DataBaseException
 
 private_route = auth_func(student_model)
 
 
-@app.route("/students", methods=["GET", "POST"])
+@app.route("/students", methods=["GET", "PUT"])
 @private_route
-def get_students(student):
-    """
-    GET request Fetches all the students
-    POST request creates a student.
-    """
-    if request.method == "GET":
-        try:
-            result = student_model.find(query="id='%s'" % student["id"])[0]
-            return json.dumps(result)
-        except DataBaseException:
-            return "nothing found go away", 404
-
-
-@app.route("/students/<sid>", methods=["GET", "PUT"])
-@private_route
-def one_student(student, sid):
+def one_student(student):
     """
     :param student: current logged in student
-    :param sid: student id.
-    :return: None
     """
-    if request.method == "GET":
-        if sid == student["id"]:
-            result = student
-        else:
-            result = student_model.find_by_id(_id=sid)
-            if len(result) <= 0:
-                return "no student found with id %s" % sid
-        return json.dumps(result)
+    if request.method == "GET":        
+        return json.dumps(student)
     elif request.method == "PUT":
         req_body = request.get_json()
         data = {}
         if req_body.get("study_start"):
-            data["study_start"] = jstime_to_datetime(
-                req_body.get("study_start"))
+            data["study_start"] = int_to_datetime(req_body.get("study_start"))
         if req_body.get("study_end"):
-            data["study_end"] = jstime_to_datetime(req_body.get("study_end"))
+            data["study_end"] = int_to_datetime(req_body.get("study_end"))
+        
+        student["id"] = "'{}'".format(student["id"])
+        updated_keys = []
+        for key in data:
+            updated_keys.append(key)
         try:
-            updated_id = student_model.update_by_id(_id=sid, data=data, return_cols=["id"])
-            updated_keys = []
-            for key in data:
-                updated_keys.append(key)
-            return "{} fields are updated for {}".format(str.join(", ", updated_keys), updated_id)
-        except:
-            return "error not updated", 404
+            result = student_model.update_by_id(_id=student["id"], data=data, return_cols=["id"] + updated_keys)
+            result["message"] = "student is updated."
+            return json.dumps(result)
+        except DataBaseException as db_error:
+            result = {}
+            result["message"] = "error not updated"
+            result["error"] = db_error.message
+            return json.dumps(result), 404
+        except Exception as e:
+            print(e)
+            return "something is wrong", 500
 
 
 @app.route("/auth", methods=["POST"])
@@ -73,7 +58,6 @@ def student_login():
     if request.method == "POST":
         # Send request to itu mobil api.
         req_body = request.get_json()
-        print(request.data)
         print(req_body)
         url = MOBIL_ITU_AUTH_URL % (
             req_body.get("username"),
@@ -81,6 +65,7 @@ def student_login():
             req_body.get("pin"))
         try:
             result = requests.post(url)
+            print(result)
         except requests.exceptions.RequestException as req_exc:
             print(req_exc)
             return "auth service is not available right now", 500
@@ -90,7 +75,6 @@ def student_login():
         # Parse the response.
         result = result.json()["Session"]
         # Try to update the student token.
-        print(result)
         try:
             token = student_model.update(
                 query=("id='%s'" % str(result["ITUNumber"])),
@@ -108,7 +92,9 @@ def student_login():
             # Send the token to the user.
             return json.dumps({"token": result["Token"]})
         except DataBaseException:
-            return "login failed, try again!"
+            return "login failed, try again!", 404
+        except:
+            return "something went wrong", 500
 
 
 @app.route("/logout", methods=["POST"])
@@ -130,7 +116,7 @@ def list_student_courses(student):
     Lists all the courses of a student.
     """
     try:
-        result = student_course_model.find_student_courses(student["id"])
+        result = student_course_model.find_student_courses(studentid=student["id"])
         return json.dumps(result)
     except DataBaseException:
         return "no course found lazy boy", 404
@@ -143,21 +129,22 @@ def enroll_course(student, courseid):
     Enrolls or leaves a course with given CRN.
     """
     courseid = int(courseid)
-    if course_model.course_exists(courseid):
+    course = course_model.course_exists(courseid)
+    if course:
         if request.method == "POST":
             try:
                 student_course_model.create(data={
                     "student": student["id"],
                     "course": courseid
                 })
-                return "course is added to student"
+                return json.dumps(course)
             except DataBaseException:
                 return "you are already enrolled", 403
         elif request.method == "DELETE":
             try:
                 student_course_model.delete_student_course(
                     student["id"], courseid)
-                return "course removed!"
+                return json.dumps(course)
             except DataBaseException as db_error:
                 print(db_error)
                 return "could not be deleted!", 404
