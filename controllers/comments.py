@@ -7,29 +7,29 @@ from models.setupdb import commentsTable, student_model
 from middlewares import auth_func
 
 private_route = auth_func(student_model)
-@app.route("/comments", methods=['GET', 'POST',
-                                 'PUT', 'DELETE'])
-@private_route                                 
+
+@app.route("/api/comments", methods=['GET', 'POST', 'DELETE'])
+@private_route
 def comments(student):
     """
-    GET request will show comments of student
     POST request will add comment to student
-    PUT request will update the comment
     DELETE request will remove the comment
     """
-    if request.method == 'GET':
-        
-        data = {"comment_to": student["id"]}
-        return json.dumps(commentsTable.showCommentsOfStudent(data))
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         data = request.get_json()
-        return json.dumps(commentsTable.addComment(data))
-
-    elif request.method == 'PUT':
-        data = request.get_json()
-        return json.dumps(commentsTable.updateComment(data))
+        data["comment_by"] = student["id"]
+        commentsTable.addComment(data)
+        return "Success", 200
 
     elif request.method == 'DELETE':
         data = request.get_json()
-        return(json.dumps(commentsTable.removeComment(data)))
+        commentsTable.removeComment(data)
+        return "Success", 200
+
+
+@app.route("/api/comments/<sid>", methods=['GET'])
+def getCommentsOfStudent(sid):
+    if request.method == 'GET':
+        data = {"comment_to": sid}
+        return json.dumps(commentsTable.showCommentsOfStudent(data))

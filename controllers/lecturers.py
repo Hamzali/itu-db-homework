@@ -17,7 +17,7 @@ def lecturer():
     DELETE request deletes a lecturer
     PUT request updates the lecturer
     """
-    
+    # Works on frontend
     if request.method == 'GET':
         
         try:
@@ -49,14 +49,20 @@ def lecturer():
             return json.dumps(lecturers.listLecturersOfDepartment(data=dep))
 
         except:
-            return "Please give proper department", 404
+            return "Please give proper department", 200
 
     elif request.method == 'PUT':
         data = request.get_json()
-        return json.dumps(lecturers.updateLecturer(data))
+        json.dumps(lecturers.updateLecturer(data))
+        try:
+            dep = (request.args["dep"])
+            return json.dumps(lecturers.listLecturersOfDepartment(data=dep))
+
+        except:
+            return "Please give proper department", 200
 
 
-@app.route('/lecturers/<lid>', methods=['GET'])
+@app.route('/api/lecturers/<lid>', methods=['GET'])
 def show_a_lecturer(lid):
 
     if request.method == 'GET':

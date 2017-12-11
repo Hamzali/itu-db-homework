@@ -39,7 +39,7 @@ class LecturersModel(BaseModel):
         return self.find(query="id = %s" % data['id'])
 
     def updateLecturer(self, data):
-        return self.update_by_id(data['id'])
+        return self.update_by_id(data=data, _id=data['id'])
 
     def removeLecturer(self, data):
-        return self.delete_by_id(data['id'])
+        return self.delete_by_id(_id=data['id'])

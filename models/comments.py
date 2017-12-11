@@ -9,15 +9,16 @@ class CommentsModel(BaseModel):
         super().__init__("comments", {
             "id": "SERIAL PRIMARY KEY",
             "comment": "VARCHAR(500)",
-            "comment_by": '''CHAR(9) ''',
-            "comment_to": '''CHAR(9) ''',  # TODO ADD REFERENCES
-            "made_at": "TIMESTAMP"}, init_table)
+            "comment_by": '''CHAR(9) REFERENCES STUDENT(id) ON DELETE SET NULL''',
+            "comment_to": '''CHAR(9) REFERENCES STUDENT(id) ON DELETE SET NULL''',  # TODO ADD REFERENCES
+            "made_at": "TIMESTAMP DEFAULT now()"}, init_table=init_table)
     
     def addComment(self, data):
-        return self.create(data)
+        return self.create(data=data)
     
     def showCommentsOfStudent(self, data):
-        return self.find(query="comment_to = %(comment_to)s::CHAR(9)" % data)
+        return self.find(return_cols=["comment", "id", "comment_by"],
+                         query="comment_to = '%(comment_to)s'" % data)
 
     def updateComment(self, data):
         return self.update(query="id = %(id)s" % data, data=data)

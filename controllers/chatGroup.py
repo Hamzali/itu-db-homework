@@ -9,16 +9,17 @@ from models.setupdb import student_model, chatGroups, studentsOnChat
 private_route = auth_func(student_model)
 
 
-@app.route("/api/chatgroup", methods=['GET', 'POST'])
+@app.route("/api/chatgroups", methods=['GET', 'POST'])
 @private_route
 def show_groups(student):
     """
     GET request show all the groups of student. <br/>
     POST request allows student to form a group.
     """
+    # Works
     if request.method == 'GET':
         return json.dumps(studentsOnChat.showGroupsOfStudent(data=student["id"]))
-
+    # Works
     elif request.method == 'POST':
         data = request.get_json()
         chatGroups.createGroup({"group_admin": student["id"],
@@ -32,17 +33,17 @@ def show_groups(student):
         return json.dumps(studentsOnChat.showGroupsOfStudent(data=student["id"]))
 
 
-@app.route("/chatgroup/<cid>", methods=['GET', 'PUT', 'DELETE'])
+@app.route("/api/chatgroups/<cid>", methods=['GET', 'PUT', 'DELETE'])
 @private_route
 def students_group(student, cid):
     """
     GET request will show the group to student
-    PUT request will add student to chatgroup.
+    PUT request will add student to chatgroup.(Join)
     DELETE request will remove student from chat.
     """
 
     try:
-        return str(chatGroups.listGroups()[int(cid) - 1]["id"])
+        print(str(chatGroups.listGroups()[int(cid) - 1]["id"]))
 
     except:
         return "This group cannot be found in database!", 404
@@ -53,22 +54,23 @@ def students_group(student, cid):
         return json.dumps(studentsOnChat.listMembersOfGroup(data=data))
 
     elif request.method == 'PUT':
-        data = request.get_json()
-        newData = {"chatgroup_id": cid, "student_id": data["student_id"]}
-        return studentsOnChat.addMember(newData)
+        newData = {"chatgroup_id": cid, "student_id": str(student["id"])}    
+        studentsOnChat.addMember(newData)
+        return "Success", 200
 
     elif request.method == 'DELETE':
-        data = request.get_json()
-        isAdminRes = chatGroups.checkIsAdmin(data)
+        
+        newData = {"cid": int(cid), "sid": str(student["id"])}
+        isAdminRes = chatGroups.checkIsAdmin(data=newData)
 
-        if cid in isAdminRes:
-            return studentsOnChat.removeMember(data)
+        if isAdminRes[0]["id"] == int(cid):
+            studentsOnChat.removeMember(newData)
+            return "Success", 200
 
-        else:
-            return "You can't not remove people when you are not admin!", 404
+        return "You can't not remove people when you are not admin!", 404
 
 
-@app.route("/chatgroup/<cid>/leave", methods=["GET"])
+@app.route("/chatgroups/<cid>/leave", methods=["GET"])
 @private_route
 def leave_chatgroup(cid):
 

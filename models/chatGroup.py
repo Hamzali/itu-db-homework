@@ -29,8 +29,9 @@ class ChatGroupsModel(BaseModel):
         return self.update(data=data)
 
     #  Returns the groups that a people manages
-    def checkIsAdmin(self, data):
-        return self.find(return_cols=["id"], query="group_admin = %s" % data["sid"])
+    @db_factory_func
+    def checkIsAdmin(self, conn, data):
+        return conn.execute('''SELECT id FROM CHATGROUPS where group_admin='%(sid)s' and id=%(cid)s''' % data)
 
     @db_factory_func
     def getLastGroupCreatedById(self, conn, data):
@@ -58,7 +59,7 @@ class StudentsOnChatModel(BaseModel):
     
     @db_factory_func
     def showGroupsOfStudent(self, conn, data):
-        return conn.execute('''SELECT id FROM chatgroups JOIN studentsonchat 
+        return conn.execute('''SELECT chatgroup_id, name, group_admin FROM chatgroups JOIN studentsonchat 
                         ON(chatgroups.id=studentsonchat.chatgroup_id)
                         WHERE student_id = %s''', data)
     
@@ -68,6 +69,6 @@ class StudentsOnChatModel(BaseModel):
                          return_cols=['chatgroup_id'])
 
     def removeMember(self, data):
-        return self.delete(query='''student_id = (%(sid)s)::CHAR(9) AND
-                            chatgroup_id = (%(cid)s)::INTEGER ''' % data,
+        return self.delete(query='''student_id = '%(sid)s' AND
+                            chatgroup_id = %(cid)s ''' % data,
                             returning_id=False)
