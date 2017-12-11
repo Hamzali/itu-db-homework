@@ -1,7 +1,7 @@
 """
 Course and Student - Course Model
 """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, db_factory_func
 
 
 class CourseModel(BaseModel):
@@ -22,7 +22,7 @@ class CourseModel(BaseModel):
         """
         result = self.find(query=("crn=%s" % courseid))
         if result:
-            return True
+            return result[0]
         return False
 
 
@@ -38,11 +38,15 @@ class StudentCourseModel(BaseModel):
             "created_at": "TIMESTAMP DEFAULT now()"
         }, primary_key=["course", "student"], init_table=init_table)
 
-    def find_student_courses(self, studentid):
+    @db_factory_func
+    def find_student_courses(self, conn=None, studentid=None):
         """
         Finds all the courses of student with given student id.
         """
-        return self.find(query=("student='%s'" % studentid))
+        return conn.execute("""
+            SELECT crn, name, code FROM student_course INNER JOIN course 
+            ON course.crn = student_course.course WHERE student = '{}' 
+        """.format(studentid))
 
     def delete_student_course(self, studentid, courseid):
         """

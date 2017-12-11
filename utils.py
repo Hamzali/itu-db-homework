@@ -1,7 +1,7 @@
 from datetime import datetime
 
-def jstime_to_datetime(jstime):
-    return datetime.fromtimestamp(jstime / 1000)
+def int_to_datetime(time):
+    return datetime.fromtimestamp(time)
 
 def time_to_json(data):
     for key in data:
