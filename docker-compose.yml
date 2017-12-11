@@ -6,6 +6,7 @@ web:
   environment:
     - APP_SETTINGS=config.DevelopmentConfig
     - DATABASE_URL=postgresql://marco:foobarbaz@postgres/testdb
+    - PYTHONUNBUFFERED=1
   volumes:
    - .:/app
   links:
