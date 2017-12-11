@@ -29,12 +29,18 @@ def homework(student):
     
     elif request.method == 'PUT':
         data = request.get_json()
-        return json.dumps(homeworks.changeHomework(data))
+        hwid = data["homework_id"]
+        del data["homework_id"]
+        
+        return json.dumps(homeworks.changeHomework(hwid=hwid, data=data))
     
     elif request.method == 'DELETE':
         data = request.get_json()
         data["sid"] = student["id"]
-
-        hwOnSt.removeStudentsHomework(data)
-        return json.dumps(hwOnSt.showHomeworks(data=student["id"]))
+        # return json.dumps(data)
+        hwOnSt.removeStudentsHomework(data=data)
+        return "Success", 200
+    
+    else:
+        return "Wrong request", 301
 

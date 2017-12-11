@@ -21,8 +21,8 @@ class HomeworksModel(BaseModel):
     def listHomeworks(self, data):
         return self.find(return_cols=["id", "crn"])
 
-    def changeHomework(self, data):
-        return self.update(data)
+    def changeHomework(self, hwid, data):
+        self.update(query="homework_id = %i" % hwid, data=data)
 
     def removeHomework(self, data):
         return self.delete(data)
@@ -38,8 +38,8 @@ class HomeworksOfStudentModel(BaseModel):
     Implements the homeworks model
     """
     def __init__(self, init_table=False):
-        super().__init__("hwofstudents",{
-            "student_id": '''CHAR(9) REFERENCES student(id) 
+        super().__init__("hwofstudents", {
+            "student_id": '''CHAR(9) REFERENCES student(id)
                              ON DELETE CASCADE ON UPDATE CASCADE''',
             "homework_id": "INTEGER REFERENCES homeworks(id)"
         }, init_table=init_table)
@@ -56,7 +56,5 @@ class HomeworksOfStudentModel(BaseModel):
                                 WHERE student_id='%s'
                                 ORDER BY homework_id DESC LIMIT 4 ''' % data)
     
-    def removeStudentsHomework(self, data):
-        return self.delete(query='''homework_id %(homework_id)i 
-                                    and student_id=%(sid)s''' % data,
-                           returning_id=False)
+    def removeStudentsHomework(self, conn, data):
+        self.delete(query="student_id = %(student_id)s AND homework_id = %(homework_id)i" % data)

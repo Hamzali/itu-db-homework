@@ -3,12 +3,14 @@ import requests
 from flask import request
 from constants import MOBIL_ITU_AUTH_URL
 from server import app
-from models.setupdb import commentsTable
+from models.setupdb import commentsTable, student_model
+from middlewares import auth_func
 
-
+private_route = auth_func(student_model)
 @app.route("/comments", methods=['GET', 'POST',
                                  'PUT', 'DELETE'])
-def comments():
+@private_route                                 
+def comments(student):
     """
     GET request will show comments of student
     POST request will add comment to student
@@ -16,8 +18,8 @@ def comments():
     DELETE request will remove the comment
     """
     if request.method == 'GET':
-        student_id = request.args.get('sid')
-        data = {"comment_to": str(student_id)}
+        
+        data = {"comment_to": student["id"]}
         return json.dumps(commentsTable.showCommentsOfStudent(data))
 
     elif request.method == 'POST':
