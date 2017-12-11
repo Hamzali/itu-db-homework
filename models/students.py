@@ -1,4 +1,8 @@
+"""
+Student Model
+"""
 from models.base_model import BaseModel
+
 
 class StudentModel(BaseModel):
     """
@@ -13,6 +17,8 @@ class StudentModel(BaseModel):
             "email": "VARCHAR(80) UNIQUE NOT NULL",
             "faculty": "INT REFERENCES faculty(id)",
             "token": "VARCHAR(100)",
+            "study_start": "TIMESTAMP",
+            "study_end": "TIMESTAMP",
             "created_at": "TIMESTAMP DEFAULT now()"
         }, init_table=init_table)
 
@@ -26,4 +32,4 @@ class StudentModel(BaseModel):
         """
         Removes the authentication token from the database.
         """
-        return self.delete(query="token='%s'" % token)
+        return self.update(query=("token='%s'" % token), data={"token": "NULL"}, return_cols=["id"])

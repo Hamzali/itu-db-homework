@@ -112,19 +112,41 @@ def sync_courses():
 
         return "done"
 
+
 @app.route("/courses")
 def list_courses():
-    result = course_model.find()
-    if result is None or len(result) <= 0:
-        return "no courses found.", 404
-    return json.dumps(result)
+    """
+    Lists courses with pagination and text query.
+    """
+    try:
+        query = request.args["query"]
+        try:
+            query = int(query)
+            query = "crn = %s" % query
+        except ValueError:
+            query = "name LIKE '{}%%' OR code LIKE '{}%%'".format(query, query)
+        result = course_model.find(query=str(query))
+        return json.dumps(result)
+    except Exception as e:
+        print(e)
+        page = 0
+        count = 50
+        try:
+            page = request.args["page"]
+            count = request.args["count"]
+        except:
+            print("standart")
+        result = course_model.find(limit=count, offset=(page * count))
+        return json.dumps(result)
 
+    
 @app.route("/courses/<cid>")
 def list_one_course(cid):
     result = course_model.find_by_id(_id=cid)
     if len(result) <= 0:
         return "no course found with id %s." % cid, 404
     return json.dumps(result)
+
 
 @app.route("/buildings/sync", methods=["POST"])
 def sync_buildings():
@@ -153,6 +175,7 @@ def sync_buildings():
                         data={"name": name, "code": code})
     return "done"
 
+
 @app.route("/buildings")
 def list_buildings():
     result = building_model.find()
@@ -160,12 +183,23 @@ def list_buildings():
         return "no buildings found.", 404
     return json.dumps(result)
 
+
 @app.route("/buildings/<cid>")
 def building_by_id(cid):
     result = building_model.find_by_id(_id=cid)
     if len(result) <= 0:
         return "no building found with id %s." % cid, 404
     return json.dumps(result)
+
+
+
+@app.route("/api/faculties")
+def list_faculties():
+    result = faculty_model.find()
+    if result is None or len(result) <= 0:
+        return "no faculties found.", 404
+    return json.dumps(result)
+
 
 @app.route("/faculties/sync", methods=["POST"])
 def sync_faculties():
@@ -187,13 +221,6 @@ def sync_faculties():
                         faculty_model.create(
                             data={"name": name, "code": code})
         return "done"
-
-@app.route("/api/faculties")
-def list_faculties():
-    result = faculty_model.find()
-    if result is None or len(result) <= 0:
-        return "no faculties found.", 404
-    return json.dumps(result)
 
 @app.route("/faculty/<cid>")
 def faculties_by_id(cid):

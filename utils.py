@@ -1,21 +1,10 @@
-from server import db
-from functools import wraps
+from datetime import datetime
 
+def int_to_datetime(time):
+    return datetime.fromtimestamp(time)
 
-def db_factory_func(fn):
-        """
-        DB connection decorator.
-        """
-        @wraps(fn)
-        def wrapper(*args, **kw):
-            try:
-                conn = db.engine.connect()
-                result = fn(conn=conn, *args, **kw)
-                if result is not None:
-                    return [dict(r) for r in result]
-                return result
-            finally:
-                if conn is not None:
-                    conn.close()
-
-        return wrapper
+def time_to_json(data):
+    for key in data:
+        if isinstance(data[key], datetime):
+            data[key] = data[key].isoformat()
+    return data

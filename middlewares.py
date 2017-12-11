@@ -8,9 +8,7 @@ def auth_func(student_model):
         def wrapper(*args, **kw):
             try:
                 result = student_model.validate_token(request.headers["token"])
-                print(result, request.headers["token"])
                 if len(result) == 1:
-                    result[0]["created_at"] = result[0]["created_at"].isoformat()
                     return fn(student=result[0], *args, **kw)
                 else:
                     return json.dumps({"message": "Login to proceed!"}), 401
