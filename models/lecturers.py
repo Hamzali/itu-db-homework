@@ -32,8 +32,7 @@ class LecturersModel(BaseModel):
 
     @db_factory_func
     def listLecturersOfDepartment(self, conn, data):
-        return conn.execute('''SELECT lecturers.id, title, fname, sname, email from lecturers JOIN faculty
-                               ON (department_id=lecturers.id) WHERE lecturers.id = %s''' % data)
+        return conn.execute('''SELECT * from lecturers where department_id= %s''' % data)
 
     def showALecturer(self, data):
         return self.find(query="id = %s" % data['id'])
@@ -41,5 +40,6 @@ class LecturersModel(BaseModel):
     def updateLecturer(self, data):
         return self.update_by_id(data=data, _id=data['id'])
 
-    def removeLecturer(self, data):
-        return self.delete_by_id(_id=data['id'])
+    @db_factory_func
+    def removeLecturer(self, conn, data):
+        conn.execute("DELETE FROM LECTURERS WHERE id=%s" % data["id"])
