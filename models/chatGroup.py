@@ -52,9 +52,13 @@ class StudentsOnChatModel(BaseModel):
         self.create(data=data)
     
     # TODO: Join it with students table and get the names.
-    def listMembersOfGroup(self, data):
-        return self.find(query="chatgroup_id = %s" % data['cid'],
-                         return_cols=['student_id'], sort_by='student_id')
+    @db_factory_func
+    def listMembersOfGroup(self, conn, data):
+        return conn.execute('''SELECT * FROM STUDENT
+                               WHERE ID IN (SELECT id FROM STUDENT
+                               JOIN STUDENTSONCHAT ON(STUDENT_ID=ID)
+                               WHERE CHATGROUP_ID=%s) ''' % data['cid'])
+
 
     
     @db_factory_func

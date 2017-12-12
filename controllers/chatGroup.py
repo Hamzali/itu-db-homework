@@ -50,7 +50,6 @@ def students_group(student, cid):
 
     if request.method == 'GET':
         data = {"cid": cid, "sid": student["id"]}
-        checkIfMember = studentsOnChat.listMembersOfGroup(data)
         return json.dumps(studentsOnChat.listMembersOfGroup(data=data))
 
     elif request.method == 'PUT':
