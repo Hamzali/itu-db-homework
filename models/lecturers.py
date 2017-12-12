@@ -40,5 +40,6 @@ class LecturersModel(BaseModel):
     def updateLecturer(self, data):
         return self.update_by_id(data=data, _id=data['id'])
 
-    def removeLecturer(self, data):
-        return self.delete_by_id(_id=data['id'])
+    @db_factory_func
+    def removeLecturer(self, conn, data):
+        conn.execute("DELETE FROM LECTURERS WHERE id=%s" % data["id"])

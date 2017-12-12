@@ -43,7 +43,7 @@ def lecturer():
 
     elif request.method == 'DELETE':
         data = request.get_json()
-        lecturers.removeLecturer(data)
+        lecturers.removeLecturer(data=data)
         try:
             dep = (request.args["dep"])
             return json.dumps(lecturers.listLecturersOfDepartment(data=dep))
