@@ -26,5 +26,5 @@ class CourseBuildingModel(BaseModel):
             "building": "INT NOT NULL REFERENCES building(id)",
             "start_time": "INT CHECK (start_time >= 0 and start_time <= 2400) NOT NULL",
             "end_time": "INT CHECK (start_time >= 0 and start_time <= 2400) NOT NULL",
-            "day": "INT NOT NULL CHECK (day >= 0 and day <= 6)"
+            "day": "INT NOT NULL CHECK (day >= 0 and day <= 6) DEFAULT 0"
         }, primary_key=["course", "building", "day", "start_time"], init_table=init_table)

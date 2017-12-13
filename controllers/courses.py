@@ -24,9 +24,9 @@ def sync_courses():
         course_codes = soup.body.find_all("select")[0].contents
         days_to_int = {
             "Pazartesi": 0,
-            "Salı": 1,
-            "Çarşamba": 2,
-            "Perşembe": 3,
+            "Sali": 1,
+            "Carsamba": 2,
+            "Persembe": 3,
             "Cuma": 4
         }
         for opt in course_codes:
