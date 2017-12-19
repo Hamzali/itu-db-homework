@@ -11,3 +11,4 @@ itunder-backend-rest
    models
    server
    utils
+   errors

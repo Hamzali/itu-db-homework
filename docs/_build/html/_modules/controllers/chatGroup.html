@@ -1,0 +1,225 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>controllers.chatGroup &#8212; Itunder  documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  
+   
+
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../index.html" class="text-logo">ITUnder</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">itunder-backend-rest</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Module code</a></li>
+              
+              <li>controllers.chatGroup</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for controllers.chatGroup</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">request</span>
+<span class="kn">from</span> <span class="nn">constants</span> <span class="k">import</span> <span class="n">MOBIL_ITU_AUTH_URL</span>
+<span class="kn">from</span> <span class="nn">middlewares</span> <span class="k">import</span> <span class="n">auth_func</span>
+<span class="kn">from</span> <span class="nn">server</span> <span class="k">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">models.setupdb</span> <span class="k">import</span> <span class="n">student_model</span><span class="p">,</span> <span class="n">chatGroups</span><span class="p">,</span> <span class="n">studentsOnChat</span>
+
+<span class="n">private_route</span> <span class="o">=</span> <span class="n">auth_func</span><span class="p">(</span><span class="n">student_model</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="show_groups"><a class="viewcode-back" href="../../controllers.html#controllers.chatGroup.show_groups">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/chatgroups&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">show_groups</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET request show all the groups of student. &lt;br/&gt;</span>
+<span class="sd">    POST request allows student to form a group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Works</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">studentsOnChat</span><span class="o">.</span><span class="n">showGroupsOfStudent</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+    <span class="c1"># Works</span>
+    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+        <span class="n">chatGroups</span><span class="o">.</span><span class="n">createGroup</span><span class="p">({</span><span class="s2">&quot;group_admin&quot;</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+                                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                                <span class="s2">&quot;created_by&quot;</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]})</span>
+        
+        <span class="n">lastGroupCreatedBy</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">chatGroups</span><span class="o">.</span><span class="n">getLastGroupCreatedById</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">addMember</span><span class="p">({</span><span class="s2">&quot;chatgroup_id&quot;</span><span class="p">:</span> <span class="n">lastGroupCreatedBy</span><span class="p">,</span>
+                                  <span class="s2">&quot;student_id&quot;</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]})</span>
+
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">studentsOnChat</span><span class="o">.</span><span class="n">showGroupsOfStudent</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span></div>
+
+
+<div class="viewcode-block" id="students_group"><a class="viewcode-back" href="../../controllers.html#controllers.chatGroup.students_group">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/chatgroups/&lt;cid&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">students_group</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">cid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GET request will show the group to student</span>
+<span class="sd">    PUT request will add student to chatgroup.(Join)</span>
+<span class="sd">    DELETE request will remove student from chat.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">chatGroups</span><span class="o">.</span><span class="n">listGroups</span><span class="p">()[</span><span class="nb">int</span><span class="p">(</span><span class="n">cid</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;This group cannot be found in database!&quot;</span><span class="p">,</span> <span class="mi">404</span>
+
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="n">cid</span><span class="p">,</span> <span class="s2">&quot;sid&quot;</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]}</span>
+        <span class="n">checkIfMember</span> <span class="o">=</span> <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">listMembersOfGroup</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">studentsOnChat</span><span class="o">.</span><span class="n">listMembersOfGroup</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">))</span>
+
+    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;PUT&#39;</span><span class="p">:</span>
+        <span class="n">newData</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;chatgroup_id&quot;</span><span class="p">:</span> <span class="n">cid</span><span class="p">,</span> <span class="s2">&quot;student_id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])}</span>    
+        <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">addMember</span><span class="p">(</span><span class="n">newData</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="mi">200</span>
+
+    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
+        
+        <span class="n">newData</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">cid</span><span class="p">),</span> <span class="s2">&quot;sid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])}</span>
+        <span class="n">isAdminRes</span> <span class="o">=</span> <span class="n">chatGroups</span><span class="o">.</span><span class="n">checkIsAdmin</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">newData</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">isAdminRes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">cid</span><span class="p">):</span>
+            <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">removeMember</span><span class="p">(</span><span class="n">newData</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="mi">200</span>
+
+        <span class="k">return</span> <span class="s2">&quot;You can&#39;t not remove people when you are not admin!&quot;</span><span class="p">,</span> <span class="mi">404</span></div>
+
+
+<div class="viewcode-block" id="leave_chatgroup"><a class="viewcode-back" href="../../controllers.html#controllers.chatGroup.leave_chatgroup">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/chatgroups/&lt;cid&gt;/leave&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">leave_chatgroup</span><span class="p">(</span><span class="n">cid</span><span class="p">):</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cid</span><span class="p">),</span> <span class="s2">&quot;sid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])}</span>
+    <span class="n">checkIfMember</span> <span class="o">=</span> <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">listMembersOfGroup</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">checkIfMember</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;student_id&quot;</span><span class="p">]:</span>
+        <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">removeMember</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="mi">200</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Do not try to harm the balance of nature!&quot;</span><span class="p">,</span> <span class="mi">404</span></div>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2017, Hamza Ali TAS. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

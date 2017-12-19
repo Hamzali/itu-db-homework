@@ -29,6 +29,71 @@ models\.students module
     :show-inheritance:
 
 
+
+models\.buildings module
+------------------------
+
+.. automodule:: models.buildings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+models\.chatGroup module
+------------------------
+
+.. automodule:: models.chatGroup
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+models\.comments module
+-----------------------
+
+.. automodule:: models.comments
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+models\.faculties module
+------------------------
+
+.. automodule:: models.faculties
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+
+models\.homeworks module
+------------------------
+
+.. automodule:: models.homeworks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+
+models\.lecturers module
+------------------------
+
+.. automodule:: models.lecturers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+models\.studygroups module
+--------------------------
+
+.. automodule:: models.studygroups
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 Module contents
 ---------------
 

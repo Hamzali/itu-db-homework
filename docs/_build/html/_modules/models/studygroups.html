@@ -1,0 +1,232 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>models.studygroups &#8212; Itunder  documentation</title>
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  
+   
+
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../index.html" class="text-logo">ITUnder</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">itunder-backend-rest</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Module code</a></li>
+              
+              <li>models.studygroups</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <h1>Source code for models.studygroups</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Study Group  and Study Group - Student Model</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">models.base_model</span> <span class="k">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">db_factory_func</span>
+
+
+<div class="viewcode-block" id="StudyGroupModel"><a class="viewcode-back" href="../../models.html#models.studygroups.StudyGroupModel">[docs]</a><span class="k">class</span> <span class="nc">StudyGroupModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Study group database methods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_table</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Study Group database create method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;studygroup&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;SERIAL PRIMARY KEY&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;VARCHAR(20) NOT NULL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;VARCHAR(100)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;course&quot;</span><span class="p">:</span> <span class="s2">&quot;INT NOT NULL REFERENCES course(crn)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;study_date&quot;</span><span class="p">:</span> <span class="s2">&quot;TIMESTAMP NOT NULL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="s2">&quot;INT NOT NULL CHECK (duration &lt;= 10 and duration &gt;= 0)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;student_count&quot;</span><span class="p">:</span> <span class="s2">&quot;INT DEFAULT 0&quot;</span><span class="p">,</span>
+            <span class="c1"># &quot;location&quot;: &quot;&quot;,</span>
+            <span class="s2">&quot;created_by&quot;</span><span class="p">:</span> <span class="s2">&quot;CHAR(9) NOT NULL REFERENCES student(id)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;TIMESTAMP DEFAULT now()&quot;</span>
+        <span class="p">},</span> <span class="n">init_table</span><span class="o">=</span><span class="n">init_table</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StudyGroupModel.get_available_study_groups"><a class="viewcode-back" href="../../models.html#models.studygroups.StudyGroupModel.get_available_study_groups">[docs]</a>    <span class="nd">@db_factory_func</span>
+    <span class="k">def</span> <span class="nf">get_available_study_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">studentid</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">courseids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date_start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date_end</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds and returns all available study groups for a student from database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            SELECT * FROM studygroup WHERE </span>
+<span class="s2">            (not created_by = &#39;</span><span class="si">{}</span><span class="s2">&#39;) and </span>
+<span class="s2">            (course in (</span><span class="si">{}</span><span class="s2">)) and </span>
+<span class="s2">            (study_date between </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">) and </span>
+<span class="s2">            id NOT IN (</span>
+<span class="s2">                SELECT course from student_studygroup WHERE student = &#39;</span><span class="si">{}</span><span class="s2">&#39;</span>
+<span class="s2">            )</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">studentid</span><span class="p">,</span> <span class="nb">str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">,</span> <span class="n">courseids</span><span class="p">),</span> <span class="n">date_start</span><span class="p">,</span> <span class="n">date_end</span><span class="p">,</span> <span class="n">studentid</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="StudentStudyGroup"><a class="viewcode-back" href="../../models.html#models.studygroups.StudentStudyGroup">[docs]</a><span class="k">class</span> <span class="nc">StudentStudyGroup</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Relation between student and study groups.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_table</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Table create method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;student_studygroup&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;student&quot;</span><span class="p">:</span> <span class="s2">&quot;CHAR(9) NOT NULL REFERENCES student(id)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;studygroup&quot;</span><span class="p">:</span> <span class="s2">&quot;INT NOT NULL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;INT DEFAULT 0&quot;</span><span class="p">,</span>  <span class="c1"># 0 pending 1 accepted 2 rejected</span>
+            <span class="s2">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;TIMESTAMP DEFAULT now()&quot;</span>
+        <span class="p">},</span> <span class="n">primary_key</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;student&quot;</span><span class="p">,</span> <span class="s2">&quot;studygroup&quot;</span><span class="p">],</span> <span class="n">init_table</span><span class="o">=</span><span class="n">init_table</span><span class="p">)</span>
+
+<div class="viewcode-block" id="StudentStudyGroup.list_studygroup_students"><a class="viewcode-back" href="../../models.html#models.studygroups.StudentStudyGroup.list_studygroup_students">[docs]</a>    <span class="nd">@db_factory_func</span>
+    <span class="k">def</span> <span class="nf">list_studygroup_students</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">studygroupid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds and joins all the student data of a study group.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            SELECT id, username FROM student WHERE id IN </span>
+<span class="s2">            (SELECT student FROM studygroup JOIN student_studygroup ON(studygroup=id))</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">studygroupid</span><span class="p">))</span></div>
+            
+<div class="viewcode-block" id="StudentStudyGroup.list_studygroups_of_student"><a class="viewcode-back" href="../../models.html#models.studygroups.StudentStudyGroup.list_studygroups_of_student">[docs]</a>    <span class="nd">@db_factory_func</span>
+    <span class="k">def</span> <span class="nf">list_studygroups_of_student</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">studentid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds and joins all the student data of a study group.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            SELECT * FROM student_studygroup INNER JOIN studygroup ON studygroup=id WHERE student = &#39;</span><span class="si">{}</span><span class="s2">&#39;</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">studentid</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="StudentStudyGroup.set_student_status"><a class="viewcode-back" href="../../models.html#models.studygroups.StudentStudyGroup.set_student_status">[docs]</a>    <span class="k">def</span> <span class="nf">set_student_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">studygroup</span><span class="p">,</span> <span class="n">studentid</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes the status of a student.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            studygroup = </span><span class="si">{}</span><span class="s2"> and student = </span><span class="si">{}</span><span class="s2"></span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">studygroup</span><span class="p">,</span> <span class="n">studentid</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">},</span> <span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;student&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="StudentStudyGroup.find_student_studygroups"><a class="viewcode-back" href="../../models.html#models.studygroups.StudentStudyGroup.find_student_studygroups">[docs]</a>    <span class="k">def</span> <span class="nf">find_student_studygroups</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">studentid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds all the study groups created by a student.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;created_by=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">studentid</span><span class="p">))</span></div></div>
+</pre></div>
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2017, Hamza Ali TAS. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

@@ -5,8 +5,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
     <title>models package &#8212; Itunder  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -26,20 +35,94 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="server module" href="server.html" />
     <link rel="prev" title="middlewares module" href="middlewares.html" />
+  
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="server.html" title="server module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="middlewares.html" title="middlewares module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">itunder-backend-rest</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    index.html" class="text-logo">ITUnder</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">itunder-backend-rest</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="constants.html">constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html">controllers package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="middlewares.html">middlewares module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">models package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">server module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="errors.html">errors module</a></li>
+</ul>
+</li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+                <li><a href="modules.html">itunder-backend-rest</a></li>
+              
+              <li>models package</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
             
   <div class="section" id="models-package">
 <h1>models package<a class="headerlink" href="#models-package" title="Permalink to this headline">¶</a></h1>
@@ -48,65 +131,108 @@
 </div>
 <div class="section" id="module-models.base_model">
 <span id="models-base-model-module"></span><h2>models.base_model module<a class="headerlink" href="#module-models.base_model" title="Permalink to this headline">¶</a></h2>
+<p>Models initializer.</p>
 <dl class="class">
 <dt id="models.base_model.BaseModel">
-<em class="property">class </em><code class="descclassname">models.base_model.</code><code class="descname">BaseModel</code><span class="sig-paren">(</span><em>table</em>, <em>fields</em>, <em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">models.base_model.</code><code class="descname">BaseModel</code><span class="sig-paren">(</span><em>table</em>, <em>fields</em>, <em>primary_key=None</em>, <em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 <p>Base class for the data manipulation and database operations.</p>
 <dl class="method">
 <dt id="models.base_model.BaseModel.create">
-<code class="descname">create</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">create</code><span class="sig-paren">(</span><em>conn=None</em>, <em>data=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a and inserts a database row.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.delete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">delete</code><span class="sig-paren">(</span><em>conn=None</em>, <em>query=''</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a row with given query.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.delete_by_id">
-<code class="descname">delete_by_id</code><span class="sig-paren">(</span><em>_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.delete_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.delete_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">delete_by_id</code><span class="sig-paren">(</span><em>_id</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.delete_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.delete_by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a row with the given id.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.find">
-<code class="descname">find</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.find" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">find</code><span class="sig-paren">(</span><em>conn=None</em>, <em>query=''</em>, <em>limit=0</em>, <em>sort_by=''</em>, <em>return_cols=None</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds and retrieves data with given query from database.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.find_by_id">
 <code class="descname">find_by_id</code><span class="sig-paren">(</span><em>_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Finds one element from database with a given id.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.find_one">
 <code class="descname">find_one</code><span class="sig-paren">(</span><em>query=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find_one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find_one" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Finds one element from database with a given query.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>*args</em>, <em>**kw</em><span class="sig-paren">)</span><a class="headerlink" href="#models.base_model.BaseModel.update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">update</code><span class="sig-paren">(</span><em>conn=None</em>, <em>data=None</em>, <em>query=''</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds and updates the rows with given query.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.update_by_id">
-<code class="descname">update_by_id</code><span class="sig-paren">(</span><em>_id</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.update_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.update_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">update_by_id</code><span class="sig-paren">(</span><em>_id</em>, <em>data=None</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.update_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.update_by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a row with id.</p>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="models.base_model.db_factory_func">
+<code class="descclassname">models.base_model.</code><code class="descname">db_factory_func</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#db_factory_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.db_factory_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Database connection decorator.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="module-models.courses">
 <span id="models-courses-module"></span><h2>models.courses module<a class="headerlink" href="#module-models.courses" title="Permalink to this headline">¶</a></h2>
+<p>Course and Student - Course Model</p>
 <dl class="class">
 <dt id="models.courses.CourseModel">
 <em class="property">class </em><code class="descclassname">models.courses.</code><code class="descname">CourseModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#CourseModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.CourseModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Course CRUD operations class.</p>
+<dl class="method">
+<dt id="models.courses.CourseModel.course_exists">
+<code class="descname">course_exists</code><span class="sig-paren">(</span><em>courseid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#CourseModel.course_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.CourseModel.course_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a course exists.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="models.courses.StudentCourseModel">
+<em class="property">class </em><code class="descclassname">models.courses.</code><code class="descname">StudentCourseModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#StudentCourseModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.StudentCourseModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Building CRUD operations for courses.</p>
+<dl class="method">
+<dt id="models.courses.StudentCourseModel.delete_student_course">
+<code class="descname">delete_student_course</code><span class="sig-paren">(</span><em>studentid</em>, <em>courseid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#StudentCourseModel.delete_student_course"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.StudentCourseModel.delete_student_course" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a student course row with given ids.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.courses.StudentCourseModel.find_student_courses">
+<code class="descname">find_student_courses</code><span class="sig-paren">(</span><em>conn=None</em>, <em>studentid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#StudentCourseModel.find_student_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.StudentCourseModel.find_student_courses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all the courses of student with given student id.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="module-models.students">
 <span id="models-students-module"></span><h2>models.students module<a class="headerlink" href="#module-models.students" title="Permalink to this headline">¶</a></h2>
+<p>Student Model</p>
 <dl class="class">
 <dt id="models.students.StudentModel">
 <em class="property">class </em><code class="descclassname">models.students.</code><code class="descname">StudentModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/students.html#StudentModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.students.StudentModel" title="Permalink to this definition">¶</a></dt>
@@ -127,81 +253,335 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-models.buildings">
+<span id="models-buildings-module"></span><h2>models.buildings module<a class="headerlink" href="#module-models.buildings" title="Permalink to this headline">¶</a></h2>
+<p>Building and Course - Building Relation Model</p>
+<dl class="class">
+<dt id="models.buildings.BuildingModel">
+<em class="property">class </em><code class="descclassname">models.buildings.</code><code class="descname">BuildingModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/buildings.html#BuildingModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.buildings.BuildingModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Building CRUD operations for courses.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="models.buildings.CourseBuildingModel">
+<em class="property">class </em><code class="descclassname">models.buildings.</code><code class="descname">CourseBuildingModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/buildings.html#CourseBuildingModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.buildings.CourseBuildingModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Building CRUD operations for courses.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.chatGroup">
+<span id="models-chatgroup-module"></span><h2>models.chatGroup module<a class="headerlink" href="#module-models.chatGroup" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.chatGroup.ChatGroupsModel">
+<em class="property">class </em><code class="descclassname">models.chatGroup.</code><code class="descname">ChatGroupsModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Implements the chat feature</p>
+<dl class="method">
+<dt id="models.chatGroup.ChatGroupsModel.checkIsAdmin">
+<code class="descname">checkIsAdmin</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.checkIsAdmin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.checkIsAdmin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.ChatGroupsModel.createGroup">
+<code class="descname">createGroup</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.createGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.createGroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.ChatGroupsModel.getLastGroupCreatedById">
+<code class="descname">getLastGroupCreatedById</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.getLastGroupCreatedById"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.getLastGroupCreatedById" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.ChatGroupsModel.listGroups">
+<code class="descname">listGroups</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.listGroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.listGroups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.ChatGroupsModel.removeGroup">
+<code class="descname">removeGroup</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.removeGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.removeGroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.ChatGroupsModel.updateGroup">
+<code class="descname">updateGroup</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.updateGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.updateGroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="models.chatGroup.StudentsOnChatModel">
+<em class="property">class </em><code class="descclassname">models.chatGroup.</code><code class="descname">StudentsOnChatModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<dl class="method">
+<dt id="models.chatGroup.StudentsOnChatModel.addMember">
+<code class="descname">addMember</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.addMember"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.addMember" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.StudentsOnChatModel.checkIfMember">
+<code class="descname">checkIfMember</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.checkIfMember"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.checkIfMember" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.StudentsOnChatModel.listMembersOfGroup">
+<code class="descname">listMembersOfGroup</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.listMembersOfGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.listMembersOfGroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.StudentsOnChatModel.removeMember">
+<code class="descname">removeMember</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.removeMember"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.removeMember" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.chatGroup.StudentsOnChatModel.showGroupsOfStudent">
+<code class="descname">showGroupsOfStudent</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.showGroupsOfStudent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.showGroupsOfStudent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.comments">
+<span id="models-comments-module"></span><h2>models.comments module<a class="headerlink" href="#module-models.comments" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.comments.CommentsModel">
+<em class="property">class </em><code class="descclassname">models.comments.</code><code class="descname">CommentsModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/comments.html#CommentsModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.comments.CommentsModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Implements the comment model</p>
+<dl class="method">
+<dt id="models.comments.CommentsModel.addComment">
+<code class="descname">addComment</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/comments.html#CommentsModel.addComment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.comments.CommentsModel.addComment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.comments.CommentsModel.removeComment">
+<code class="descname">removeComment</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/comments.html#CommentsModel.removeComment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.comments.CommentsModel.removeComment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.comments.CommentsModel.showCommentsOfStudent">
+<code class="descname">showCommentsOfStudent</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/comments.html#CommentsModel.showCommentsOfStudent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.comments.CommentsModel.showCommentsOfStudent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.comments.CommentsModel.updateComment">
+<code class="descname">updateComment</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/comments.html#CommentsModel.updateComment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.comments.CommentsModel.updateComment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.faculties">
+<span id="models-faculties-module"></span><h2>models.faculties module<a class="headerlink" href="#module-models.faculties" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.faculties.FacultyModel">
+<em class="property">class </em><code class="descclassname">models.faculties.</code><code class="descname">FacultyModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/faculties.html#FacultyModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.faculties.FacultyModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Building CRUD operations for courses.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.homeworks">
+<span id="models-homeworks-module"></span><h2>models.homeworks module<a class="headerlink" href="#module-models.homeworks" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.homeworks.HomeworksModel">
+<em class="property">class </em><code class="descclassname">models.homeworks.</code><code class="descname">HomeworksModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Implements the homeworks model</p>
+<dl class="method">
+<dt id="models.homeworks.HomeworksModel.addHomework">
+<code class="descname">addHomework</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel.addHomework"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel.addHomework" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.homeworks.HomeworksModel.changeHomework">
+<code class="descname">changeHomework</code><span class="sig-paren">(</span><em>hwid</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel.changeHomework"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel.changeHomework" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.homeworks.HomeworksModel.getLastHwCreatedById">
+<code class="descname">getLastHwCreatedById</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel.getLastHwCreatedById"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel.getLastHwCreatedById" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.homeworks.HomeworksModel.listHomeworks">
+<code class="descname">listHomeworks</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel.listHomeworks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel.listHomeworks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.homeworks.HomeworksModel.removeHomework">
+<code class="descname">removeHomework</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel.removeHomework"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel.removeHomework" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="models.homeworks.HomeworksOfStudentModel">
+<em class="property">class </em><code class="descclassname">models.homeworks.</code><code class="descname">HomeworksOfStudentModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksOfStudentModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksOfStudentModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Implements the homeworks model</p>
+<dl class="method">
+<dt id="models.homeworks.HomeworksOfStudentModel.addHomeworkOfStudent">
+<code class="descname">addHomeworkOfStudent</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksOfStudentModel.addHomeworkOfStudent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksOfStudentModel.addHomeworkOfStudent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.homeworks.HomeworksOfStudentModel.removeStudentsHomework">
+<code class="descname">removeStudentsHomework</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksOfStudentModel.removeStudentsHomework"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksOfStudentModel.removeStudentsHomework" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.homeworks.HomeworksOfStudentModel.showHomeworks">
+<code class="descname">showHomeworks</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksOfStudentModel.showHomeworks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksOfStudentModel.showHomeworks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.lecturers">
+<span id="models-lecturers-module"></span><h2>models.lecturers module<a class="headerlink" href="#module-models.lecturers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="models.lecturers.LecturersModel">
+<em class="property">class </em><code class="descclassname">models.lecturers.</code><code class="descname">LecturersModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Lecturer table CRUD operations.</p>
+<dl class="method">
+<dt id="models.lecturers.LecturersModel.addLecturer">
+<code class="descname">addLecturer</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel.addLecturer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel.addLecturer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.lecturers.LecturersModel.listAllLecturers">
+<code class="descname">listAllLecturers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel.listAllLecturers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel.listAllLecturers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.lecturers.LecturersModel.listAllLecturersBySName">
+<code class="descname">listAllLecturersBySName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel.listAllLecturersBySName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel.listAllLecturersBySName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.lecturers.LecturersModel.listLecturersOfDepartment">
+<code class="descname">listLecturersOfDepartment</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel.listLecturersOfDepartment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel.listLecturersOfDepartment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.lecturers.LecturersModel.removeLecturer">
+<code class="descname">removeLecturer</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel.removeLecturer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel.removeLecturer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.lecturers.LecturersModel.showALecturer">
+<code class="descname">showALecturer</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel.showALecturer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel.showALecturer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="models.lecturers.LecturersModel.updateLecturer">
+<code class="descname">updateLecturer</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/lecturers.html#LecturersModel.updateLecturer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.lecturers.LecturersModel.updateLecturer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-models.studygroups">
+<span id="models-studygroups-module"></span><h2>models.studygroups module<a class="headerlink" href="#module-models.studygroups" title="Permalink to this headline">¶</a></h2>
+<p>Study Group  and Study Group - Student Model</p>
+<dl class="class">
+<dt id="models.studygroups.StudentStudyGroup">
+<em class="property">class </em><code class="descclassname">models.studygroups.</code><code class="descname">StudentStudyGroup</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudentStudyGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudentStudyGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Relation between student and study groups.</p>
+<dl class="method">
+<dt id="models.studygroups.StudentStudyGroup.find_student_studygroups">
+<code class="descname">find_student_studygroups</code><span class="sig-paren">(</span><em>studentid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudentStudyGroup.find_student_studygroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudentStudyGroup.find_student_studygroups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all the study groups created by a student.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.studygroups.StudentStudyGroup.list_studygroup_students">
+<code class="descname">list_studygroup_students</code><span class="sig-paren">(</span><em>conn=None</em>, <em>studygroupid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudentStudyGroup.list_studygroup_students"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudentStudyGroup.list_studygroup_students" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds and joins all the student data of a study group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.studygroups.StudentStudyGroup.list_studygroups_of_student">
+<code class="descname">list_studygroups_of_student</code><span class="sig-paren">(</span><em>conn=None</em>, <em>studentid=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudentStudyGroup.list_studygroups_of_student"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudentStudyGroup.list_studygroups_of_student" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds and joins all the student data of a study group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="models.studygroups.StudentStudyGroup.set_student_status">
+<code class="descname">set_student_status</code><span class="sig-paren">(</span><em>studygroup</em>, <em>studentid</em>, <em>status</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudentStudyGroup.set_student_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudentStudyGroup.set_student_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the status of a student.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="models.studygroups.StudyGroupModel">
+<em class="property">class </em><code class="descclassname">models.studygroups.</code><code class="descname">StudyGroupModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudyGroupModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudyGroupModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Study group database methods.</p>
+<dl class="method">
+<dt id="models.studygroups.StudyGroupModel.get_available_study_groups">
+<code class="descname">get_available_study_groups</code><span class="sig-paren">(</span><em>conn=None</em>, <em>studentid=''</em>, <em>courseids=None</em>, <em>date_start=None</em>, <em>date_end=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudyGroupModel.get_available_study_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudyGroupModel.get_available_study_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds and returns all available study groups for a student from database.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-models">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-models" title="Permalink to this headline">¶</a></h2>
-<p>Database abstraction and operation methods.</p>
 </div>
 </div>
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Itunder</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">itunder-backend-rest</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html">constants module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html">controllers package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="middlewares.html">middlewares module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">models package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="server.html">server module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">itunder-backend-rest</a><ul>
-      <li>Previous: <a href="middlewares.html" title="previous chapter">middlewares module</a></li>
-      <li>Next: <a href="server.html" title="next chapter">server module</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2017, Hamza Ali TAS.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
-      |
-      <a href="_sources/models.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
+            
+  <div class="footer-relations">
     
-
+      <div class="pull-left">
+        <a class="btn btn-default" href="middlewares.html" title="previous chapter (use the left arrow)">middlewares module</a>
+      </div>
     
+      <div class="pull-right">
+        <a class="btn btn-default" href="server.html" title="next chapter (use the right arrow)">server module</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="server.html" title="server module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="middlewares.html" title="middlewares module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >itunder-backend-rest</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2017, Hamza Ali TAS. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
   </body>
 </html>

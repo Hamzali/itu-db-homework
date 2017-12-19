@@ -5,8 +5,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="../../_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
     <title>controllers.students &#8212; Itunder  documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -24,20 +33,78 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+  
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body" role="main">
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+        <a href="
+    ../../index.html" class="text-logo">ITUnder</a>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Table Of Contents</h2>
+  </div>
+  <div class="sidebar-toc">
+    
+    
+      <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">itunder-backend-rest</a></li>
+</ul>
+
+    
+  </div>
+</div>
+        
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="../../search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="../../index.html">Docs</a></li>
+              
+                <li><a href="../index.html">Module code</a></li>
+              
+              <li>controllers.students</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
             
   <h1>Source code for controllers.students</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
@@ -46,136 +113,216 @@
 <span class="kn">from</span> <span class="nn">flask</span> <span class="k">import</span> <span class="n">request</span>
 
 <span class="kn">from</span> <span class="nn">constants</span> <span class="k">import</span> <span class="n">MOBIL_ITU_AUTH_URL</span>
-<span class="kn">from</span> <span class="nn">middlewares</span> <span class="k">import</span> <span class="n">private_route</span>
 
-<span class="kn">from</span> <span class="nn">server</span> <span class="k">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">auto</span>
-<span class="kn">from</span> <span class="nn">models.students</span> <span class="k">import</span> <span class="n">student_model</span>
+<span class="kn">from</span> <span class="nn">server</span> <span class="k">import</span> <span class="n">app</span>
+
+<span class="kn">from</span> <span class="nn">models.setupdb</span> <span class="k">import</span> <span class="n">student_model</span><span class="p">,</span> <span class="n">course_model</span><span class="p">,</span> <span class="n">student_course_model</span><span class="p">,</span> <span class="n">student_studygroup_model</span><span class="p">,</span> <span class="n">studygroup_model</span>
+
+<span class="kn">from</span> <span class="nn">middlewares</span> <span class="k">import</span> <span class="n">auth_func</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="k">import</span> <span class="n">int_to_datetime</span>
+<span class="kn">from</span> <span class="nn">errors</span> <span class="k">import</span> <span class="n">DataBaseException</span>
+
+<span class="n">private_route</span> <span class="o">=</span> <span class="n">auth_func</span><span class="p">(</span><span class="n">student_model</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="get_students"><a class="viewcode-back" href="../../controllers.html#controllers.students.get_students">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/students&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-<span class="nd">@auto</span><span class="o">.</span><span class="n">doc</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">get_students</span><span class="p">():</span>
+<div class="viewcode-block" id="one_student"><a class="viewcode-back" href="../../controllers.html#controllers.students.one_student">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/students&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;PUT&quot;</span><span class="p">])</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">one_student</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    GET request Fetches all the students. &lt;br/&gt;</span>
-<span class="sd">    POST request creates a student.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">student_model</span><span class="o">.</span><span class="n">find</span><span class="p">())</span>
-    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-        <span class="n">req_body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">student_model</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">req_body</span><span class="p">)</span></div>
-
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/students/&lt;sid&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">])</span>
-<span class="nd">@private_route</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">one_student</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">sid</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="sd">    :param student: current logged in student</span>
-<span class="sd">    :param sid: student id.</span>
-<span class="sd">    :return: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">sid</span> <span class="o">==</span> <span class="n">student</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">student</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">student_model</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">sid</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">return</span> <span class="s1">&#39;no student found with id </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">sid</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;PUT&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>        
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;PUT&quot;</span><span class="p">:</span>
         <span class="n">req_body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">student_model</span><span class="o">.</span><span class="n">update_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">sid</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">req_body</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">req_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;study_start&quot;</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;study_start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">int_to_datetime</span><span class="p">(</span><span class="n">req_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;study_start&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">req_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;study_end&quot;</span><span class="p">):</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;study_end&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">int_to_datetime</span><span class="p">(</span><span class="n">req_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;study_end&quot;</span><span class="p">))</span>
+        
+        <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">updated_keys</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">updated_keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">student_model</span><span class="o">.</span><span class="n">update_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">updated_keys</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;student is updated.&quot;</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">DataBaseException</span> <span class="k">as</span> <span class="n">db_error</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;error not updated&quot;</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">db_error</span><span class="o">.</span><span class="n">message</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">),</span> <span class="mi">404</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;something is wrong&quot;</span><span class="p">,</span> <span class="mi">500</span></div>
 
 
-<div class="viewcode-block" id="student_login"><a class="viewcode-back" href="../../controllers.html#controllers.students.student_login">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/auth&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="student_login"><a class="viewcode-back" href="../../controllers.html#controllers.students.student_login">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/auth&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">student_login</span><span class="p">():</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Makes authentication with ITU username, password and pin number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="c1"># Send request to itu mobil api.</span>
         <span class="n">req_body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">MOBIL_ITU_AUTH_URL</span> <span class="o">%</span> <span class="p">(</span><span class="n">req_body</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">],</span> <span class="n">req_body</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">],</span> <span class="n">req_body</span><span class="p">[</span><span class="s1">&#39;pin&#39;</span><span class="p">])</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">req_body</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">MOBIL_ITU_AUTH_URL</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="n">req_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">),</span>
+            <span class="n">req_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">),</span>
+            <span class="n">req_body</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;pin&quot;</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">req_exc</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">req_exc</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;auth service is not available right now&quot;</span><span class="p">,</span> <span class="mi">500</span>
         <span class="c1"># Fail if the result is not available.</span>
-        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">200</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s1">&#39;login fail!&#39;</span><span class="p">,</span> <span class="mi">401</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;login failed, check credentials!&quot;</span><span class="p">,</span> <span class="mi">401</span>
         <span class="c1"># Parse the response.</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;Session&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;Session&quot;</span><span class="p">]</span>
         <span class="c1"># Try to update the student token.</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">student_model</span><span class="o">.</span><span class="n">update_by_id</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;ITUNumber&quot;</span><span class="p">]),</span> <span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;Token&quot;</span><span class="p">])})</span>
-        <span class="c1"># If it fails create new student.</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">student_model</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
-                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;ITUNumber&#39;</span><span class="p">]),</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;FirstName&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;LastName&#39;</span><span class="p">],</span>
-                <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;UserName&#39;</span><span class="p">],</span>
-                <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;ITUMail&#39;</span><span class="p">],</span>
-                <span class="s1">&#39;faculty&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Token&#39;</span><span class="p">]</span>
-            <span class="p">})</span>
-        <span class="c1"># Send the token to the user.</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;Token&#39;</span><span class="p">]})</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">student_model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                <span class="n">query</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id=&#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;ITUNumber&quot;</span><span class="p">])),</span>
+                <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;Token&quot;</span><span class="p">])},</span> <span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;token&quot;</span><span class="p">])</span>
+            <span class="c1"># If it fails create new student.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">token</span><span class="p">:</span>
+                <span class="n">student_model</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;ITUNumber&quot;</span><span class="p">]),</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;FirstName&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;LastName&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;UserName&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;ITUMail&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;faculty&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;Token&quot;</span><span class="p">]</span>
+                <span class="p">})</span>
+            <span class="c1"># Send the token to the user.</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;Token&quot;</span><span class="p">]})</span>
+        <span class="k">except</span> <span class="n">DataBaseException</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;login failed, try again!&quot;</span><span class="p">,</span> <span class="mi">404</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;something went wrong&quot;</span><span class="p">,</span> <span class="mi">500</span></div>
 
 
-<div class="viewcode-block" id="student_logout"><a class="viewcode-back" href="../../controllers.html#controllers.students.student_logout">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/logout&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="student_logout"><a class="viewcode-back" href="../../controllers.html#controllers.students.student_logout">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">student_logout</span><span class="p">():</span>
-    <span class="n">req_body</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-    <span class="n">student_model</span><span class="o">.</span><span class="n">remove_token</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">req_body</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">])</span></div>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logs out the logged in user.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">student_model</span><span class="o">.</span><span class="n">remove_token</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;token&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="s2">&quot;logged out!&quot;</span>
+    <span class="k">except</span> <span class="n">DataBaseException</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;could not log out!&quot;</span><span class="p">,</span> <span class="mi">500</span></div>
+
+
+<div class="viewcode-block" id="list_student_courses"><a class="viewcode-back" href="../../controllers.html#controllers.students.list_student_courses">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/students/courses&quot;</span><span class="p">)</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">list_student_courses</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lists all the courses of a student.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">student_course_model</span><span class="o">.</span><span class="n">find_student_courses</span><span class="p">(</span><span class="n">studentid</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DataBaseException</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;no course found lazy boy&quot;</span><span class="p">,</span> <span class="mi">404</span></div>
+
+
+<div class="viewcode-block" id="enroll_course"><a class="viewcode-back" href="../../controllers.html#controllers.students.enroll_course">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/students/courses/&lt;courseid&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">])</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">enroll_course</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">courseid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enrolls or leaves a course with given CRN.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">courseid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">courseid</span><span class="p">)</span>
+    <span class="n">course</span> <span class="o">=</span> <span class="n">course_model</span><span class="o">.</span><span class="n">course_exists</span><span class="p">(</span><span class="n">courseid</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">course</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">student_course_model</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;student&quot;</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;course&quot;</span><span class="p">:</span> <span class="n">courseid</span>
+                <span class="p">})</span>
+                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">course</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">DataBaseException</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;you are already enrolled&quot;</span><span class="p">,</span> <span class="mi">403</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;DELETE&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">student_course_model</span><span class="o">.</span><span class="n">delete_student_course</span><span class="p">(</span>
+                    <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">courseid</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">course</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">DataBaseException</span> <span class="k">as</span> <span class="n">db_error</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">db_error</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;could not be deleted!&quot;</span><span class="p">,</span> <span class="mi">404</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;course does not exists&quot;</span><span class="p">,</span> <span class="mi">404</span></div>
+
+
+<div class="viewcode-block" id="list_student_studygroups"><a class="viewcode-back" href="../../controllers.html#controllers.students.list_student_studygroups">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/students/studygroups&quot;</span><span class="p">)</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">list_student_studygroups</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List all the created study groups.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">student_studygroup_model</span><span class="o">.</span><span class="n">find_student_studygroups</span><span class="p">(</span>
+            <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">DataBaseException</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;no studygroup found lazy boy&quot;</span><span class="p">,</span> <span class="mi">404</span></div>
+
+
+<div class="viewcode-block" id="join_study_group"><a class="viewcode-back" href="../../controllers.html#controllers.students.join_study_group">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/students/studygroups/&lt;studygroupid&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="nd">@private_route</span>
+<span class="k">def</span> <span class="nf">join_study_group</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">studygroupid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Joins a study group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">studygroup_model</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">studygroupid</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">group</span><span class="p">:</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">group</span><span class="p">[</span><span class="s2">&quot;created_by&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="s2">&quot;this group created by you can not join to dis!&quot;</span><span class="p">,</span> <span class="mi">403</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">student_studygroup_model</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;student&quot;</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;studygroup&quot;</span><span class="p">:</span> <span class="n">studygroupid</span>
+                <span class="p">})</span>
+        <span class="k">return</span> <span class="s2">&quot;joined studygroup&quot;</span>
+    <span class="k">except</span> <span class="n">DataBaseException</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;failed to join studygroup&quot;</span><span class="p">,</span> <span class="mi">404</span></div>
 </pre></div>
 
           </div>
+            
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../../index.html">Itunder</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">itunder-backend-rest</a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../../index.html">Documentation overview</a><ul>
-  <li><a href="../index.html">Module code</a><ul>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
+        <div class="clearfix"></div>
     </div>
-    <div class="footer">
-      &copy;2017, Hamza Ali TAS.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Itunder  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="../../_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2017, Hamza Ali TAS. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
   </body>
 </html>
