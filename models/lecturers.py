@@ -18,12 +18,17 @@ class LecturersModel(BaseModel):
             "department_id": '''INT NOT NULL REFERENCES faculty(id)''',
             "email": "VARCHAR(100)"
         }, init_table=init_table)
-    
 
     def addLecturer(self, data):
+        """
+        Adds new lecturer
+        """
         return self.create(data=data)
 
     def listAllLecturers(self):
+        """
+        Returns all lecturers
+        """
         return self.find(return_cols=["fname", "sname", "id"],
                          sort_by="")
     
@@ -32,9 +37,15 @@ class LecturersModel(BaseModel):
 
     @db_factory_func
     def listLecturersOfDepartment(self, conn, data):
+        """
+        Returns lecturers of specific department
+        """
         return conn.execute('''SELECT * from lecturers where department_id= %s''' % data)
 
     def showALecturer(self, data):
+        """
+        Returns information of specific lecturer
+        """
         return self.find(query="id = %s" % data['id'])
 
     def updateLecturer(self, data):
@@ -42,4 +53,7 @@ class LecturersModel(BaseModel):
 
     @db_factory_func
     def removeLecturer(self, conn, data):
+        """
+        Removes lecturer        
+        """
         conn.execute("DELETE FROM LECTURERS WHERE id=%s" % data["id"])

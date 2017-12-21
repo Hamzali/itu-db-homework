@@ -14,14 +14,20 @@ class CommentsModel(BaseModel):
             "made_at": "TIMESTAMP DEFAULT now()"}, init_table=init_table)
     
     def addComment(self, data):
+        """
+        Adds comment to given student
+        """
         return self.create(data=data)
     
     def showCommentsOfStudent(self, data):
+        """
+        Returns a dictionary that containing comments of student
+        """
         return self.find(return_cols=["comment", "id", "comment_by"],
                          query="comment_to = '%(comment_to)s'" % data)
 
     def updateComment(self, data):
         return self.update(query="id = %(id)s" % data, data=data)
 
-    def removeComment(self, data):
+    def removeComment(self, data):        
         return self.delete_by_id(_id=data['id'])

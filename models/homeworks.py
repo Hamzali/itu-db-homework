@@ -17,19 +17,34 @@ class HomeworksModel(BaseModel):
         }, init_table=init_table)
     
     def addHomework(self, data):
+        """
+        Adds new homework
+        """
         return self.create(data=data)
 
     def listHomeworks(self, data):
+        """
+        Returns a dictionary of homeworks by course identities
+        """
         return self.find(return_cols=["id", "crn"])
 
     def changeHomework(self, hwid, data):
+        """
+        Alters homework information by id
+        """
         self.update(query="id = %i" % hwid, data=data)
-
+    
     def removeHomework(self, data):
+        """
+        Removes homework by id
+        """
         return self.delete(data)
 
     @db_factory_func
     def getLastHwCreatedById(self, conn, data):
+        """
+        Returns the last homework's id of given student
+        """
         return conn.execute('''SELECT id from homeworks WHERE created_by = '%s'
                                 ORDER BY id DESC LIMIT 1''' % data)
 
