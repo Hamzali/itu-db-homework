@@ -13,8 +13,8 @@ private_route = auth_func(student_model)
 @private_route
 def show_groups(student):
     """
-    GET request show all the groups of student. <br/>
-    POST request allows student to form a group.
+    GET request show all the groups of student. \n
+    POST request allows student to form a group. Returns the new list of student's groups
     """
     # Works
     if request.method == 'GET':
@@ -37,9 +37,9 @@ def show_groups(student):
 @private_route
 def students_group(student, cid):
     """
-    GET request will show the group to student
-    PUT request will add student to chatgroup.(Join)
-    DELETE request will remove student from chat.
+    GET request will show the group to student\n
+    PUT request will add student to chatgroup. Returns a JSON object of members of group including the new one.\n
+    DELETE request will remove student from chat. Returns a JSON object of members of group excluding the new one.
     """
 
     try:
@@ -73,6 +73,9 @@ def students_group(student, cid):
 @app.route("/chatgroups/<cid>/leave", methods=["GET"])
 @private_route
 def leave_chatgroup(cid):
+    """
+        Leave room endpoint
+    """
 
     data = {"cid": str(cid), "sid": str(student["id"])}
     checkIfMember = studentsOnChat.listMembersOfGroup(data)

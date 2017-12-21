@@ -112,7 +112,8 @@
 
 <div class="viewcode-block" id="ChatGroupsModel"><a class="viewcode-back" href="../../models.html#models.chatGroup.ChatGroupsModel">[docs]</a><span class="k">class</span> <span class="nc">ChatGroupsModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Implements the chat feature</span>
+<span class="sd">    Implements the chat feature\n</span>
+<span class="sd">    It just keeps chatgroups and information related to table, anything about membership is not stored in this model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_table</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;chatgroups&quot;</span><span class="p">,</span> <span class="p">{</span>
@@ -148,6 +149,9 @@
 <span class="s1">                                ORDER BY created_at DESC&#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span></div></div>
 
 <div class="viewcode-block" id="StudentsOnChatModel"><a class="viewcode-back" href="../../models.html#models.chatGroup.StudentsOnChatModel">[docs]</a><span class="k">class</span> <span class="nc">StudentsOnChatModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Keeps information about chatgroups</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_table</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;studentsonchat&quot;</span><span class="p">,</span> <span class="p">{</span>
             <span class="s2">&quot;chatgroup_id&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;&#39;INTEGER NOT NULL REFERENCES chatgroups(id)</span>
@@ -160,18 +164,17 @@
 <div class="viewcode-block" id="StudentsOnChatModel.addMember"><a class="viewcode-back" href="../../models.html#models.chatGroup.StudentsOnChatModel.addMember">[docs]</a>    <span class="k">def</span> <span class="nf">addMember</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
     
-    <span class="c1"># TODO: Join it with students table and get the names.</span>
 <div class="viewcode-block" id="StudentsOnChatModel.listMembersOfGroup"><a class="viewcode-back" href="../../models.html#models.chatGroup.StudentsOnChatModel.listMembersOfGroup">[docs]</a>    <span class="k">def</span> <span class="nf">listMembersOfGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;chatgroup_id = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">],</span>
                          <span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;student_id&#39;</span><span class="p">],</span> <span class="n">sort_by</span><span class="o">=</span><span class="s1">&#39;student_id&#39;</span><span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="StudentsOnChatModel.showGroupsOfStudent"><a class="viewcode-back" href="../../models.html#models.chatGroup.StudentsOnChatModel.showGroupsOfStudent">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">showGroupsOfStudent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT chatgroup_id, name, group_admin FROM chatgroups JOIN studentsonchat </span>
 <span class="s1">                        ON(chatgroups.id=studentsonchat.chatgroup_id)</span>
 <span class="s1">                        WHERE student_id = </span><span class="si">%s</span><span class="s1">&#39;&#39;&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
-    
+
 <div class="viewcode-block" id="StudentsOnChatModel.checkIfMember"><a class="viewcode-back" href="../../models.html#models.chatGroup.StudentsOnChatModel.checkIfMember">[docs]</a>    <span class="k">def</span> <span class="nf">checkIfMember</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;chatgroup_id = </span><span class="si">%(cid)s</span><span class="s1"> </span>
 <span class="s1">                         AND student_id = </span><span class="si">%(sid)s</span><span class="s1">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>

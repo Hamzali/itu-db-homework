@@ -278,6 +278,7 @@
 <em class="property">class </em><code class="descclassname">models.chatGroup.</code><code class="descname">ChatGroupsModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
 <p>Implements the chat feature</p>
+<p>It just keeps chatgroups and information related to table, anything about membership is not stored in this model</p>
 <dl class="method">
 <dt id="models.chatGroup.ChatGroupsModel.checkIsAdmin">
 <code class="descname">checkIsAdmin</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.checkIsAdmin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.checkIsAdmin" title="Permalink to this definition">¶</a></dt>
@@ -314,6 +315,7 @@
 <dt id="models.chatGroup.StudentsOnChatModel">
 <em class="property">class </em><code class="descclassname">models.chatGroup.</code><code class="descname">StudentsOnChatModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
+<p>Keeps information about chatgroups</p>
 <dl class="method">
 <dt id="models.chatGroup.StudentsOnChatModel.addMember">
 <code class="descname">addMember</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.addMember"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.addMember" title="Permalink to this definition">¶</a></dt>
@@ -389,6 +391,7 @@
 <em class="property">class </em><code class="descclassname">models.homeworks.</code><code class="descname">HomeworksModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
 <p>Implements the homeworks model</p>
+<p>Keeps track of homeworks and their details but owner of homework is unknown</p>
 <dl class="method">
 <dt id="models.homeworks.HomeworksModel.addHomework">
 <code class="descname">addHomework</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel.addHomework"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel.addHomework" title="Permalink to this definition">¶</a></dt>
@@ -420,7 +423,8 @@
 <dt id="models.homeworks.HomeworksOfStudentModel">
 <em class="property">class </em><code class="descclassname">models.homeworks.</code><code class="descname">HomeworksOfStudentModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksOfStudentModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksOfStudentModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
-<p>Implements the homeworks model</p>
+<p>Implements the homeworks of student model</p>
+<p>Allows us to see which one has which homeworks</p>
 <dl class="method">
 <dt id="models.homeworks.HomeworksOfStudentModel.addHomeworkOfStudent">
 <code class="descname">addHomeworkOfStudent</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksOfStudentModel.addHomeworkOfStudent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksOfStudentModel.addHomeworkOfStudent" title="Permalink to this definition">¶</a></dt>

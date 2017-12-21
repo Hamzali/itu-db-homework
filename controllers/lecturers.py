@@ -12,10 +12,10 @@ from models.setupdb import lecturers
 def lecturer():
     
     """
-    GET request shows lecturers of given department
-    POST request creates new lecturer
-    DELETE request deletes a lecturer
-    PUT request updates the lecturer
+    GET request shows lecturers of given department\n
+    POST request creates new lecturer\n
+    DELETE request deletes a lecturer\n
+    PUT request updates the lecturer\n
     """
     # Works on frontend
     if request.method == 'GET':

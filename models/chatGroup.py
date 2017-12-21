@@ -3,7 +3,8 @@ from models.base_model import BaseModel, db_factory_func
 
 class ChatGroupsModel(BaseModel):
     """
-    Implements the chat feature
+    Implements the chat feature\n
+    It just keeps chatgroups and information related to table, anything about membership is not stored in this model
     """
     def __init__(self, init_table=False):
         super().__init__("chatgroups", {
@@ -39,6 +40,9 @@ class ChatGroupsModel(BaseModel):
                                 ORDER BY created_at DESC''' % data)
 
 class StudentsOnChatModel(BaseModel):
+    """
+    Keeps information about chatgroups
+    """
     def __init__(self, init_table=False):
         super().__init__("studentsonchat", {
             "chatgroup_id": '''INTEGER NOT NULL REFERENCES chatgroups(id)
@@ -51,18 +55,17 @@ class StudentsOnChatModel(BaseModel):
     def addMember(self, data):
         self.create(data=data)
     
-    # TODO: Join it with students table and get the names.
     def listMembersOfGroup(self, data):
         return self.find(query="chatgroup_id = %s" % data['cid'],
                          return_cols=['student_id'], sort_by='student_id')
 
-    
+
     @db_factory_func
     def showGroupsOfStudent(self, conn, data):
         return conn.execute('''SELECT chatgroup_id, name, group_admin FROM chatgroups JOIN studentsonchat 
                         ON(chatgroups.id=studentsonchat.chatgroup_id)
                         WHERE student_id = %s''', data)
-    
+
     def checkIfMember(self, data):
         return self.find(query='''chatgroup_id = %(cid)s 
                          AND student_id = %(sid)s''' % data, limit=1,

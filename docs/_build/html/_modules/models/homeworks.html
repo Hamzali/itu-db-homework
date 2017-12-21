@@ -112,7 +112,8 @@
 
 <div class="viewcode-block" id="HomeworksModel"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksModel">[docs]</a><span class="k">class</span> <span class="nc">HomeworksModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Implements the homeworks model</span>
+<span class="sd">    Implements the homeworks model\n</span>
+<span class="sd">    Keeps track of homeworks and their details but owner of homework is unknown</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_table</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;homeworks&quot;</span><span class="p">,</span> <span class="p">{</span>
@@ -144,7 +145,8 @@
 
 <div class="viewcode-block" id="HomeworksOfStudentModel"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksOfStudentModel">[docs]</a><span class="k">class</span> <span class="nc">HomeworksOfStudentModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Implements the homeworks model</span>
+<span class="sd">    Implements the homeworks of student model\n</span>
+<span class="sd">    Allows us to see which one has which homeworks</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_table</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;hwofstudents&quot;</span><span class="p">,</span> <span class="p">{</span>

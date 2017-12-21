@@ -236,21 +236,22 @@
 <dl class="function">
 <dt id="controllers.chatGroup.leave_chatgroup">
 <code class="descclassname">controllers.chatGroup.</code><code class="descname">leave_chatgroup</code><span class="sig-paren">(</span><em>cid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/chatGroup.html#leave_chatgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.chatGroup.leave_chatgroup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Leave room endpoint</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.chatGroup.show_groups">
 <code class="descclassname">controllers.chatGroup.</code><code class="descname">show_groups</code><span class="sig-paren">(</span><em>student</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/chatGroup.html#show_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.chatGroup.show_groups" title="Permalink to this definition">¶</a></dt>
-<dd><p>GET request show all the groups of student. &lt;br/&gt;
-POST request allows student to form a group.</p>
+<dd><p>GET request show all the groups of student.</p>
+<p>POST request allows student to form a group. Returns the new list of student’s groups</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.chatGroup.students_group">
 <code class="descclassname">controllers.chatGroup.</code><code class="descname">students_group</code><span class="sig-paren">(</span><em>student</em>, <em>cid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/chatGroup.html#students_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.chatGroup.students_group" title="Permalink to this definition">¶</a></dt>
-<dd><p>GET request will show the group to student
-PUT request will add student to chatgroup.(Join)
-DELETE request will remove student from chat.</p>
+<dd><p>GET request will show the group to student</p>
+<p>PUT request will add student to chatgroup. Returns a JSON object of members of group including the new one.</p>
+<p>DELETE request will remove student from chat. Returns a JSON object of members of group excluding the new one.</p>
 </dd></dl>
 
 </div>
@@ -259,14 +260,15 @@ DELETE request will remove student from chat.</p>
 <dl class="function">
 <dt id="controllers.comments.comments">
 <code class="descclassname">controllers.comments.</code><code class="descname">comments</code><span class="sig-paren">(</span><em>student</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/comments.html#comments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.comments.comments" title="Permalink to this definition">¶</a></dt>
-<dd><p>POST request will add comment to student
-DELETE request will remove the comment</p>
+<dd><p>POST request will add comment to student</p>
+<p>DELETE request will remove the comment</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.comments.getCommentsOfStudent">
 <code class="descclassname">controllers.comments.</code><code class="descname">getCommentsOfStudent</code><span class="sig-paren">(</span><em>sid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/comments.html#getCommentsOfStudent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.comments.getCommentsOfStudent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns a JSON containing comments of specific student</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-controllers.homeworks">
@@ -274,7 +276,11 @@ DELETE request will remove the comment</p>
 <dl class="function">
 <dt id="controllers.homeworks.homework">
 <code class="descclassname">controllers.homeworks.</code><code class="descname">homework</code><span class="sig-paren">(</span><em>student</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/homeworks.html#homework"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.homeworks.homework" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>GET Request returns a JSON containing the homeworks of student</p>
+<p>POST Request adds a new homework to student. Return a JSON containing the homeworks of student including new added</p>
+<p>PUT Request alters the homework’s information</p>
+<p>DELETE Request removes homework from student</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-controllers.lecturers">
@@ -282,10 +288,10 @@ DELETE request will remove the comment</p>
 <dl class="function">
 <dt id="controllers.lecturers.lecturer">
 <code class="descclassname">controllers.lecturers.</code><code class="descname">lecturer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/lecturers.html#lecturer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.lecturers.lecturer" title="Permalink to this definition">¶</a></dt>
-<dd><p>GET request shows lecturers of given department
-POST request creates new lecturer
-DELETE request deletes a lecturer
-PUT request updates the lecturer</p>
+<dd><p>GET request shows lecturers of given department</p>
+<p>POST request creates new lecturer</p>
+<p>DELETE request deletes a lecturer</p>
+<p>PUT request updates the lecturer</p>
 </dd></dl>
 
 <dl class="function">

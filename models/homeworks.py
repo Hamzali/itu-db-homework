@@ -3,7 +3,8 @@ from models.base_model import BaseModel, db_factory_func
 
 class HomeworksModel(BaseModel):
     """
-    Implements the homeworks model
+    Implements the homeworks model\n
+    Keeps track of homeworks and their details but owner of homework is unknown
     """
     def __init__(self, init_table=False):
         super().__init__("homeworks", {
@@ -35,7 +36,8 @@ class HomeworksModel(BaseModel):
 
 class HomeworksOfStudentModel(BaseModel):
     """
-    Implements the homeworks model
+    Implements the homeworks of student model\n
+    Allows us to see which one has which homeworks
     """
     def __init__(self, init_table=False):
         super().__init__("hwofstudents", {

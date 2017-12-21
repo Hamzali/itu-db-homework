@@ -121,7 +121,7 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">comments</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    POST request will add comment to student</span>
+<span class="sd">    POST request will add comment to student\n</span>
 <span class="sd">    DELETE request will remove the comment</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -139,6 +139,9 @@
 
 <div class="viewcode-block" id="getCommentsOfStudent"><a class="viewcode-back" href="../../controllers.html#controllers.comments.getCommentsOfStudent">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/comments/&lt;sid&gt;&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">getCommentsOfStudent</span><span class="p">(</span><span class="n">sid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a JSON containing comments of specific student</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;comment_to&quot;</span><span class="p">:</span> <span class="n">sid</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">commentsTable</span><span class="o">.</span><span class="n">showCommentsOfStudent</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></div>

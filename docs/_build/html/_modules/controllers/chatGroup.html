@@ -122,8 +122,8 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">show_groups</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    GET request show all the groups of student. &lt;br/&gt;</span>
-<span class="sd">    POST request allows student to form a group.</span>
+<span class="sd">    GET request show all the groups of student. \n</span>
+<span class="sd">    POST request allows student to form a group. Returns the new list of student&#39;s groups</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Works</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
@@ -146,9 +146,9 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">students_group</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">cid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    GET request will show the group to student</span>
-<span class="sd">    PUT request will add student to chatgroup.(Join)</span>
-<span class="sd">    DELETE request will remove student from chat.</span>
+<span class="sd">    GET request will show the group to student\n</span>
+<span class="sd">    PUT request will add student to chatgroup. Returns a JSON object of members of group including the new one.\n</span>
+<span class="sd">    DELETE request will remove student from chat. Returns a JSON object of members of group excluding the new one.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>
@@ -182,6 +182,9 @@
 <div class="viewcode-block" id="leave_chatgroup"><a class="viewcode-back" href="../../controllers.html#controllers.chatGroup.leave_chatgroup">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/chatgroups/&lt;cid&gt;/leave&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">leave_chatgroup</span><span class="p">(</span><span class="n">cid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Leave room endpoint</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cid</span><span class="p">),</span> <span class="s2">&quot;sid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])}</span>
     <span class="n">checkIfMember</span> <span class="o">=</span> <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">listMembersOfGroup</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>

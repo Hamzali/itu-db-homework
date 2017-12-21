@@ -12,7 +12,7 @@ private_route = auth_func(student_model)
 @private_route
 def comments(student):
     """
-    POST request will add comment to student
+    POST request will add comment to student\n
     DELETE request will remove the comment
     """
 
@@ -30,6 +30,9 @@ def comments(student):
 
 @app.route("/api/comments/<sid>", methods=['GET'])
 def getCommentsOfStudent(sid):
+    """
+        Returns a JSON containing comments of specific student
+    """
     if request.method == 'GET':
         data = {"comment_to": sid}
         return json.dumps(commentsTable.showCommentsOfStudent(data))

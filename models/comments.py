@@ -3,7 +3,7 @@ from models.base_model import BaseModel
 
 class CommentsModel(BaseModel):
     """
-    Implements the comment model 
+    Implements the comment model
     """
     def __init__(self, init_table=False):
         super().__init__("comments", {
