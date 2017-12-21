@@ -74,9 +74,8 @@ def students_group(student, cid):
 @private_route
 def leave_chatgroup(cid):
     """
-        Leave room endpoint
+        Leave room endpoint 
     """
-
     data = {"cid": str(cid), "sid": str(student["id"])}
     checkIfMember = studentsOnChat.listMembersOfGroup(data)
 

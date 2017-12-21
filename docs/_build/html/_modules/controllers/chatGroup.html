@@ -183,9 +183,8 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">leave_chatgroup</span><span class="p">(</span><span class="n">cid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Leave room endpoint</span>
+<span class="sd">        Leave room endpoint </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cid</span><span class="p">),</span> <span class="s2">&quot;sid&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])}</span>
     <span class="n">checkIfMember</span> <span class="o">=</span> <span class="n">studentsOnChat</span><span class="o">.</span><span class="n">listMembersOfGroup</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 

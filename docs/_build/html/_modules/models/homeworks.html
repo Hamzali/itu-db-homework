@@ -126,19 +126,34 @@
         <span class="p">},</span> <span class="n">init_table</span><span class="o">=</span><span class="n">init_table</span><span class="p">)</span>
     
 <div class="viewcode-block" id="HomeworksModel.addHomework"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksModel.addHomework">[docs]</a>    <span class="k">def</span> <span class="nf">addHomework</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds new homework test</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="HomeworksModel.listHomeworks"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksModel.listHomeworks">[docs]</a>    <span class="k">def</span> <span class="nf">listHomeworks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of homeworks by course identities</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;crn&quot;</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="HomeworksModel.changeHomework"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksModel.changeHomework">[docs]</a>    <span class="k">def</span> <span class="nf">changeHomework</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hwid</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Alters homework information by id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;id = </span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">hwid</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
-
+    
 <div class="viewcode-block" id="HomeworksModel.removeHomework"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksModel.removeHomework">[docs]</a>    <span class="k">def</span> <span class="nf">removeHomework</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes homework by id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="HomeworksModel.getLastHwCreatedById"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksModel.getLastHwCreatedById">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">getLastHwCreatedById</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the last homework&#39;s id of given student</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT id from homeworks WHERE created_by = &#39;</span><span class="si">%s</span><span class="s1">&#39;</span>
 <span class="s1">                                ORDER BY id DESC LIMIT 1&#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span></div></div>
 

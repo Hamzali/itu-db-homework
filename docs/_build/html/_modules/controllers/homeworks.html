@@ -120,17 +120,15 @@
 <div class="viewcode-block" id="homework"><a class="viewcode-back" href="../../controllers.html#controllers.homeworks.homework">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/homeworks&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">])</span>
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">homework</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
-
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        GET Request returns a JSON containing the homeworks of student\n</span>
-<span class="sd">        POST Request adds a new homework to student. Return a JSON containing the homeworks of student including new added\n</span>
-<span class="sd">        PUT Request alters the homework&#39;s information\n</span>
-<span class="sd">        DELETE Request removes homework from student\n</span>
+<span class="sd">    GET Request returns a JSON containing the homeworks of student\n</span>
+<span class="sd">    POST Request adds a new homework to student. Return a JSON containing the homeworks of student including new added\n</span>
+<span class="sd">    PUT Request alters the homework&#39;s information\n</span>
+<span class="sd">    DELETE Request removes homework from student</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">hwOnSt</span><span class="o">.</span><span class="n">showHomeworks</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
-
-    <span class="c1"># Works on fend</span>
+    
     <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
@@ -142,8 +140,7 @@
         <span class="n">hwOnSt</span><span class="o">.</span><span class="n">addHomeworkOfStudent</span><span class="p">({</span><span class="s2">&quot;student_id&quot;</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
                                      <span class="s2">&quot;homework_id&quot;</span><span class="p">:</span> <span class="n">lastHomeworkCreatedBy</span><span class="p">})</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">hwOnSt</span><span class="o">.</span><span class="n">showHomeworks</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
-
-    <span class="c1">#  Works</span>
+    
     <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;PUT&#39;</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>   
         <span class="n">hwid</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;homework_id&quot;</span><span class="p">]</span>
@@ -151,14 +148,13 @@
 
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">homeworks</span><span class="o">.</span><span class="n">changeHomework</span><span class="p">(</span><span class="n">hwid</span><span class="o">=</span><span class="n">hwid</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">))</span>
 
-    <span class="c1">#  Works</span>
     <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
         <span class="n">data</span><span class="p">[</span><span class="s2">&quot;sid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
         <span class="c1"># return json.dumps(data)</span>
         <span class="n">hwOnSt</span><span class="o">.</span><span class="n">removeStudentsHomework</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;Success&quot;</span><span class="p">,</span> <span class="mi">200</span>
-
+    
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Wrong request&quot;</span><span class="p">,</span> <span class="mi">301</span></div>
 

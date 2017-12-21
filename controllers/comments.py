@@ -31,7 +31,7 @@ def comments(student):
 @app.route("/api/comments/<sid>", methods=['GET'])
 def getCommentsOfStudent(sid):
     """
-        Returns a JSON containing comments of specific student
+    Returns a JSON containing comments of specific student
     """
     if request.method == 'GET':
         data = {"comment_to": sid}

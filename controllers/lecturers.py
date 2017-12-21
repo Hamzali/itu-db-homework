@@ -15,7 +15,7 @@ def lecturer():
     GET request shows lecturers of given department\n
     POST request creates new lecturer\n
     DELETE request deletes a lecturer\n
-    PUT request updates the lecturer\n
+    PUT request updates the lecturer
     """
     # Works on frontend
     if request.method == 'GET':

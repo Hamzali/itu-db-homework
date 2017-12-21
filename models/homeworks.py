@@ -18,7 +18,7 @@ class HomeworksModel(BaseModel):
     
     def addHomework(self, data):
         """
-        Adds new homework
+        Adds new homework test
         """
         return self.create(data=data)
 

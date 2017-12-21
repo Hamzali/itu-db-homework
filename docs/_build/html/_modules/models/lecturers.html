@@ -127,12 +127,17 @@
             <span class="s2">&quot;department_id&quot;</span><span class="p">:</span> <span class="s1">&#39;&#39;&#39;INT NOT NULL REFERENCES faculty(id)&#39;&#39;&#39;</span><span class="p">,</span>
             <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;VARCHAR(100)&quot;</span>
         <span class="p">},</span> <span class="n">init_table</span><span class="o">=</span><span class="n">init_table</span><span class="p">)</span>
-    
 
 <div class="viewcode-block" id="LecturersModel.addLecturer"><a class="viewcode-back" href="../../models.html#models.lecturers.LecturersModel.addLecturer">[docs]</a>    <span class="k">def</span> <span class="nf">addLecturer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds new lecturer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LecturersModel.listAllLecturers"><a class="viewcode-back" href="../../models.html#models.lecturers.LecturersModel.listAllLecturers">[docs]</a>    <span class="k">def</span> <span class="nf">listAllLecturers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns all lecturers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;fname&quot;</span><span class="p">,</span> <span class="s2">&quot;sname&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">],</span>
                          <span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
     
@@ -141,9 +146,15 @@
 
 <div class="viewcode-block" id="LecturersModel.listLecturersOfDepartment"><a class="viewcode-back" href="../../models.html#models.lecturers.LecturersModel.listLecturersOfDepartment">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">listLecturersOfDepartment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns lecturers of specific department</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT * from lecturers where department_id= </span><span class="si">%s</span><span class="s1">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LecturersModel.showALecturer"><a class="viewcode-back" href="../../models.html#models.lecturers.LecturersModel.showALecturer">[docs]</a>    <span class="k">def</span> <span class="nf">showALecturer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information of specific lecturer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;id = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="LecturersModel.updateLecturer"><a class="viewcode-back" href="../../models.html#models.lecturers.LecturersModel.updateLecturer">[docs]</a>    <span class="k">def</span> <span class="nf">updateLecturer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -151,6 +162,9 @@
 
 <div class="viewcode-block" id="LecturersModel.removeLecturer"><a class="viewcode-back" href="../../models.html#models.lecturers.LecturersModel.removeLecturer">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">removeLecturer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes lecturer        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM LECTURERS WHERE id=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span></div></div>
 </pre></div>
 

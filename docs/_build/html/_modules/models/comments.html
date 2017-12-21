@@ -112,7 +112,7 @@
 
 <div class="viewcode-block" id="CommentsModel"><a class="viewcode-back" href="../../models.html#models.comments.CommentsModel">[docs]</a><span class="k">class</span> <span class="nc">CommentsModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Implements the comment model</span>
+<span class="sd">    Implements the comment model </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_table</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;comments&quot;</span><span class="p">,</span> <span class="p">{</span>
@@ -123,16 +123,22 @@
             <span class="s2">&quot;made_at&quot;</span><span class="p">:</span> <span class="s2">&quot;TIMESTAMP DEFAULT now()&quot;</span><span class="p">},</span> <span class="n">init_table</span><span class="o">=</span><span class="n">init_table</span><span class="p">)</span>
     
 <div class="viewcode-block" id="CommentsModel.addComment"><a class="viewcode-back" href="../../models.html#models.comments.CommentsModel.addComment">[docs]</a>    <span class="k">def</span> <span class="nf">addComment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds comment to given student</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="CommentsModel.showCommentsOfStudent"><a class="viewcode-back" href="../../models.html#models.comments.CommentsModel.showCommentsOfStudent">[docs]</a>    <span class="k">def</span> <span class="nf">showCommentsOfStudent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary that containing comments of student</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;comment_by&quot;</span><span class="p">],</span>
                          <span class="n">query</span><span class="o">=</span><span class="s2">&quot;comment_to = &#39;</span><span class="si">%(comment_to)s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="CommentsModel.updateComment"><a class="viewcode-back" href="../../models.html#models.comments.CommentsModel.updateComment">[docs]</a>    <span class="k">def</span> <span class="nf">updateComment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;id = </span><span class="si">%(id)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CommentsModel.removeComment"><a class="viewcode-back" href="../../models.html#models.comments.CommentsModel.removeComment">[docs]</a>    <span class="k">def</span> <span class="nf">removeComment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="CommentsModel.removeComment"><a class="viewcode-back" href="../../models.html#models.comments.CommentsModel.removeComment">[docs]</a>    <span class="k">def</span> <span class="nf">removeComment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span></div></div>
 </pre></div>
 
