@@ -140,49 +140,145 @@
 <dl class="method">
 <dt id="models.base_model.BaseModel.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>conn=None</em>, <em>data=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a and inserts a database row.</p>
+<dd><p>Creates a and inserts a database row. Given data dictionary fields must be in database fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conn</strong> – Connection from the db_factory_func.</li>
+<li><strong>data</strong> – Relevant data to insert.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.delete">
 <code class="descname">delete</code><span class="sig-paren">(</span><em>conn=None</em>, <em>query=''</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a row with given query.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conn</strong> – Connection from the db_factory_func.</li>
+<li><strong>query</strong> – where sql query string.</li>
+<li><strong>return_cols</strong> – array of fields to return.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.delete_by_id">
 <code class="descname">delete_by_id</code><span class="sig-paren">(</span><em>_id</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.delete_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.delete_by_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deletes a row with the given id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> – element id number.</li>
+<li><strong>return_cols</strong> – array of fields to return.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.find">
 <code class="descname">find</code><span class="sig-paren">(</span><em>conn=None</em>, <em>query=''</em>, <em>limit=0</em>, <em>sort_by=''</em>, <em>return_cols=None</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds and retrieves data with given query from database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conn</strong> – Connection from the db_factory_func.</li>
+<li><strong>query</strong> – where sql query string.</li>
+<li><strong>limit</strong> – sql limit value for select.</li>
+<li><strong>sort_by</strong> – sql sort information.</li>
+<li><strong>return_cols</strong> – array of fields to return.</li>
+<li><strong>offset</strong> – sql offset value.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.find_by_id">
 <code class="descname">find_by_id</code><span class="sig-paren">(</span><em>_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find_by_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds one element from database with a given id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> – element id number.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.find_one">
 <code class="descname">find_one</code><span class="sig-paren">(</span><em>query=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.find_one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.find_one" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds one element from database with a given query.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> – where sql query string.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.update">
 <code class="descname">update</code><span class="sig-paren">(</span><em>conn=None</em>, <em>data=None</em>, <em>query=''</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds and updates the rows with given query.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>conn</strong> – Connection from the db_factory_func.</li>
+<li><strong>data</strong> – Relevant data to update.</li>
+<li><strong>query</strong> – where sql query string.</li>
+<li><strong>return_cols</strong> – array of fields to return.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.base_model.BaseModel.update_by_id">
 <code class="descname">update_by_id</code><span class="sig-paren">(</span><em>_id</em>, <em>data=None</em>, <em>return_cols=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#BaseModel.update_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.BaseModel.update_by_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update a row with id.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> – element id number.</li>
+<li><strong>data</strong> – Relevant data to update.</li>
+<li><strong>return_cols</strong> – array of fields to return.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -190,7 +286,16 @@
 <dl class="function">
 <dt id="models.base_model.db_factory_func">
 <code class="descclassname">models.base_model.</code><code class="descname">db_factory_func</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/base_model.html#db_factory_func"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.base_model.db_factory_func" title="Permalink to this definition">¶</a></dt>
-<dd><p>Database connection decorator.</p>
+<dd><p>Database connection decorator. Creates a database connection and 
+wraps it with try/expect and gives to given function</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> – function to decorate.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -214,7 +319,7 @@
 <dt id="models.courses.StudentCourseModel">
 <em class="property">class </em><code class="descclassname">models.courses.</code><code class="descname">StudentCourseModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#StudentCourseModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.StudentCourseModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
-<p>Building CRUD operations for courses.</p>
+<p>Student-Course Relation CRUD operations.</p>
 <dl class="method">
 <dt id="models.courses.StudentCourseModel.delete_student_course">
 <code class="descname">delete_student_course</code><span class="sig-paren">(</span><em>studentid</em>, <em>courseid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/courses.html#StudentCourseModel.delete_student_course"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.courses.StudentCourseModel.delete_student_course" title="Permalink to this definition">¶</a></dt>
@@ -237,7 +342,7 @@
 <dt id="models.students.StudentModel">
 <em class="property">class </em><code class="descclassname">models.students.</code><code class="descname">StudentModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/students.html#StudentModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.students.StudentModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
-<p>Student model database operations.</p>
+<p>Student CRUD operations.</p>
 <dl class="method">
 <dt id="models.students.StudentModel.remove_token">
 <code class="descname">remove_token</code><span class="sig-paren">(</span><em>token</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/students.html#StudentModel.remove_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.students.StudentModel.remove_token" title="Permalink to this definition">¶</a></dt>
@@ -267,7 +372,7 @@
 <dt id="models.buildings.CourseBuildingModel">
 <em class="property">class </em><code class="descclassname">models.buildings.</code><code class="descname">CourseBuildingModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/buildings.html#CourseBuildingModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.buildings.CourseBuildingModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
-<p>Building CRUD operations for courses.</p>
+<p>Course-Building Relation CRUD operations.</p>
 </dd></dl>
 
 </div>
@@ -393,7 +498,7 @@
 <dt id="models.faculties.FacultyModel">
 <em class="property">class </em><code class="descclassname">models.faculties.</code><code class="descname">FacultyModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/faculties.html#FacultyModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.faculties.FacultyModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
-<p>Building CRUD operations for courses.</p>
+<p>Faculty CRUD operations.</p>
 </dd></dl>
 
 </div>
@@ -549,7 +654,7 @@
 <dt id="models.studygroups.StudyGroupModel">
 <em class="property">class </em><code class="descclassname">models.studygroups.</code><code class="descname">StudyGroupModel</code><span class="sig-paren">(</span><em>init_table=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudyGroupModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudyGroupModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#models.base_model.BaseModel" title="models.base_model.BaseModel"><code class="xref py py-class docutils literal"><span class="pre">models.base_model.BaseModel</span></code></a></p>
-<p>Study group database methods.</p>
+<p>Study group CRUD operations.</p>
 <dl class="method">
 <dt id="models.studygroups.StudyGroupModel.get_available_study_groups">
 <code class="descname">get_available_study_groups</code><span class="sig-paren">(</span><em>conn=None</em>, <em>studentid=''</em>, <em>courseids=None</em>, <em>date_start=None</em>, <em>date_end=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/studygroups.html#StudyGroupModel.get_available_study_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.studygroups.StudyGroupModel.get_available_study_groups" title="Permalink to this definition">¶</a></dt>

@@ -121,7 +121,10 @@
 
 <div class="viewcode-block" id="db_factory_func"><a class="viewcode-back" href="../../models.html#models.base_model.db_factory_func">[docs]</a><span class="k">def</span> <span class="nf">db_factory_func</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Database connection decorator.</span>
+<span class="sd">    Database connection decorator. Creates a database connection and </span>
+<span class="sd">    wraps it with try/expect and gives to given function</span>
+
+<span class="sd">    :param func: function to decorate.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
@@ -155,7 +158,9 @@
     <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">__init_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes the database.</span>
+<span class="sd">        Checks If the table exists and if it is not created yet, creates the table.</span>
+
+<span class="sd">        :param conn: Connection from the db_factory_func.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -185,7 +190,10 @@
 <div class="viewcode-block" id="BaseModel.create"><a class="viewcode-back" href="../../models.html#models.base_model.BaseModel.create">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates a and inserts a database row.</span>
+<span class="sd">        Creates a and inserts a database row. Given data dictionary fields must be in database fields.</span>
+<span class="sd">        </span>
+<span class="sd">        :param conn: Connection from the db_factory_func.</span>
+<span class="sd">        :param data: Relevant data to insert.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
@@ -215,6 +223,13 @@
     <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">return_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds and retrieves data with given query from database.</span>
+
+<span class="sd">        :param conn: Connection from the db_factory_func.</span>
+<span class="sd">        :param query: where sql query string.</span>
+<span class="sd">        :param limit: sql limit value for select.</span>
+<span class="sd">        :param sort_by: sql sort information.</span>
+<span class="sd">        :param return_cols: array of fields to return.</span>
+<span class="sd">        :param offset: sql offset value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">selected_cols</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
@@ -251,12 +266,16 @@
 <div class="viewcode-block" id="BaseModel.find_one"><a class="viewcode-back" href="../../models.html#models.base_model.BaseModel.find_one">[docs]</a>    <span class="k">def</span> <span class="nf">find_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds one element from database with a given query.</span>
+
+<span class="sd">        :param query: where sql query string.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BaseModel.find_by_id"><a class="viewcode-back" href="../../models.html#models.base_model.BaseModel.find_by_id">[docs]</a>    <span class="k">def</span> <span class="nf">find_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds one element from database with a given id.</span>
+
+<span class="sd">        :param id: element id number.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;id=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">_id</span><span class="p">)</span></div>
 
@@ -264,6 +283,11 @@
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">return_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds and updates the rows with given query.</span>
+
+<span class="sd">        :param conn: Connection from the db_factory_func.</span>
+<span class="sd">        :param data: Relevant data to update.</span>
+<span class="sd">        :param query: where sql query string.</span>
+<span class="sd">        :param return_cols: array of fields to return.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
@@ -304,6 +328,10 @@
 <div class="viewcode-block" id="BaseModel.update_by_id"><a class="viewcode-back" href="../../models.html#models.base_model.BaseModel.update_by_id">[docs]</a>    <span class="k">def</span> <span class="nf">update_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update a row with id.</span>
+
+<span class="sd">        :param id: element id number.</span>
+<span class="sd">        :param data: Relevant data to update.</span>
+<span class="sd">        :param return_cols: array of fields to return.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">_id</span><span class="p">),</span> <span class="n">return_cols</span><span class="o">=</span><span class="n">return_cols</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
@@ -311,6 +339,10 @@
     <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">return_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a row with given query.</span>
+
+<span class="sd">        :param conn: Connection from the db_factory_func.</span>
+<span class="sd">        :param query: where sql query string.</span>
+<span class="sd">        :param return_cols: array of fields to return.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">sql_statement</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM </span><span class="si">{}</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">table_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">query</span><span class="p">:</span>
@@ -331,6 +363,9 @@
 <div class="viewcode-block" id="BaseModel.delete_by_id"><a class="viewcode-back" href="../../models.html#models.base_model.BaseModel.delete_by_id">[docs]</a>    <span class="k">def</span> <span class="nf">delete_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_id</span><span class="p">,</span> <span class="n">return_cols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a row with the given id.</span>
+
+<span class="sd">        :param id: element id number.</span>
+<span class="sd">        :param return_cols: array of fields to return.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">_id</span><span class="p">),</span> <span class="n">return_cols</span><span class="o">=</span><span class="n">return_cols</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div></div>
 </pre></div>
