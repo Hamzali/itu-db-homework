@@ -152,7 +152,9 @@
 <div class="viewcode-block" id="HomeworksModel.getLastHwCreatedById"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksModel.getLastHwCreatedById">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">getLastHwCreatedById</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the last homework&#39;s id of given student</span>
+<span class="sd">        Returns the last homework&#39;s id of given student. Used for simultenously adding homework to student</span>
+
+<span class="sd">        :param data: student_id</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT id from homeworks WHERE created_by = &#39;</span><span class="si">%s</span><span class="s1">&#39;</span>
 <span class="s1">                                ORDER BY id DESC LIMIT 1&#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span></div></div>
@@ -175,6 +177,11 @@
 
 <div class="viewcode-block" id="HomeworksOfStudentModel.showHomeworks"><a class="viewcode-back" href="../../models.html#models.homeworks.HomeworksOfStudentModel.showHomeworks">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">showHomeworks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shows homeworks of specific student</span>
+
+<span class="sd">        :param data: Student information</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT homework_id, crn, name,</span>
 <span class="s1">                                description, deadline FROM homeworks</span>
 <span class="s1">                                JOIN hwofstudents</span>

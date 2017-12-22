@@ -43,7 +43,9 @@ class HomeworksModel(BaseModel):
     @db_factory_func
     def getLastHwCreatedById(self, conn, data):
         """
-        Returns the last homework's id of given student
+        Returns the last homework's id of given student. Used for simultenously adding homework to student
+
+        :param data: student_id
         """
         return conn.execute('''SELECT id from homeworks WHERE created_by = '%s'
                                 ORDER BY id DESC LIMIT 1''' % data)
@@ -66,6 +68,11 @@ class HomeworksOfStudentModel(BaseModel):
 
     @db_factory_func
     def showHomeworks(self, conn, data):
+        """
+        Shows homeworks of specific student
+
+        :param data: Student information
+        """
         return conn.execute('''SELECT homework_id, crn, name,
                                 description, deadline FROM homeworks
                                 JOIN hwofstudents

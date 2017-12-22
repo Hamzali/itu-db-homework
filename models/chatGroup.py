@@ -19,12 +19,16 @@ class ChatGroupsModel(BaseModel):
     def listGroups(self):
         """
         Returns a groups of student
+
+        :param data: Student info
         """
         return self.find(return_cols=["id"], sort_by="id")
 
     def createGroup(self, data):
         """
         Forms a Chat group.
+
+        :param data: Chatgroup information
         """
         self.create(data=data)
     
@@ -51,7 +55,9 @@ class ChatGroupsModel(BaseModel):
     @db_factory_func
     def getLastGroupCreatedById(self, conn, data):
         """
-        Returns the last group created by specific student Id. Used for adding student to group that he created simultenously    
+        Returns the last group created by specific student Id. Used for adding student to group that he created simultenously
+
+        :param data: chatgroup_id
         """
         return conn.execute('''SELECT id from chatgroups WHERE created_by = '%s'
                                 ORDER BY created_at DESC''' % data)
@@ -72,6 +78,8 @@ class StudentsOnChatModel(BaseModel):
     def addMember(self, data):
         """
         Adds member to chatgroup
+
+        :param data: Dictionary of chatgroup and student id
         """
         self.create(data=data)
     
@@ -87,6 +95,8 @@ class StudentsOnChatModel(BaseModel):
     def showGroupsOfStudent(self, conn, data):
         """
         Returns a dictionary of group where student is joined
+
+        :param data: Chatgroup and student information
         """
         return conn.execute('''SELECT chatgroup_id, name, group_admin FROM chatgroups JOIN studentsonchat 
                         ON(chatgroups.id=studentsonchat.chatgroup_id)

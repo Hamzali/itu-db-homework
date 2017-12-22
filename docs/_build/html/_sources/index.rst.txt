@@ -7,6 +7,11 @@
 Welcome to Itunder's documentation!
 ===================================
 
+.. image:: ./er.png
+    :width: 850px
+    :align: center
+    :height: 900px
+    :alt: E/R diagram of our database
 
 .. toctree::
    :maxdepth: 2
