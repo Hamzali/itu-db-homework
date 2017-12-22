@@ -12,7 +12,10 @@ DB = SQLAlchemy(app)
 
 def db_factory_func(func):
     """
-    Database connection decorator.
+    Database connection decorator. Creates a database connection and 
+    wraps it with try/expect and gives to given function
+
+    :param func: function to decorate.
     """
     @wraps(func)
     def wrapper(*args, **kw):
@@ -46,7 +49,9 @@ class BaseModel:
     @db_factory_func
     def __init_table(self, conn=None):
         """
-        Initializes the database.
+        Checks If the table exists and if it is not created yet, creates the table.
+
+        :param conn: Connection from the db_factory_func.
         """
         try:
             result = conn.execute("""
@@ -76,7 +81,10 @@ class BaseModel:
     @db_factory_func
     def create(self, conn=None, data=None):
         """
-        Creates a and inserts a database row.
+        Creates a and inserts a database row. Given data dictionary fields must be in database fields.
+        
+        :param conn: Connection from the db_factory_func.
+        :param data: Relevant data to insert.
         """
         try:
             if data:
@@ -106,6 +114,13 @@ class BaseModel:
     def find(self, conn=None, query="", limit=0, sort_by="", return_cols=None, offset=None):
         """
         Finds and retrieves data with given query from database.
+
+        :param conn: Connection from the db_factory_func.
+        :param query: where sql query string.
+        :param limit: sql limit value for select.
+        :param sort_by: sql sort information.
+        :param return_cols: array of fields to return.
+        :param offset: sql offset value.
         """
         try:
             selected_cols = "*"
@@ -142,12 +157,16 @@ class BaseModel:
     def find_one(self, query=""):
         """
         Finds one element from database with a given query.
+
+        :param query: where sql query string.
         """
         return self.find(query=query, limit=1)
 
     def find_by_id(self, _id):
         """
         Finds one element from database with a given id.
+
+        :param id: element id number.
         """
         return self.find_one(query="id=%s" % _id)
 
@@ -155,6 +174,11 @@ class BaseModel:
     def update(self, conn=None, data=None, query="", return_cols=None):
         """
         Finds and updates the rows with given query.
+
+        :param conn: Connection from the db_factory_func.
+        :param data: Relevant data to update.
+        :param query: where sql query string.
+        :param return_cols: array of fields to return.
         """
         try:
             if data:
@@ -195,6 +219,10 @@ class BaseModel:
     def update_by_id(self, _id, data=None, return_cols=None):
         """
         Update a row with id.
+
+        :param id: element id number.
+        :param data: Relevant data to update.
+        :param return_cols: array of fields to return.
         """
         return self.update(data=data, query=("id=%s" % _id), return_cols=return_cols)[0]
 
@@ -202,6 +230,10 @@ class BaseModel:
     def delete(self, conn=None, query="", return_cols=None):
         """
         Deletes a row with given query.
+
+        :param conn: Connection from the db_factory_func.
+        :param query: where sql query string.
+        :param return_cols: array of fields to return.
         """
         sql_statement = "DELETE FROM {} ".format(self.table_name)
         if query:
@@ -222,5 +254,8 @@ class BaseModel:
     def delete_by_id(self, _id, return_cols=None):
         """
         Deletes a row with the given id.
+
+        :param id: element id number.
+        :param return_cols: array of fields to return.
         """
         return self.delete(query=("id=%s" % _id), return_cols=return_cols)[0]

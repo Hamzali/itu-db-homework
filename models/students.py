@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 
 class StudentModel(BaseModel):
     """
-    Student model database operations.
+    Student CRUD operations.
     """
 
     def __init__(self, init_table=False):
