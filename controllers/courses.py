@@ -14,6 +14,11 @@ from models.setupdb import course_model, building_model, faculty_model, course_b
 
 @app.route("/courses/sync", methods=["POST"])
 def sync_courses():
+    """
+    | route: /courses/sync
+    | method: POST
+    | Crawles courses data from the ITU website and writes to database.
+    """
     if request.method == "POST":
         base_url = "http://www.sis.itu.edu.tr/tr/ders_programlari/LSprogramlar/prg.php"
         response = requests.get(base_url)
@@ -116,7 +121,9 @@ def sync_courses():
 @app.route("/courses")
 def list_courses():
     """
-    Lists courses with pagination and text query.
+    | route: /courses
+    | method: GET  
+    | Lists courses with pagination and text query.
     """
     try:
         query = request.args["query"]
@@ -142,6 +149,12 @@ def list_courses():
     
 @app.route("/courses/<cid>")
 def list_one_course(cid):
+    """
+    | route: /courses/<cid>
+    | method: GET
+    | param: course crn
+    | Retrieves one course.
+    """
     result = course_model.find_by_id(_id=cid)
     if len(result) <= 0:
         return "no course found with id %s." % cid, 404
@@ -150,6 +163,11 @@ def list_one_course(cid):
 
 @app.route("/buildings/sync", methods=["POST"])
 def sync_buildings():
+    """
+    | route: /buildings/sync
+    | method: POST
+    | Crawles all the building data from ITU website and writes to database.
+    """
     if request.method == "POST":
         response = requests.get(
             "http://www.sis.itu.edu.tr/tr/sistem/bina_kodlari.html")
@@ -178,6 +196,11 @@ def sync_buildings():
 
 @app.route("/buildings")
 def list_buildings():
+    """
+    | route: /buildings
+    | method: GET
+    | Lists all the available buildings.
+    """
     result = building_model.find()
     if result is None or len(result) <= 0:
         return "no buildings found.", 404
@@ -186,6 +209,11 @@ def list_buildings():
 
 @app.route("/buildings/<cid>")
 def building_by_id(cid):
+    """
+    | route: /buildings/<buildingid>
+    | method: GET
+    | Retrieves one building with id.
+    """
     result = building_model.find_by_id(_id=cid)
     if len(result) <= 0:
         return "no building found with id %s." % cid, 404
@@ -193,8 +221,13 @@ def building_by_id(cid):
 
 
 
-@app.route("/api/faculties")
+@app.route("/faculties")
 def list_faculties():
+    """
+    | route: /faculties
+    | method: GET
+    | Lists all the faculties.
+    """
     result = faculty_model.find()
     if result is None or len(result) <= 0:
         return "no faculties found.", 404
@@ -203,6 +236,11 @@ def list_faculties():
 
 @app.route("/faculties/sync", methods=["POST"])
 def sync_faculties():
+    """
+    | route: /faculties/sync
+    | method: POST
+    | Crawles all the faculties data from ITU website and writes to database.
+    """
     if request.method == "POST":
         response = requests.get("http://www.sis.itu.edu.tr/tr/dersplan/")
         response.encoding = "windows-1254"
@@ -222,8 +260,13 @@ def sync_faculties():
                             data={"name": name, "code": code})
         return "done"
 
-@app.route("/faculty/<cid>")
+@app.route("/faculties/<cid>")
 def faculties_by_id(cid):
+    """
+    | route: /buildings/<facultyid>
+    | method: GET
+    | Retrieves one faculty with id.
+    """
     result = faculty_model.find_by_id(_id=cid)
     if len(result) <= 0:
         return "no faculty found with id %s." % cid, 404

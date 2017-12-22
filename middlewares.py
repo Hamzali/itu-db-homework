@@ -3,6 +3,9 @@ from flask import request
 from functools import wraps
 
 def auth_func(student_model):
+    """
+    Decarotor for student authentication.
+    """
     def private_route(fn):
         @wraps(fn)
         def wrapper(*args, **kw):

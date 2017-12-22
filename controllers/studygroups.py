@@ -17,7 +17,10 @@ private_route = auth_func(student_model)
 
 def check_study_group(student, groupid):
     """
-    Checks for if the study group is belongs to the current student.
+    :param student: student id.
+    :param groupid: group id.
+
+    Checks if the student owns the study group.
     """
     group = studygroup_model.find_by_id(_id=groupid)
     if group:
@@ -31,7 +34,11 @@ def check_study_group(student, groupid):
 @private_route
 def list_studygroups(student):
     """
-    lists and creates studygroups
+    :param student: current logged in student from auth decorator.
+
+    | route: /studygroups
+    | method: GET
+    | Lists all available studygroups for the caller student.
     """
     student_courses = student_course_model.find_student_courses(studentid=student["id"])
     student_courses = [r["crn"] for r in student_courses]
@@ -69,7 +76,17 @@ def list_studygroups(student):
 @private_route
 def find_update_studygroup(student, groupid):
     """
-    With given id parameter updates, deletes or finds the studygroup.
+    :param student: current logged in student from auth decorator.
+
+    | route: /studygroups/<groupid>
+    | method: GET
+    | With given id parameter finds the studygroup.
+    | 
+    | method: POST
+    | With given id parameter updates the studygroup.
+    | 
+    | method: DELETE
+    | With given id parameter removes the studygroup.
     """
     groupid = int(groupid)
     result = check_study_group(student["id"], groupid)
@@ -117,7 +134,11 @@ def find_update_studygroup(student, groupid):
 @private_route
 def find_studygroups_of_student(student, studentid):
     """
-    Finds all the study groups of a student participated.
+    :param student: current logged in student from auth decorator.
+
+    | route: /studygroups/students/<studentid>
+    | method: GET
+    | Finds all the study groups of a student participated.
     """
     if student["id"] == studentid:
         return json.dumps(student_studygroup_model.list_studygroups_of_student(studentid=student["id"]))
@@ -128,7 +149,11 @@ def find_studygroups_of_student(student, studentid):
 @private_route
 def list_studygroup_students(student, groupid):
     """
-    Lists all the students of the studygroup with the given id.
+    :param student: current logged in student from auth decorator.
+    
+    | route: /studygroups/<groupid>/students
+    | method: GET
+    | Lists all the students of the studygroup with the given id.
     """
     groupid = int(groupid)
     result = check_study_group(student["id"], groupid)
@@ -142,7 +167,11 @@ def list_studygroup_students(student, groupid):
 @private_route
 def set_student_studygroup_status(student, groupid, studentid):
     """
-    Updates the group status of a student in the studygroup with the given id.
+    :param student: current logged in student from auth decorator.
+
+    | route: /studygroups/<groupid>/students/<studentid>/status
+    | method: POST
+    | Updates the group status of a student in the studygroup with the given id.
     """
     groupid = int(groupid)
     result = check_study_group(student["id"], groupid)

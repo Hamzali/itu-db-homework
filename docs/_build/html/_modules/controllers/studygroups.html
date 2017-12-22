@@ -126,7 +126,10 @@
 
 <div class="viewcode-block" id="check_study_group"><a class="viewcode-back" href="../../controllers.html#controllers.studygroups.check_study_group">[docs]</a><span class="k">def</span> <span class="nf">check_study_group</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">groupid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Checks for if the study group is belongs to the current student.</span>
+<span class="sd">    :param student: student id.</span>
+<span class="sd">    :param groupid: group id.</span>
+
+<span class="sd">    Checks if the student owns the study group.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">group</span> <span class="o">=</span> <span class="n">studygroup_model</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">groupid</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">group</span><span class="p">:</span>
@@ -140,7 +143,11 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">list_studygroups</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    lists and creates studygroups</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /studygroups</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Lists all available studygroups for the caller student.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">student_courses</span> <span class="o">=</span> <span class="n">student_course_model</span><span class="o">.</span><span class="n">find_student_courses</span><span class="p">(</span><span class="n">studentid</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
     <span class="n">student_courses</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;crn&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">student_courses</span><span class="p">]</span>
@@ -178,7 +185,17 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">find_update_studygroup</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">groupid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    With given id parameter updates, deletes or finds the studygroup.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /studygroups/&lt;groupid&gt;</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | With given id parameter finds the studygroup.</span>
+<span class="sd">    | </span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | With given id parameter updates the studygroup.</span>
+<span class="sd">    | </span>
+<span class="sd">    | method: DELETE</span>
+<span class="sd">    | With given id parameter removes the studygroup.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">groupid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">groupid</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">check_study_group</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">groupid</span><span class="p">)</span>
@@ -226,7 +243,11 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">find_studygroups_of_student</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">studentid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Finds all the study groups of a student participated.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /studygroups/students/&lt;studentid&gt;</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Finds all the study groups of a student participated.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">studentid</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">student_studygroup_model</span><span class="o">.</span><span class="n">list_studygroups_of_student</span><span class="p">(</span><span class="n">studentid</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
@@ -237,7 +258,11 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">list_studygroup_students</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">groupid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lists all the students of the studygroup with the given id.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+<span class="sd">    </span>
+<span class="sd">    | route: /studygroups/&lt;groupid&gt;/students</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Lists all the students of the studygroup with the given id.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">groupid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">groupid</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">check_study_group</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">groupid</span><span class="p">)</span>
@@ -251,7 +276,11 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">set_student_studygroup_status</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">groupid</span><span class="p">,</span> <span class="n">studentid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Updates the group status of a student in the studygroup with the given id.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /studygroups/&lt;groupid&gt;/students/&lt;studentid&gt;/status</span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | Updates the group status of a student in the studygroup with the given id.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">groupid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">groupid</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">check_study_group</span><span class="p">(</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">groupid</span><span class="p">)</span>
