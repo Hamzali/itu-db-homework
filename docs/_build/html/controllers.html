@@ -135,48 +135,93 @@
 <dl class="function">
 <dt id="controllers.courses.building_by_id">
 <code class="descclassname">controllers.courses.</code><code class="descname">building_by_id</code><span class="sig-paren">(</span><em>cid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#building_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.building_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /buildings/&lt;buildingid&gt;</div>
+<div class="line">method: GET</div>
+<div class="line">Retrieves one building with id.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.faculties_by_id">
 <code class="descclassname">controllers.courses.</code><code class="descname">faculties_by_id</code><span class="sig-paren">(</span><em>cid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#faculties_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.faculties_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /buildings/&lt;facultyid&gt;</div>
+<div class="line">method: GET</div>
+<div class="line">Retrieves one faculty with id.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.list_buildings">
 <code class="descclassname">controllers.courses.</code><code class="descname">list_buildings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#list_buildings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.list_buildings" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /buildings</div>
+<div class="line">method: GET</div>
+<div class="line">Lists all the available buildings.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.list_courses">
 <code class="descclassname">controllers.courses.</code><code class="descname">list_courses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#list_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.list_courses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lists courses with pagination and text query.</p>
+<dd><div class="line-block">
+<div class="line">route: /courses</div>
+<div class="line">method: GET  </div>
+<div class="line">Lists courses with pagination and text query.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.list_faculties">
 <code class="descclassname">controllers.courses.</code><code class="descname">list_faculties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#list_faculties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.list_faculties" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /faculties</div>
+<div class="line">method: GET</div>
+<div class="line">Lists all the faculties.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.list_one_course">
 <code class="descclassname">controllers.courses.</code><code class="descname">list_one_course</code><span class="sig-paren">(</span><em>cid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#list_one_course"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.list_one_course" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /courses/&lt;cid&gt;</div>
+<div class="line">method: GET</div>
+<div class="line">param: course crn</div>
+<div class="line">Retrieves one course.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.sync_buildings">
 <code class="descclassname">controllers.courses.</code><code class="descname">sync_buildings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#sync_buildings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.sync_buildings" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /buildings/sync</div>
+<div class="line">method: POST</div>
+<div class="line">Crawles all the building data from ITU website and writes to database.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.sync_courses">
 <code class="descclassname">controllers.courses.</code><code class="descname">sync_courses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#sync_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.sync_courses" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /courses/sync</div>
+<div class="line">method: POST</div>
+<div class="line">Crawles courses data from the ITU website and writes to database.</div>
+</div>
+</dd></dl>
 
 <dl class="function">
 <dt id="controllers.courses.sync_faculties">
 <code class="descclassname">controllers.courses.</code><code class="descname">sync_faculties</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/courses.html#sync_faculties"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.courses.sync_faculties" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><div class="line-block">
+<div class="line">route: /faculties/sync</div>
+<div class="line">method: POST</div>
+<div class="line">Crawles all the faculties data from ITU website and writes to database.</div>
+</div>
+</dd></dl>
 
 </div>
 <div class="section" id="module-controllers.students">
@@ -184,25 +229,78 @@
 <dl class="function">
 <dt id="controllers.students.enroll_course">
 <code class="descclassname">controllers.students.</code><code class="descname">enroll_course</code><span class="sig-paren">(</span><em>student</em>, <em>courseid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/students.html#enroll_course"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.students.enroll_course" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enrolls or leaves a course with given CRN.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /students/courses/&lt;crn&gt;</div>
+<div class="line">method: POST</div>
+<div class="line">Enrolls a course with given CRN.</div>
+</div>
+<div class="line-block">
+<div class="line">route: /students/courses/&lt;crn&gt;</div>
+<div class="line">method: DELETE</div>
+<div class="line">Leaves a course with given CRN.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.students.join_study_group">
 <code class="descclassname">controllers.students.</code><code class="descname">join_study_group</code><span class="sig-paren">(</span><em>student</em>, <em>studygroupid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/students.html#join_study_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.students.join_study_group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Joins a study group.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /students/studygroups/&lt;studygroupid&gt;</div>
+<div class="line">method: GET</div>
+<div class="line">Joins a study group.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.students.list_student_courses">
 <code class="descclassname">controllers.students.</code><code class="descname">list_student_courses</code><span class="sig-paren">(</span><em>student</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/students.html#list_student_courses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.students.list_student_courses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lists all the courses of a student.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /students/courses</div>
+<div class="line">method: GET</div>
+<div class="line">Lists all the courses of a student.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.students.list_student_studygroups">
 <code class="descclassname">controllers.students.</code><code class="descname">list_student_studygroups</code><span class="sig-paren">(</span><em>student</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/students.html#list_student_studygroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.students.list_student_studygroups" title="Permalink to this definition">¶</a></dt>
-<dd><p>List all the created study groups.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /students/studygroups</div>
+<div class="line">method: GET</div>
+<div class="line">List all the created study groups.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -212,22 +310,42 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
 </tr>
 </tbody>
 </table>
+<div class="line-block">
+<div class="line">route: /students</div>
+<div class="line">method: GET</div>
+<div class="line">Retrieves one student with id.</div>
+</div>
+<div class="line-block">
+<div class="line">route: /students</div>
+<div class="line">method: PUT</div>
+<div class="line">body: {“study_start”: [timestamp], “study_end”: [timestamp]}</div>
+<div class="line">Updates one student study time preference with id.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.students.student_login">
 <code class="descclassname">controllers.students.</code><code class="descname">student_login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/students.html#student_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.students.student_login" title="Permalink to this definition">¶</a></dt>
-<dd><p>Makes authentication with ITU username, password and pin number.</p>
+<dd><div class="line-block">
+<div class="line">route: /auth</div>
+<div class="line">method: POST</div>
+<div class="line">body: {“username”: [string], “password”: [string], “pin”: [string]}</div>
+<div class="line">Makes authentication with ITU username, password and pin number.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.students.student_logout">
 <code class="descclassname">controllers.students.</code><code class="descname">student_logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/students.html#student_logout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.students.student_logout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logs out the logged in user.</p>
+<dd><div class="line-block">
+<div class="line">route: /logout</div>
+<div class="line">method: POST</div>
+<div class="line">Logs out the logged in user.</div>
+</div>
 </dd></dl>
 
 </div>
@@ -300,43 +418,121 @@ PUT request updates the lecturer</p>
 <dl class="function">
 <dt id="controllers.studygroups.check_study_group">
 <code class="descclassname">controllers.studygroups.</code><code class="descname">check_study_group</code><span class="sig-paren">(</span><em>student</em>, <em>groupid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/studygroups.html#check_study_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.studygroups.check_study_group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks for if the study group is belongs to the current student.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>student</strong> – student id.</li>
+<li><strong>groupid</strong> – group id.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Checks if the student owns the study group.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.studygroups.find_studygroups_of_student">
 <code class="descclassname">controllers.studygroups.</code><code class="descname">find_studygroups_of_student</code><span class="sig-paren">(</span><em>student</em>, <em>studentid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/studygroups.html#find_studygroups_of_student"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.studygroups.find_studygroups_of_student" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds all the study groups of a student participated.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /studygroups/students/&lt;studentid&gt;</div>
+<div class="line">method: GET</div>
+<div class="line">Finds all the study groups of a student participated.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.studygroups.find_update_studygroup">
 <code class="descclassname">controllers.studygroups.</code><code class="descname">find_update_studygroup</code><span class="sig-paren">(</span><em>student</em>, <em>groupid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/studygroups.html#find_update_studygroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.studygroups.find_update_studygroup" title="Permalink to this definition">¶</a></dt>
-<dd><p>With given id parameter updates, deletes or finds the studygroup.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /studygroups/&lt;groupid&gt;</div>
+<div class="line">method: GET</div>
+<div class="line">With given id parameter finds the studygroup.</div>
+<div class="line"><br /></div>
+<div class="line">method: POST</div>
+<div class="line">With given id parameter updates the studygroup.</div>
+<div class="line"><br /></div>
+<div class="line">method: DELETE</div>
+<div class="line">With given id parameter removes the studygroup.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.studygroups.list_studygroup_students">
 <code class="descclassname">controllers.studygroups.</code><code class="descname">list_studygroup_students</code><span class="sig-paren">(</span><em>student</em>, <em>groupid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/studygroups.html#list_studygroup_students"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.studygroups.list_studygroup_students" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lists all the students of the studygroup with the given id.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /studygroups/&lt;groupid&gt;/students</div>
+<div class="line">method: GET</div>
+<div class="line">Lists all the students of the studygroup with the given id.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.studygroups.list_studygroups">
 <code class="descclassname">controllers.studygroups.</code><code class="descname">list_studygroups</code><span class="sig-paren">(</span><em>student</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/studygroups.html#list_studygroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.studygroups.list_studygroups" title="Permalink to this definition">¶</a></dt>
-<dd><p>lists and creates studygroups</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /studygroups</div>
+<div class="line">method: GET</div>
+<div class="line">Lists all available studygroups for the caller student.</div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="controllers.studygroups.set_student_studygroup_status">
 <code class="descclassname">controllers.studygroups.</code><code class="descname">set_student_studygroup_status</code><span class="sig-paren">(</span><em>student</em>, <em>groupid</em>, <em>studentid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/studygroups.html#set_student_studygroup_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#controllers.studygroups.set_student_studygroup_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates the group status of a student in the studygroup with the given id.</p>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>student</strong> – current logged in student from auth decorator.</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">route: /studygroups/&lt;groupid&gt;/students/&lt;studentid&gt;/status</div>
+<div class="line">method: POST</div>
+<div class="line">Updates the group status of a student in the studygroup with the given id.</div>
+</div>
 </dd></dl>
 
 </div>
 <div class="section" id="module-controllers">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-controllers" title="Permalink to this headline">¶</a></h2>
-<p>Data control and other stuff.</p>
+<p>REST API Route bindings.</p>
 </div>
 </div>
 

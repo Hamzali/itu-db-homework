@@ -1,3 +1,3 @@
 """
-Data control and other stuff.
+REST API Route bindings.
 """

@@ -110,9 +110,19 @@
 <span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 <div class="viewcode-block" id="int_to_datetime"><a class="viewcode-back" href="../utils.html#utils.int_to_datetime">[docs]</a><span class="k">def</span> <span class="nf">int_to_datetime</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param data: timestamp to parse time object.</span>
+
+<span class="sd">    parse integer timestamp to Date instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">time</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="time_to_json"><a class="viewcode-back" href="../utils.html#utils.time_to_json">[docs]</a><span class="k">def</span> <span class="nf">time_to_json</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param data: time data to parse.</span>
+<span class="sd">    </span>
+<span class="sd">    formats the time fields in order the parse to json.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">datetime</span><span class="p">):</span>
             <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>

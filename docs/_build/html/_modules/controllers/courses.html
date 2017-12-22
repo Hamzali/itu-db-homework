@@ -123,6 +123,11 @@
 
 <div class="viewcode-block" id="sync_courses"><a class="viewcode-back" href="../../controllers.html#controllers.courses.sync_courses">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/courses/sync&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">sync_courses</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /courses/sync</span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | Crawles courses data from the ITU website and writes to database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;http://www.sis.itu.edu.tr/tr/ders_programlari/LSprogramlar/prg.php&quot;</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span>
@@ -225,7 +230,9 @@
 <div class="viewcode-block" id="list_courses"><a class="viewcode-back" href="../../controllers.html#controllers.courses.list_courses">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/courses&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">list_courses</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lists courses with pagination and text query.</span>
+<span class="sd">    | route: /courses</span>
+<span class="sd">    | method: GET  </span>
+<span class="sd">    | Lists courses with pagination and text query.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">query</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">]</span>
@@ -251,6 +258,12 @@
     
 <div class="viewcode-block" id="list_one_course"><a class="viewcode-back" href="../../controllers.html#controllers.courses.list_one_course">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/courses/&lt;cid&gt;&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">list_one_course</span><span class="p">(</span><span class="n">cid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /courses/&lt;cid&gt;</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | param: course crn</span>
+<span class="sd">    | Retrieves one course.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">course_model</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">cid</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;no course found with id </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">cid</span><span class="p">,</span> <span class="mi">404</span>
@@ -259,6 +272,11 @@
 
 <div class="viewcode-block" id="sync_buildings"><a class="viewcode-back" href="../../controllers.html#controllers.courses.sync_buildings">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/buildings/sync&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">sync_buildings</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /buildings/sync</span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | Crawles all the building data from ITU website and writes to database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="s2">&quot;http://www.sis.itu.edu.tr/tr/sistem/bina_kodlari.html&quot;</span><span class="p">)</span>
@@ -287,6 +305,11 @@
 
 <div class="viewcode-block" id="list_buildings"><a class="viewcode-back" href="../../controllers.html#controllers.courses.list_buildings">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/buildings&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">list_buildings</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /buildings</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Lists all the available buildings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">building_model</span><span class="o">.</span><span class="n">find</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;no buildings found.&quot;</span><span class="p">,</span> <span class="mi">404</span>
@@ -295,6 +318,11 @@
 
 <div class="viewcode-block" id="building_by_id"><a class="viewcode-back" href="../../controllers.html#controllers.courses.building_by_id">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/buildings/&lt;cid&gt;&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">building_by_id</span><span class="p">(</span><span class="n">cid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /buildings/&lt;buildingid&gt;</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Retrieves one building with id.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">building_model</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">cid</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;no building found with id </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">cid</span><span class="p">,</span> <span class="mi">404</span>
@@ -302,8 +330,13 @@
 
 
 
-<div class="viewcode-block" id="list_faculties"><a class="viewcode-back" href="../../controllers.html#controllers.courses.list_faculties">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/faculties&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="list_faculties"><a class="viewcode-back" href="../../controllers.html#controllers.courses.list_faculties">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/faculties&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">list_faculties</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /faculties</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Lists all the faculties.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">faculty_model</span><span class="o">.</span><span class="n">find</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;no faculties found.&quot;</span><span class="p">,</span> <span class="mi">404</span>
@@ -312,6 +345,11 @@
 
 <div class="viewcode-block" id="sync_faculties"><a class="viewcode-back" href="../../controllers.html#controllers.courses.sync_faculties">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/faculties/sync&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">sync_faculties</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /faculties/sync</span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | Crawles all the faculties data from ITU website and writes to database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://www.sis.itu.edu.tr/tr/dersplan/&quot;</span><span class="p">)</span>
         <span class="n">response</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s2">&quot;windows-1254&quot;</span>
@@ -331,8 +369,13 @@
                             <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;code&quot;</span><span class="p">:</span> <span class="n">code</span><span class="p">})</span>
         <span class="k">return</span> <span class="s2">&quot;done&quot;</span></div>
 
-<div class="viewcode-block" id="faculties_by_id"><a class="viewcode-back" href="../../controllers.html#controllers.courses.faculties_by_id">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/faculty/&lt;cid&gt;&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="faculties_by_id"><a class="viewcode-back" href="../../controllers.html#controllers.courses.faculties_by_id">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/faculties/&lt;cid&gt;&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">faculties_by_id</span><span class="p">(</span><span class="n">cid</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    | route: /buildings/&lt;facultyid&gt;</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Retrieves one faculty with id.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">faculty_model</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="n">cid</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;no faculty found with id </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">cid</span><span class="p">,</span> <span class="mi">404</span>

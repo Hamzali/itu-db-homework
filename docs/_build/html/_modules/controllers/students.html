@@ -129,7 +129,16 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">one_student</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    :param student: current logged in student</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+<span class="sd">    </span>
+<span class="sd">    | route: /students</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Retrieves one student with id.</span>
+
+<span class="sd">    | route: /students</span>
+<span class="sd">    | method: PUT</span>
+<span class="sd">    | body: {&quot;study_start&quot;: [timestamp], &quot;study_end&quot;: [timestamp]}</span>
+<span class="sd">    | Updates one student study time preference with id.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>        
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
@@ -162,7 +171,10 @@
 <div class="viewcode-block" id="student_login"><a class="viewcode-back" href="../../controllers.html#controllers.students.student_login">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/auth&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">student_login</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Makes authentication with ITU username, password and pin number.</span>
+<span class="sd">    | route: /auth</span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | body: {&quot;username&quot;: [string], &quot;password&quot;: [string], &quot;pin&quot;: [string]}</span>
+<span class="sd">    | Makes authentication with ITU username, password and pin number.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
         <span class="c1"># Send request to itu mobil api.</span>
@@ -209,7 +221,9 @@
 <div class="viewcode-block" id="student_logout"><a class="viewcode-back" href="../../controllers.html#controllers.students.student_logout">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">student_logout</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Logs out the logged in user.</span>
+<span class="sd">    | route: /logout</span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | Logs out the logged in user.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">student_model</span><span class="o">.</span><span class="n">remove_token</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;token&quot;</span><span class="p">])</span>
@@ -222,7 +236,11 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">list_student_courses</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Lists all the courses of a student.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /students/courses</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Lists all the courses of a student.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">student_course_model</span><span class="o">.</span><span class="n">find_student_courses</span><span class="p">(</span><span class="n">studentid</span><span class="o">=</span><span class="n">student</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
@@ -235,7 +253,15 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">enroll_course</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">courseid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Enrolls or leaves a course with given CRN.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /students/courses/&lt;crn&gt;</span>
+<span class="sd">    | method: POST</span>
+<span class="sd">    | Enrolls a course with given CRN.</span>
+
+<span class="sd">    | route: /students/courses/&lt;crn&gt;</span>
+<span class="sd">    | method: DELETE</span>
+<span class="sd">    | Leaves a course with given CRN.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">courseid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">courseid</span><span class="p">)</span>
     <span class="n">course</span> <span class="o">=</span> <span class="n">course_model</span><span class="o">.</span><span class="n">course_exists</span><span class="p">(</span><span class="n">courseid</span><span class="p">)</span>
@@ -265,7 +291,11 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">list_student_studygroups</span><span class="p">(</span><span class="n">student</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    List all the created study groups.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /students/studygroups</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | List all the created study groups.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">student_studygroup_model</span><span class="o">.</span><span class="n">find_student_studygroups</span><span class="p">(</span>
@@ -279,7 +309,11 @@
 <span class="nd">@private_route</span>
 <span class="k">def</span> <span class="nf">join_study_group</span><span class="p">(</span><span class="n">student</span><span class="p">,</span> <span class="n">studygroupid</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Joins a study group.</span>
+<span class="sd">    :param student: current logged in student from auth decorator.</span>
+
+<span class="sd">    | route: /students/studygroups/&lt;studygroupid&gt;</span>
+<span class="sd">    | method: GET</span>
+<span class="sd">    | Joins a study group.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">group</span> <span class="o">=</span> <span class="n">studygroup_model</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">studygroupid</span><span class="p">))</span>

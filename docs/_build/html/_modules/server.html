@@ -122,16 +122,9 @@
 <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">appSettings</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;SQLALCHEMY_TRACK_MODIFICATIONS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
-
-<div class="viewcode-block" id="after_all_requests"><a class="viewcode-back" href="../server.html#server.after_all_requests">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">after_request</span>
-<span class="k">def</span> <span class="nf">after_all_requests</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
-    <span class="c1"># Parse to json or format here.</span>
-    <span class="k">return</span> <span class="n">response</span></div>
-
-
 <div class="viewcode-block" id="root_path_handler"><a class="viewcode-back" href="../server.html#server.root_path_handler">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">root_path_handler</span><span class="p">():</span>
-    <span class="k">return</span> <span class="s2">&quot;This is for the test!&quot;</span></div>
+    <span class="k">return</span> <span class="s2">&quot;App is running!&quot;</span></div>
 
 <span class="kn">from</span> <span class="nn">controllers.students</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">controllers.courses</span> <span class="k">import</span> <span class="o">*</span>

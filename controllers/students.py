@@ -20,7 +20,16 @@ private_route = auth_func(student_model)
 @private_route
 def one_student(student):
     """
-    :param student: current logged in student
+    :param student: current logged in student from auth decorator.
+    
+    | route: /students
+    | method: GET
+    | Retrieves one student with id.
+
+    | route: /students
+    | method: PUT
+    | body: {"study_start": [timestamp], "study_end": [timestamp]}
+    | Updates one student study time preference with id.
     """
     if request.method == "GET":        
         return json.dumps(student)
@@ -53,7 +62,10 @@ def one_student(student):
 @app.route("/auth", methods=["POST"])
 def student_login():
     """
-    Makes authentication with ITU username, password and pin number.
+    | route: /auth
+    | method: POST
+    | body: {"username": [string], "password": [string], "pin": [string]}
+    | Makes authentication with ITU username, password and pin number.
     """
     if request.method == "POST":
         # Send request to itu mobil api.
@@ -100,7 +112,9 @@ def student_login():
 @app.route("/logout", methods=["POST"])
 def student_logout():
     """
-    Logs out the logged in user.
+    | route: /logout
+    | method: POST
+    | Logs out the logged in user.
     """
     try:
         student_model.remove_token(token=request.headers["token"])
@@ -113,7 +127,11 @@ def student_logout():
 @private_route
 def list_student_courses(student):
     """
-    Lists all the courses of a student.
+    :param student: current logged in student from auth decorator.
+
+    | route: /students/courses
+    | method: GET
+    | Lists all the courses of a student.
     """
     try:
         result = student_course_model.find_student_courses(studentid=student["id"])
@@ -126,7 +144,15 @@ def list_student_courses(student):
 @private_route
 def enroll_course(student, courseid):
     """
-    Enrolls or leaves a course with given CRN.
+    :param student: current logged in student from auth decorator.
+
+    | route: /students/courses/<crn>
+    | method: POST
+    | Enrolls a course with given CRN.
+
+    | route: /students/courses/<crn>
+    | method: DELETE
+    | Leaves a course with given CRN.
     """
     courseid = int(courseid)
     course = course_model.course_exists(courseid)
@@ -156,7 +182,11 @@ def enroll_course(student, courseid):
 @private_route
 def list_student_studygroups(student):
     """
-    List all the created study groups.
+    :param student: current logged in student from auth decorator.
+
+    | route: /students/studygroups
+    | method: GET
+    | List all the created study groups.
     """
     try:
         result = student_studygroup_model.find_student_studygroups(
@@ -170,7 +200,11 @@ def list_student_studygroups(student):
 @private_route
 def join_study_group(student, studygroupid):
     """
-    Joins a study group.
+    :param student: current logged in student from auth decorator.
+
+    | route: /students/studygroups/<studygroupid>
+    | method: GET
+    | Joins a study group.
     """
     try:
         group = studygroup_model.find_by_id(_id=int(studygroupid))
