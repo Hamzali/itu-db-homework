@@ -6,7 +6,7 @@ from models.base_model import BaseModel, db_factory_func
 
 class StudyGroupModel(BaseModel):
     """
-    Study group database methods.
+    Study group CRUD operations.
     """
 
     def __init__(self, init_table=False):

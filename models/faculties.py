@@ -2,7 +2,7 @@ from models.base_model import BaseModel
 
 class FacultyModel(BaseModel):
     """
-    Building CRUD operations for courses.
+    Faculty CRUD operations.
     """
 
     def __init__(self, init_table=False):

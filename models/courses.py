@@ -28,7 +28,7 @@ class CourseModel(BaseModel):
 
 class StudentCourseModel(BaseModel):
     """
-    Building CRUD operations for courses.
+    Student-Course Relation CRUD operations.
     """
 
     def __init__(self, init_table=False):

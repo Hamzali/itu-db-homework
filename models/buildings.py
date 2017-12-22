@@ -17,7 +17,7 @@ class BuildingModel(BaseModel):
 
 class CourseBuildingModel(BaseModel):
     """
-    Building CRUD operations for courses.
+    Course-Building Relation CRUD operations.
     """
 
     def __init__(self, init_table=False):
