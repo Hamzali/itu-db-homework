@@ -3,6 +3,7 @@ psycopg2
 sphinx
 Flask-SQLAlchemy
 flask-cors
+guzzle_sphinx_theme
 requests
 lxml
 beautifulsoup4
