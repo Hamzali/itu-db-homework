@@ -79,8 +79,6 @@
       <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">itunder-backend-rest</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="constants.html">constants module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="controllers.html">controllers package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="middlewares.html">middlewares module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">models package</a></li>
@@ -394,18 +392,42 @@ wraps it with try/expect and gives to given function</p>
 <dt id="models.chatGroup.ChatGroupsModel.createGroup">
 <code class="descname">createGroup</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.createGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.createGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forms a Chat group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – Chatgroup information</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.chatGroup.ChatGroupsModel.getLastGroupCreatedById">
 <code class="descname">getLastGroupCreatedById</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.getLastGroupCreatedById"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.getLastGroupCreatedById" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the last group created by specific student Id. Used for adding student to group that he created simultenously</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – chatgroup_id</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="models.chatGroup.ChatGroupsModel.listGroups">
 <code class="descname">listGroups</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#ChatGroupsModel.listGroups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.ChatGroupsModel.listGroups" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a groups of student</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – Student info</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -431,6 +453,14 @@ wraps it with try/expect and gives to given function</p>
 <dt id="models.chatGroup.StudentsOnChatModel.addMember">
 <code class="descname">addMember</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.addMember"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.addMember" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds member to chatgroup</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – Dictionary of chatgroup and student id</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -455,6 +485,14 @@ wraps it with try/expect and gives to given function</p>
 <dt id="models.chatGroup.StudentsOnChatModel.showGroupsOfStudent">
 <code class="descname">showGroupsOfStudent</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chatGroup.html#StudentsOnChatModel.showGroupsOfStudent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.chatGroup.StudentsOnChatModel.showGroupsOfStudent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dictionary of group where student is joined</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – Chatgroup and student information</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -525,7 +563,15 @@ wraps it with try/expect and gives to given function</p>
 <dl class="method">
 <dt id="models.homeworks.HomeworksModel.getLastHwCreatedById">
 <code class="descname">getLastHwCreatedById</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksModel.getLastHwCreatedById"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksModel.getLastHwCreatedById" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the last homework’s id of given student</p>
+<dd><p>Returns the last homework’s id of given student. Used for simultenously adding homework to student</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – student_id</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -561,7 +607,16 @@ wraps it with try/expect and gives to given function</p>
 <dl class="method">
 <dt id="models.homeworks.HomeworksOfStudentModel.showHomeworks">
 <code class="descname">showHomeworks</code><span class="sig-paren">(</span><em>conn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/homeworks.html#HomeworksOfStudentModel.showHomeworks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#models.homeworks.HomeworksOfStudentModel.showHomeworks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Shows homeworks of specific student</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – Student information</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 

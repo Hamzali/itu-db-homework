@@ -128,12 +128,16 @@
 <div class="viewcode-block" id="ChatGroupsModel.listGroups"><a class="viewcode-back" href="../../models.html#models.chatGroup.ChatGroupsModel.listGroups">[docs]</a>    <span class="k">def</span> <span class="nf">listGroups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a groups of student</span>
+
+<span class="sd">        :param data: Student info</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">return_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ChatGroupsModel.createGroup"><a class="viewcode-back" href="../../models.html#models.chatGroup.ChatGroupsModel.createGroup">[docs]</a>    <span class="k">def</span> <span class="nf">createGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Forms a Chat group.</span>
+
+<span class="sd">        :param data: Chatgroup information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
     
@@ -160,7 +164,9 @@
 <div class="viewcode-block" id="ChatGroupsModel.getLastGroupCreatedById"><a class="viewcode-back" href="../../models.html#models.chatGroup.ChatGroupsModel.getLastGroupCreatedById">[docs]</a>    <span class="nd">@db_factory_func</span>
     <span class="k">def</span> <span class="nf">getLastGroupCreatedById</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the last group created by specific student Id. Used for adding student to group that he created simultenously    </span>
+<span class="sd">        Returns the last group created by specific student Id. Used for adding student to group that he created simultenously</span>
+
+<span class="sd">        :param data: chatgroup_id</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT id from chatgroups WHERE created_by = &#39;</span><span class="si">%s</span><span class="s1">&#39;</span>
 <span class="s1">                                ORDER BY created_at DESC&#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span></div></div>
@@ -181,6 +187,8 @@
 <div class="viewcode-block" id="StudentsOnChatModel.addMember"><a class="viewcode-back" href="../../models.html#models.chatGroup.StudentsOnChatModel.addMember">[docs]</a>    <span class="k">def</span> <span class="nf">addMember</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds member to chatgroup</span>
+
+<span class="sd">        :param data: Dictionary of chatgroup and student id</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
     
@@ -196,6 +204,8 @@
     <span class="k">def</span> <span class="nf">showGroupsOfStudent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a dictionary of group where student is joined</span>
+
+<span class="sd">        :param data: Chatgroup and student information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;SELECT chatgroup_id, name, group_admin FROM chatgroups JOIN studentsonchat </span>
 <span class="s1">                        ON(chatgroups.id=studentsonchat.chatgroup_id)</span>
